@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TelegramBot
 {
-    public class Class1
+    class Bot
     {
     }
 }
