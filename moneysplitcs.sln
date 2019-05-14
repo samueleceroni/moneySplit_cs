@@ -5,6 +5,12 @@ VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseController", "DatabaseController\DatabaseController.csproj", "{EC5F8C66-203F-40C8-AF3E-1F3530D2DFBF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseControllerTests", "DatabaseControllerTests\DatabaseControllerTests.csproj", "{71750918-3631-4A2B-8D06-902BAFA9F0B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "GUI\GUI.csproj", "{B2F3362B-B6B2-4F6D-94E6-36FD62FC3066}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramBot", "TelegramBot\TelegramBot.csproj", "{96361651-5A92-449B-80F5-0BF8161424FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +21,18 @@ Global
 		{EC5F8C66-203F-40C8-AF3E-1F3530D2DFBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC5F8C66-203F-40C8-AF3E-1F3530D2DFBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC5F8C66-203F-40C8-AF3E-1F3530D2DFBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71750918-3631-4A2B-8D06-902BAFA9F0B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71750918-3631-4A2B-8D06-902BAFA9F0B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71750918-3631-4A2B-8D06-902BAFA9F0B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71750918-3631-4A2B-8D06-902BAFA9F0B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2F3362B-B6B2-4F6D-94E6-36FD62FC3066}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2F3362B-B6B2-4F6D-94E6-36FD62FC3066}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2F3362B-B6B2-4F6D-94E6-36FD62FC3066}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2F3362B-B6B2-4F6D-94E6-36FD62FC3066}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96361651-5A92-449B-80F5-0BF8161424FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96361651-5A92-449B-80F5-0BF8161424FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96361651-5A92-449B-80F5-0BF8161424FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96361651-5A92-449B-80F5-0BF8161424FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
