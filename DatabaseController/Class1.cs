@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace moneysplitcs.bot
+namespace DatabaseController
 {
-    class Class1
+    public class Class1
     {
+
+        public void Main () { }
     }
 }

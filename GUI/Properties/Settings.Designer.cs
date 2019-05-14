@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace moneysplitcs.Properties
+namespace GUI.Properties
 {
 
 

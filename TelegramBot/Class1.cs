@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace moneysplitcs.model
+namespace TelegramBot
 {
-    class Class1
+    public class Class1
     {
     }
 }
