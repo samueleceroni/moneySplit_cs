@@ -21,9 +21,15 @@ namespace TelegramBot.QueryObject
             Type = QueryType.None;
         }
 
-        public Result<QueryType> Build()
+        public Result<QueryObject> Build()
         {
-            throw new NotImplementedException();
+            return QueryObject.BuildQueryObject(
+                    Type,
+                    ListName,
+                    Value,
+                    Description,
+                    Tags
+                );
         }
     }
 }
