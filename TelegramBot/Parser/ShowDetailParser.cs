@@ -9,9 +9,9 @@ using Telegram.Bot.Types;
 
 namespace TelegramBot.Parser
 {
-    class ShowParser : AbstractQueryParser
+    class ShowDetailParser : AbstractQueryParser
     {
-        public ShowParser(string text, Chat chat, ChatMember chatMember) => Init(text, chat, chatMember);
+        public ShowDetailParser(string text, Chat chat, ChatMember chatMember) => Init(text, chat, chatMember);
 
         public override Result<QueryObject> GetQueryObject()
         {
@@ -22,7 +22,7 @@ namespace TelegramBot.Parser
             {
                 Chat = chat,
                 ChatMember = chatMember,
-                Type = QueryType.Show,
+                Type = QueryType.ShowDetail,
                 ListName = GetListName(),
                 Tags = GetTags()
             };
@@ -40,7 +40,7 @@ namespace TelegramBot.Parser
             var elements = text.Split(' ').ToList();
             var first = elements[0];
 
-            foreach(var str in elements)
+            foreach (var str in elements)
                 if (str != first && !str.StartsWith("#"))
                     return false;
 

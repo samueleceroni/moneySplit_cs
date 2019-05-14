@@ -52,11 +52,14 @@
   <ItemGroup>
     <Compile Include="Bot.cs" />
     <Compile Include="Parser\AbstractQueryParser.cs" />
+    <Compile Include="Parser\AllParser.cs" />
     <Compile Include="Parser\BalanceParser.cs" />
     <Compile Include="Parser\DeleteParser.cs" />
     <Compile Include="Parser\NewListParser.cs" />
+    <Compile Include="Parser\NewTransactionParser.cs" />
     <Compile Include="Parser\Parser.cs" />
     <Compile Include="Parser\ResetParser.cs" />
+    <Compile Include="Parser\ShowDetailParser.cs" />
     <Compile Include="Parser\ShowParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\QueryObject.cs" />
