@@ -2,26 +2,37 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CSharpFunctionalExtensions;
 using System.Threading.Tasks;
 using TelegramBot.Query;
+using Telegram.Bot.Types;
 
 namespace TelegramBot.Parser
 {
     abstract class AbstractQueryParser
     {
+        protected static string WrongArgsFormat = "Wrong arguments format";
+
+        protected ChatId chat;
+        protected ChatMember chatMember;
         protected string text;
 
         /// <summary>
         /// Sets the text
         /// </summary>
         /// <param name="text">Bot's New Message</param>
-        protected void Init(string text) => this.text = text;
+        protected void Init(string text, Chat chat, ChatMember chatMember)
+        {
+            this.text = text;
+            this.chat = chat;
+            this.chatMember = chatMember;
+        }
 
         /// <summary>
         /// Selects every word that starts with '#'
         /// </summary>
         /// <returns>Returns a list with the tags</returns>
-        private List<string> GetTags() => text.Split(' ')
+        protected List<string> GetTags() => text.Split(' ')
                                               .Where(i => i.StartsWith("#"))
                                               .ToList();
         /// <summary>
@@ -29,8 +40,9 @@ namespace TelegramBot.Parser
         /// that the user will use the default list otherwise return the first word
         /// </summary>
         /// <returns>Returns the list name used in the text</returns>
-        private string GetListName()
+        protected string GetListName()
         {
+            //TODO IMPLEMENT DEFAULT LIST NAME
             string first = text.Split(' ')[0];
             if (double.TryParse(first, out var n))
                 return String.Empty;
@@ -38,9 +50,15 @@ namespace TelegramBot.Parser
         }
 
         /// <summary>
+        /// Checks if the command has a correct format
+        /// </summary>
+        /// <returns>true if it's correct, false otherwise</returns>
+        protected abstract bool CheckCommandFormat();
+
+        /// <summary>
         /// Parse the text and then creates a QueryObject with the arguments
         /// </summary>
         /// <returns>Returns a QueryObject with the command arguments</returns>
-        public abstract QueryObject GetQueryObject();
+        public abstract Result<QueryObject> GetQueryObject();
     }
 }
