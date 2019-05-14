@@ -8,5 +8,6 @@ namespace TelegramBot
 {
     class Bot
     {
+
     }
 }

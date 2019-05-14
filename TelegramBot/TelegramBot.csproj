@@ -51,11 +51,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bot.cs" />
+    <Compile Include="Parser\AbstractQueryParser.cs" />
     <Compile Include="Parser\Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QueryObject\QueryObject.cs" />
-    <Compile Include="QueryObject\QueryObjectBuilder.cs" />
-    <Compile Include="QueryObject\QueryType.cs" />
+    <Compile Include="Query\QueryObject.cs" />
+    <Compile Include="Query\QueryObjectBuilder.cs" />
+    <Compile Include="Query\QueryType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DatabaseController\DatabaseController.csproj">

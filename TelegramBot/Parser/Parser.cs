@@ -8,5 +8,6 @@ namespace TelegramBot.Parser
 {
     class Parser
     {
+
     }
 }
