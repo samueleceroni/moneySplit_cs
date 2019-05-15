@@ -52,12 +52,12 @@ namespace TelegramBot.Query
         /// </summary>
         Show,
         /// <summary>
-        /// Represents an invalid command
-        /// </summary>
-        None,
-        /// <summary>
         /// Shows every list of a user
         /// </summary>
-        All
+        All,
+        /// <summary>
+        /// Represents an invalid command
+        /// </summary>
+        None
     }
 }
