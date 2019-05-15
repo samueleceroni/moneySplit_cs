@@ -12,6 +12,10 @@ namespace TelegramBot.User
         public StateType Type { get; private set; }
 
         public State() : this(String.Empty) { }
-        public State(string defaultList) => DefaultList = defaultList;
+        public State(string defaultList)
+        {
+            this.Type = StateType.None; 
+            DefaultList = defaultList;
+        }
     }
 }

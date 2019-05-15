@@ -8,7 +8,7 @@ using Telegram.Bot.Types;
 
 namespace TelegramBot.Query
 {
-    class QueryObjectBuilder
+    public class QueryObjectBuilder
     {
         private static string ChatIsNullMessage = "Chat is null";
         private static string NoneTypeMessage = "Type can't be set to None";

@@ -12,7 +12,7 @@ namespace TelegramBot.Parser
 {
     abstract class AbstractQueryParser
     {
-        protected static string WrongArgsFormat = "Wrong arguments format";
+        public readonly static string WrongArgsFormat = "Wrong arguments format";
 
         protected State userState;
         protected ChatId chat;

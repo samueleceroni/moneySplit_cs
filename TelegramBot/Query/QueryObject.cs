@@ -8,7 +8,7 @@ using Telegram.Bot.Types;
 
 namespace TelegramBot.Query
 {
-    class QueryObject
+    public class QueryObject
     {
         /// <summary>
         /// Query

@@ -10,10 +10,10 @@ using Telegram.Bot.Types;
 
 namespace TelegramBot.Parser
 {
-    class Parser
+    public class Parser
     {
-        private static string ParseErrorMessage = "An error occurred";
-        private static string TextIsEmptyMessage = "Text is empty";
+        public readonly static string ParseErrorMessage = "An error occurred";
+        public readonly static string TextIsEmptyMessage = "Text is empty";
 
         public string Text { get; private set; }
         public Chat Chat { get; private set; }

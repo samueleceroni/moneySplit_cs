@@ -12,7 +12,7 @@ namespace TelegramBot.Parser
 {
     class ResetParser : AbstractQueryParser
     {
-        public ResetParser(State userState, string text, Chat chat, ChatMember chatMember) => Init(userState, text, chat, chatMember);;
+        public ResetParser(State userState, string text, Chat chat, ChatMember chatMember) => Init(userState, text, chat, chatMember);
 
         public override Result<QueryObject> GetQueryObject()
         {
