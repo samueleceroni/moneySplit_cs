@@ -65,6 +65,8 @@
     <Compile Include="Query\QueryObject.cs" />
     <Compile Include="Query\QueryObjectBuilder.cs" />
     <Compile Include="Query\QueryType.cs" />
+    <Compile Include="User\State.cs" />
+    <Compile Include="User\StateType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DatabaseController\DatabaseController.csproj">

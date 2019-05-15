@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using CSharpFunctionalExtensions;
 using TelegramBot.Query;
+using TelegramBot.User;
 using Telegram.Bot.Types;
 
 namespace TelegramBot.Parser
 {
     class DeleteParser : AbstractQueryParser
     {
-        public DeleteParser(string text, Chat chat, ChatMember chatMember) => Init(text, chat, chatMember);
+        public DeleteParser(State userState, string text, Chat chat, ChatMember chatMember) => Init(userState, text, chat, chatMember);
 
         public override Result<QueryObject> GetQueryObject()
         {

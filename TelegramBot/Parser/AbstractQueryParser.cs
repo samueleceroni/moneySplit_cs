@@ -5,6 +5,7 @@ using System.Text;
 using CSharpFunctionalExtensions;
 using System.Threading.Tasks;
 using TelegramBot.Query;
+using TelegramBot.User;
 using Telegram.Bot.Types;
 
 namespace TelegramBot.Parser
@@ -13,6 +14,7 @@ namespace TelegramBot.Parser
     {
         protected static string WrongArgsFormat = "Wrong arguments format";
 
+        protected State userState;
         protected ChatId chat;
         protected ChatMember chatMember;
         protected string text;
@@ -21,10 +23,11 @@ namespace TelegramBot.Parser
         /// Sets the text
         /// </summary>
         /// <param name="text">Bot's New Message</param>
-        protected void Init(string text, Chat chat, ChatMember chatMember)
+        protected void Init(State userState, string text, Chat chat, ChatMember chatMember)
         {
             this.text = text;
             this.chat = chat;
+            this.userState = userState;
             this.chatMember = chatMember;
         }
 
@@ -42,10 +45,9 @@ namespace TelegramBot.Parser
         /// <returns>Returns the list name used in the text</returns>
         protected string GetListName()
         {
-            //TODO IMPLEMENT DEFAULT LIST NAME
             string first = text.Split(' ')[0];
             if (double.TryParse(first, out var n))
-                return String.Empty;
+                return userState.DefaultList;
             return first;
         }
 

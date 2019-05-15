@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using TelegramBot.Query;
 using CSharpFunctionalExtensions;
 using Telegram.Bot.Types;
+using TelegramBot.User;
 
 namespace TelegramBot.Parser
 {
     class ShowParser : AbstractQueryParser
     {
-        public ShowParser(string text, Chat chat, ChatMember chatMember) => Init(text, chat, chatMember);
+        public ShowParser(State userState, string text, Chat chat, ChatMember chatMember) => Init(userState, text, chat, chatMember);
 
         public override Result<QueryObject> GetQueryObject()
         {
