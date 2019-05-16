@@ -12,11 +12,22 @@ namespace TelegramBot.Parser
 {
     public class Parser : IEquatable<Parser>
     {
-        public readonly static string ParseErrorMessage = "An error occurred";
-        public readonly static string TextIsEmptyMessage = "Text is empty";
-        public readonly static string ChatIsNullMessage = "Chat is null";
-        public readonly static string ChatMemberIsNullMessage = "Chat member is null";
-        public readonly static string StateIsNullMessage = "State is null";
+        public static readonly string ParseErrorMessage = "An error occurred";
+        public static readonly string TextIsEmptyMessage = "Text is empty";
+        public static readonly string ChatIsNullMessage = "Chat is null";
+        public static readonly string ChatMemberIsNullMessage = "Chat member is null";
+        public static readonly string StateIsNullMessage = "State is null";
+
+        private static readonly string NewTransactionCommand = "/new_transaction";
+        private static readonly string ShowDetailCommand = "/show_detail";
+        private static readonly string BalanceCommand = "/balance";
+        private static readonly string NewListCommand = "/new_list";
+        private static readonly string DeleteCommand = "/delete";
+        private static readonly string ResetCommand = "/reset";
+        private static readonly string ShowCommand = "/show";
+        private static readonly string AllCommand = "/all";
+        private static readonly string StartCommand = "/start";
+        private static readonly string HelpCommand = "/help";
 
         /// <summary>
         /// Message's text
@@ -67,37 +78,26 @@ namespace TelegramBot.Parser
             string command = Text.Split(' ')[0];
             string arguments = Text.Substring(Math.Min(Text.Length, Text.IndexOf(command) + command.Length + 1));
             AbstractQueryParser parser;
-            switch(command)
-            {
-                case "/new_transaction":
+
+            if(command == NewTransactionCommand)
                     parser = new NewTransactionParser(State, arguments, Chat, ChatMember);
-                    break;
-                case "/show_detail":
+            else if(command == ShowDetailCommand)
                     parser = new ShowDetailParser(State, arguments, Chat, ChatMember);
-                    break;
-                case "/balance":
+            else if(command == BalanceCommand)
                     parser = new BalanceParser(State, arguments, Chat, ChatMember);
-                    break;
-                case "/new_list":
+            else if(command == NewListCommand)
                     parser = new NewListParser(State, arguments, Chat, ChatMember);
-                    break;
-                case "/delete":
-                    parser = new DeleteParser(State, arguments, Chat, ChatMember);
-                    break;
-                case "/reset":
+            else if(command == DeleteCommand)
+                parser = new DeleteParser(State, arguments, Chat, ChatMember);
+            else if(command == ResetCommand)
                     parser = new ResetParser(State, arguments, Chat, ChatMember);
-                    break;
-                case "/show":
-                    parser = new ShowParser(State, arguments, Chat, ChatMember);
-                    break;
-                case "/all":
-                    parser = new AllParser(State, arguments, Chat, ChatMember);
-                    break;
-                case "/start":
-                case "/help":
-                default:
-                    return Result.Fail<QueryObject>(ParseErrorMessage);    
-            }
+            else if(command == ShowCommand)
+                parser = new ShowParser(State, arguments, Chat, ChatMember);
+            else if(command == AllCommand)
+                parser = new AllParser(State, arguments, Chat, ChatMember);
+            else
+                return Result.Fail<QueryObject>(ParseErrorMessage);    
+            
             return parser.GetQueryObject();
         }
 
