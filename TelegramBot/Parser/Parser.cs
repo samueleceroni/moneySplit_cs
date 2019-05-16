@@ -10,10 +10,13 @@ using Telegram.Bot.Types;
 
 namespace TelegramBot.Parser
 {
-    public class Parser
+    public class Parser : IEquatable<Parser>
     {
         public readonly static string ParseErrorMessage = "An error occurred";
         public readonly static string TextIsEmptyMessage = "Text is empty";
+        public readonly static string ChatIsNullMessage = "Chat is null";
+        public readonly static string ChatMemberIsNullMessage = "Chat member is null";
+        public readonly static string StateIsNullMessage = "State is null";
 
         /// <summary>
         /// Message's text
@@ -32,7 +35,7 @@ namespace TelegramBot.Parser
         /// </summary>
         public State State { get; private set; }
 
-        private Parser(State state, string text, Chat chat, ChatMember chatMember)
+        public Parser(State state, string text, Chat chat, ChatMember chatMember)
         {
             Text = text;
             Chat = chat;
@@ -51,9 +54,9 @@ namespace TelegramBot.Parser
         static public Result<Parser> BuildParser(State state, string text, Chat chat, ChatMember chatMember)
                 => Result.Ok<Parser>(new Parser(state, text, chat, chatMember))
                          .Ensure(query => !String.IsNullOrEmpty(query.Text), TextIsEmptyMessage)
-                         .Ensure(query => query.Chat != null, TextIsEmptyMessage)
-                         .Ensure(query => query.ChatMember != null, TextIsEmptyMessage)
-                         .Ensure(query => query.State != null, TextIsEmptyMessage);
+                         .Ensure(query => query.Chat != null, ChatIsNullMessage)
+                         .Ensure(query => query.ChatMember != null, ChatMemberIsNullMessage)
+                         .Ensure(query => query.State != null, StateIsNullMessage);
 
         /// <summary>
         /// Takes the first word and tries to match it with bot's commands and returns a result with the query object
@@ -61,32 +64,34 @@ namespace TelegramBot.Parser
         /// <returns>Result.Ok if the command and the syntax are correct, Result.Fail otherwise</returns>
         public Result<QueryObject> Parse()
         {
+            string command = Text.Split(' ')[0];
+            string arguments = Text.Substring(Math.Min(Text.Length, Text.IndexOf(command) + command.Length + 1));
             AbstractQueryParser parser;
-            switch(Text.Split(' ')[0])
+            switch(command)
             {
                 case "/new_transaction":
-                    parser = new NewTransactionParser(State, Text, Chat, ChatMember);
+                    parser = new NewTransactionParser(State, arguments, Chat, ChatMember);
                     break;
                 case "/show_detail":
-                    parser = new ShowDetailParser(State, Text, Chat, ChatMember);
+                    parser = new ShowDetailParser(State, arguments, Chat, ChatMember);
                     break;
                 case "/balance":
-                    parser = new BalanceParser(State, Text, Chat, ChatMember);
+                    parser = new BalanceParser(State, arguments, Chat, ChatMember);
                     break;
                 case "/new_list":
-                    parser = new NewListParser(State, Text, Chat, ChatMember);
+                    parser = new NewListParser(State, arguments, Chat, ChatMember);
                     break;
                 case "/delete":
-                    parser = new DeleteParser(State, Text, Chat, ChatMember);
+                    parser = new DeleteParser(State, arguments, Chat, ChatMember);
                     break;
                 case "/reset":
-                    parser = new ResetParser(State, Text, Chat, ChatMember);
+                    parser = new ResetParser(State, arguments, Chat, ChatMember);
                     break;
                 case "/show":
-                    parser = new ShowParser(State, Text, Chat, ChatMember);
+                    parser = new ShowParser(State, arguments, Chat, ChatMember);
                     break;
                 case "/all":
-                    parser = new AllParser(State, Text, Chat, ChatMember);
+                    parser = new AllParser(State, arguments, Chat, ChatMember);
                     break;
                 case "/start":
                 case "/help":
@@ -94,6 +99,15 @@ namespace TelegramBot.Parser
                     return Result.Fail<QueryObject>(ParseErrorMessage);    
             }
             return parser.GetQueryObject();
+        }
+
+        public bool Equals(Parser other)
+        {
+            return other != null &&
+                   Chat == other.Chat &&
+                   ChatMember == other.ChatMember &&
+                   Text == other.Text &&
+                   State.Equals(other.State);
         }
     }
 }
