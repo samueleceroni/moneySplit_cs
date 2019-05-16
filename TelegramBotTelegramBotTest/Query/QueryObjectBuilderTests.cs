@@ -14,7 +14,7 @@ namespace TelegramBot.Query.Tests
     public class QueryObjectBuilderTests
     {
         private readonly string TestListName = "ABC";
-        private readonly ChatId TestChat = new ChatId(123456);
+        private readonly Chat TestChat = new Chat() { Id = 123456 };
         private readonly QueryType TestQueryType = QueryType.NewList;
 
         private Result<QueryObject> BuildWithNullChat()
@@ -92,7 +92,7 @@ namespace TelegramBot.Query.Tests
             Assert.AreEqual(expectedError, result.Error);
             
             //Tests build with correct params
-            expected = new QueryObject(TestChat, null, TestQueryType, TestListName, 0, String.Empty, null);
+            expected = new QueryObject(TestChat, null, TestQueryType, TestListName, 0, String.Empty, new List<string>());
             result = BuildCorrectly();
             Assert.IsTrue(result.IsSuccess);
             Assert.IsTrue(expected.Equals(result.Value));

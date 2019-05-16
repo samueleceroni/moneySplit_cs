@@ -37,7 +37,7 @@ namespace TelegramBot.Query
         /// <summary>
         /// User/Group's chat Id
         /// </summary>
-        public ChatId Chat { get; set; }
+        public Chat Chat { get; set; }
         /// <summary>
         /// User that executed the command
         /// </summary>
@@ -48,7 +48,7 @@ namespace TelegramBot.Query
         /// </summary>
         public QueryObjectBuilder()
         {
-            Tags = null;
+            Tags = new List<string>();
             Type = QueryType.None;
             Chat = null;
             ChatMember = null;
@@ -72,7 +72,7 @@ namespace TelegramBot.Query
                             Tags
                         )).Ensure<QueryObject>(query => query.Chat != null, ChatIsNullMessage)
                           .Ensure<QueryObject>(query => query.Type != QueryType.None, NoneTypeMessage)
-                          .Ensure<QueryObject>(query => !String.IsNullOrEmpty(query.ListName), EmptyListMessage);
+                          .Ensure<QueryObject>(query => !String.IsNullOrEmpty(query.ListName) || query.Type == QueryType.All, EmptyListMessage);
         }
     }
 }

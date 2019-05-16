@@ -10,10 +10,14 @@ using TelegramBot.User;
 
 namespace TelegramBot.Parser
 {
-    class ShowDetailParser : AbstractQueryParser
+    public class ShowDetailParser : AbstractQueryParser
     {
         public ShowDetailParser(State userState, string text, Chat chat, ChatMember chatMember) => Init(userState, text, chat, chatMember);
 
+        /// <summary>
+        /// Creates a QueryObject from text
+        /// </summary>
+        /// <returns></returns>
         public override Result<QueryObject> GetQueryObject()
         {
             if (!CheckCommandFormat())
@@ -38,6 +42,9 @@ namespace TelegramBot.Parser
         /// <returns>true if the format is correct, false otherwise</returns>
         protected override bool CheckCommandFormat()
         {
+            if (String.IsNullOrEmpty(text))
+                return false;
+
             var elements = text.Split(' ').ToList();
             var first = elements[0];
 
@@ -45,7 +52,7 @@ namespace TelegramBot.Parser
                 if (str != first && !str.StartsWith("#"))
                     return false;
 
-            return Char.IsLetter(first[0]) && text.Split(' ').Length < 1;
+            return Char.IsLetter(first[0]) && elements.Count>= 1;
         }
     }
 }

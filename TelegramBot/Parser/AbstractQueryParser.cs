@@ -10,12 +10,12 @@ using Telegram.Bot.Types;
 
 namespace TelegramBot.Parser
 {
-    abstract class AbstractQueryParser
+    public abstract class AbstractQueryParser
     {
         public readonly static string WrongArgsFormat = "Wrong arguments format";
 
         protected State userState;
-        protected ChatId chat;
+        protected Chat chat;
         protected ChatMember chatMember;
         protected string text;
 
