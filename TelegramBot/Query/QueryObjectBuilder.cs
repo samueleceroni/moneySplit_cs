@@ -10,9 +10,9 @@ namespace TelegramBot.Query
 {
     public class QueryObjectBuilder
     {
-        private static string ChatIsNullMessage = "Chat is null";
-        private static string NoneTypeMessage = "Type can't be set to None";
-        private static string EmptyListMessage = "List name is empty";
+        public static string ChatIsNullMessage = "Chat is null";
+        public static string NoneTypeMessage = "Type can't be set to None";
+        public static string EmptyListMessage = "List name is empty";
 
         /// <summary>
         /// Query
@@ -44,14 +44,15 @@ namespace TelegramBot.Query
         public ChatMember ChatMember { get; set; }
 
         /// <summary>
-        /// Creates a QuaryObjectBuilder object an set to default values some property
+        /// Creates a QueryObjectBuilder object an set to default values some property
         /// </summary>
         public QueryObjectBuilder()
         {
-            Tags = new List<string>();
+            Tags = null;
             Type = QueryType.None;
             Chat = null;
             ChatMember = null;
+            Description = String.Empty;
         }
 
         /// <summary>
@@ -69,9 +70,9 @@ namespace TelegramBot.Query
                             Value,
                             Description, 
                             Tags
-                        )).Ensure(query => query.Chat != null, ChatIsNullMessage)
-                          .Ensure(query => query.Type != QueryType.None, NoneTypeMessage)
-                          .Ensure(query => String.IsNullOrEmpty(query.ListName), EmptyListMessage);
+                        )).Ensure<QueryObject>(query => query.Chat != null, ChatIsNullMessage)
+                          .Ensure<QueryObject>(query => query.Type != QueryType.None, NoneTypeMessage)
+                          .Ensure<QueryObject>(query => !String.IsNullOrEmpty(query.ListName), EmptyListMessage);
         }
     }
 }

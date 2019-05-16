@@ -8,7 +8,7 @@ using Telegram.Bot.Types;
 
 namespace TelegramBot.Query
 {
-    public class QueryObject
+    public class QueryObject : IEquatable<QueryObject>
     {
         /// <summary>
         /// Query
@@ -58,6 +58,18 @@ namespace TelegramBot.Query
             Tags = tags;
             Chat = chat;
             ChatMember = chatmember;
+        }
+
+        public bool Equals(QueryObject other)
+        {
+            return other != null &&
+                   Type == other.Type &&
+                   Chat == other.Chat &&
+                   ChatMember == other.ChatMember &&
+                   ListName == other.ListName &&
+                   Value == other.Value &&
+                   Description == other.Description &&
+                   Tags == other.Tags;
         }
     }
 }
