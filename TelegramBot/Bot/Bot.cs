@@ -17,11 +17,10 @@ namespace TelegramBot.Bot
 
         public string Token { get; set; }
 
-        public Bot(string apiKey)
+        public Bot(string token)
         {
-            botClient = new TelegramBotClient(apiKey);
+            botClient = new TelegramBotClient(token);
             botUser = botClient.GetMeAsync().Result;
-
             botClient.OnMessage += OnMessageReceived;
         }
 
@@ -46,7 +45,7 @@ namespace TelegramBot.Bot
                 return;
 
             //QUERY AL DB
-            //Prettifier
+            //TODO: Formatter
             var result = "";
 
             await botClient.SendTextMessageAsync(

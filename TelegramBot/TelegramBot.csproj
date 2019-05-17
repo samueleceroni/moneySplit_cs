@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bot\Bot.cs" />
+    <Compile Include="Logger\Logger.cs" />
     <Compile Include="Parser\AbstractQueryParser.cs" />
     <Compile Include="Parser\AllParser.cs" />
     <Compile Include="Parser\BalanceParser.cs" />
@@ -77,6 +78,8 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Prettifier\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
