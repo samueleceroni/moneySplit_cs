@@ -38,19 +38,14 @@ namespace TelegramBot.Parser
         /// </summary>
         public Chat Chat { get; private set; }
         /// <summary>
-        /// User's id
-        /// </summary>
-        public ChatMember ChatMember { get; private set; }
-        /// <summary>
         /// User's State
         /// </summary>
         public State State { get; private set; }
 
-        public Parser(State state, string text, Chat chat, ChatMember chatMember)
+        public Parser(State state, string text, Chat chat)
         {
             Text = text;
             Chat = chat;
-            ChatMember = chatMember;
             State = state;
         }
 
@@ -62,11 +57,10 @@ namespace TelegramBot.Parser
         /// <param name="chat"></param>
         /// <param name="chatMember"></param>
         /// <returns>Result.Ok if parameters are good, Result.Fail otherwise</returns>
-        static public Result<Parser> BuildParser(State state, string text, Chat chat, ChatMember chatMember)
-                => Result.Ok<Parser>(new Parser(state, text, chat, chatMember))
+        static public Result<Parser> BuildParser(State state, string text, Chat chat)
+                => Result.Ok<Parser>(new Parser(state, text, chat))
                          .Ensure(query => !String.IsNullOrEmpty(query.Text), TextIsEmptyMessage)
                          .Ensure(query => query.Chat != null, ChatIsNullMessage)
-                         .Ensure(query => query.ChatMember != null, ChatMemberIsNullMessage)
                          .Ensure(query => query.State != null, StateIsNullMessage);
 
         /// <summary>
@@ -80,21 +74,21 @@ namespace TelegramBot.Parser
             AbstractQueryParser parser;
 
             if(command == NewTransactionCommand)
-                    parser = new NewTransactionParser(State, arguments, Chat, ChatMember);
+                    parser = new NewTransactionParser(State, arguments, Chat);
             else if(command == ShowDetailCommand)
-                    parser = new ShowDetailParser(State, arguments, Chat, ChatMember);
+                    parser = new ShowDetailParser(State, arguments, Chat);
             else if(command == BalanceCommand)
-                    parser = new BalanceParser(State, arguments, Chat, ChatMember);
+                    parser = new BalanceParser(State, arguments, Chat);
             else if(command == NewListCommand)
-                    parser = new NewListParser(State, arguments, Chat, ChatMember);
+                    parser = new NewListParser(State, arguments, Chat);
             else if(command == DeleteCommand)
-                parser = new DeleteParser(State, arguments, Chat, ChatMember);
+                parser = new DeleteParser(State, arguments, Chat);
             else if(command == ResetCommand)
-                    parser = new ResetParser(State, arguments, Chat, ChatMember);
+                    parser = new ResetParser(State, arguments, Chat);
             else if(command == ShowCommand)
-                parser = new ShowParser(State, arguments, Chat, ChatMember);
+                parser = new ShowParser(State, arguments, Chat);
             else if(command == AllCommand)
-                parser = new AllParser(State, arguments, Chat, ChatMember);
+                parser = new AllParser(State, arguments, Chat);
             else
                 return Result.Fail<QueryObject>(ParseErrorMessage);    
             
@@ -105,7 +99,6 @@ namespace TelegramBot.Parser
         {
             return other != null &&
                    Chat == other.Chat &&
-                   ChatMember == other.ChatMember &&
                    Text == other.Text &&
                    State.Equals(other.State);
         }

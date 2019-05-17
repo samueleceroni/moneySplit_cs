@@ -92,7 +92,7 @@ namespace TelegramBot.Query.Tests
             Assert.AreEqual(expectedError, result.Error);
             
             //Tests build with correct params
-            expected = new QueryObject(TestChat, null, TestQueryType, TestListName, 0, String.Empty, new List<string>());
+            expected = new QueryObject(TestChat, TestQueryType, TestListName, 0, String.Empty, new List<string>());
             result = BuildCorrectly();
             Assert.IsTrue(result.IsSuccess);
             Assert.IsTrue(expected.Equals(result.Value));

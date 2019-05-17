@@ -34,22 +34,17 @@ namespace TelegramBot.Query
         /// User/Group's chat Id
         /// </summary>
         public Chat Chat { get; private set; }
-        /// <summary>
-        /// User that executed the command
-        /// </summary>
-        public ChatMember ChatMember { get; private set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="chat"></param>
-        /// <param name="chatmember"></param>
         /// <param name="type"></param>
         /// <param name="listName"></param>
         /// <param name="value"></param>
         /// <param name="description"></param>
         /// <param name="tags"></param>
-        public QueryObject(Chat chat, ChatMember chatmember, QueryType type, string listName, double value, string description, List<string> tags)
+        public QueryObject(Chat chat, QueryType type, string listName, double value, string description, List<string> tags)
         {
             Type = type;
             ListName = listName;
@@ -57,7 +52,6 @@ namespace TelegramBot.Query
             Description = description;
             Tags = tags;
             Chat = chat;
-            ChatMember = chatmember;
         }
 
         public bool Equals(QueryObject other)
@@ -65,7 +59,6 @@ namespace TelegramBot.Query
             return other != null &&
                    Type == other.Type &&
                    Chat == other.Chat &&
-                   ChatMember == other.ChatMember &&
                    ListName == other.ListName &&
                    Value == other.Value &&
                    Description == other.Description &&

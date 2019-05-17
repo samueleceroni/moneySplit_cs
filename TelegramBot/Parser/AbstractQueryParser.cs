@@ -16,19 +16,17 @@ namespace TelegramBot.Parser
 
         protected State userState;
         protected Chat chat;
-        protected ChatMember chatMember;
         protected string text;
 
         /// <summary>
         /// Sets the text
         /// </summary>
         /// <param name="text">Bot's New Message</param>
-        protected void Init(State userState, string text, Chat chat, ChatMember chatMember)
+        protected void Init(State userState, string text, Chat chat)
         {
             this.text = text;
             this.chat = chat;
             this.userState = userState;
-            this.chatMember = chatMember;
         }
 
         /// <summary>

@@ -22,7 +22,6 @@ namespace TelegramBot.Parser.Tests
 
         private readonly Chat TestChat = new Chat() { Id = 123456 };
         private readonly State TestState = new State();
-        private readonly ChatMember TestChatMemeber = new ChatMember();
 
         [TestMethod()]
         public void GetQueryObjectTest()
@@ -34,22 +33,22 @@ namespace TelegramBot.Parser.Tests
 
             //Tests with no paramenters
             string expectedError = AbstractQueryParser.WrongArgsFormat;
-            result = (new ShowParser(TestState, String.Empty, TestChat, TestChatMemeber)).GetQueryObject();
+            result = (new ShowParser(TestState, String.Empty, TestChat)).GetQueryObject();
             Assert.IsTrue(result.IsFailure);
             Assert.AreEqual(expectedError, result.Error);
 
             //Tests with wrong parameters: Tags before list name
-            result = (new ShowParser(TestState, WrongTestText1, TestChat, TestChatMemeber)).GetQueryObject();
+            result = (new ShowParser(TestState, WrongTestText1, TestChat)).GetQueryObject();
             Assert.IsTrue(result.IsFailure);
             Assert.AreEqual(expectedError, result.Error);
 
             //Tests with wrong parameters: Non tagged words
-            result = (new ShowParser(TestState, WrongTestText2, TestChat, TestChatMemeber)).GetQueryObject();
+            result = (new ShowParser(TestState, WrongTestText2, TestChat)).GetQueryObject();
             Assert.IsTrue(result.IsFailure);
             Assert.AreEqual(expectedError, result.Error);
             //Tests with correct parameters
-            var expected = new QueryObject(TestChat, TestChatMemeber, QueryType.Show, CorrectListName, 0, String.Empty, CorrectTags);
-            result = (new ShowParser(TestState, CorrectTestText, TestChat, TestChatMemeber)).GetQueryObject();
+            var expected = new QueryObject(TestChat, QueryType.Show, CorrectListName, 0, String.Empty, CorrectTags);
+            result = (new ShowParser(TestState, CorrectTestText, TestChat)).GetQueryObject();
             Assert.IsTrue(result.IsSuccess);
             Assert.IsTrue(expected.Equals(result.Value));
         }

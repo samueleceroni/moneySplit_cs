@@ -17,7 +17,6 @@ namespace TelegramBot.Parser.Tests
     {
         private readonly State TestState = new State("ABC");
         private readonly Chat TestChat = new Chat();
-        private readonly ChatMember TestChatMember = new ChatMember();
 
         private readonly string TestListName = "ABC";
         private readonly string TestDescription = "#test desc";
@@ -35,11 +34,10 @@ namespace TelegramBot.Parser.Tests
         private readonly string TestBalanceCommand = "/balance ABC";
         //private readonly string TestNewTransacionShortCommand = "ABC 2 #test desc";
 
-        private Result<Parser> BuildWithNullText() => Parser.BuildParser(TestState, String.Empty, TestChat, TestChatMember);
-        private Result<Parser> BuildWithNullChat() => Parser.BuildParser(TestState, TestAllCommand, null, TestChatMember);
-        private Result<Parser> BuildWithNullChatMember() => Parser.BuildParser(TestState, TestAllCommand, TestChat, null);
-        private Result<Parser> BuildWithNullState() => Parser.BuildParser(null, TestAllCommand, TestChat, TestChatMember);
-        private Result<Parser> BuildCorrectly(string text) => Parser.BuildParser(TestState, text, TestChat, TestChatMember);
+        private Result<Parser> BuildWithNullText() => Parser.BuildParser(TestState, String.Empty, TestChat);
+        private Result<Parser> BuildWithNullChat() => Parser.BuildParser(TestState, TestAllCommand, null);
+        private Result<Parser> BuildWithNullState() => Parser.BuildParser(null, TestAllCommand, TestChat);
+        private Result<Parser> BuildCorrectly(string text) => Parser.BuildParser(TestState, text, TestChat);
 
         [TestMethod()]
         public void BuildParserTest()
@@ -60,12 +58,6 @@ namespace TelegramBot.Parser.Tests
             Assert.IsTrue(result.IsFailure);
             Assert.AreEqual(result.Error, expectedError);
 
-            //Tests null chat member checks
-            result = BuildWithNullChatMember();
-            expectedError = Parser.ChatMemberIsNullMessage;
-            Assert.IsTrue(result.IsFailure);
-            Assert.AreEqual(result.Error, expectedError);
-
             //Tests null text checks
             result = BuildWithNullState();
             expectedError = Parser.StateIsNullMessage;
@@ -74,7 +66,7 @@ namespace TelegramBot.Parser.Tests
             
             //Tests build with correct parameters
             result = BuildCorrectly(TestDeleteCommand);
-            expected = new Parser(TestState, TestDeleteCommand, TestChat, TestChatMember);
+            expected = new Parser(TestState, TestDeleteCommand, TestChat);
             Assert.IsTrue(result.IsSuccess);
             Assert.IsTrue(expected.Equals(result.Value));            
         }
@@ -89,50 +81,50 @@ namespace TelegramBot.Parser.Tests
             TestTags.Add("#test");
 
             //Tests Delete command parser
-            result = Parser.BuildParser(TestState, TestDeleteCommand, TestChat, TestChatMember).Value.Parse();
-            expected = new QueryObject(TestChat, TestChatMember, QueryType.Delete, TestListName, 0, String.Empty, TestEmptyTag);
+            result = Parser.BuildParser(TestState, TestDeleteCommand, TestChat).Value.Parse();
+            expected = new QueryObject(TestChat, QueryType.Delete, TestListName, 0, String.Empty, TestEmptyTag);
             Assert.IsTrue(result.IsSuccess);
             Assert.IsTrue(expected.Equals(result.Value));
 
             //Tests Show command parser
-            result = Parser.BuildParser(TestState, TestShowCommand, TestChat, TestChatMember).Value.Parse();
-            expected = new QueryObject(TestChat, TestChatMember, QueryType.Show, TestListName, 0, String.Empty, TestEmptyTag);
+            result = Parser.BuildParser(TestState, TestShowCommand, TestChat).Value.Parse();
+            expected = new QueryObject(TestChat, QueryType.Show, TestListName, 0, String.Empty, TestEmptyTag);
             Assert.IsTrue(result.IsSuccess);
             Assert.IsTrue(expected.Equals(result.Value));
 
             //Tests Show Detail command parser
-            result = Parser.BuildParser(TestState, TestShowDetailCommand, TestChat, TestChatMember).Value.Parse();
-            expected = new QueryObject(TestChat, TestChatMember, QueryType.ShowDetail, TestListName, 0, String.Empty, TestEmptyTag);
+            result = Parser.BuildParser(TestState, TestShowDetailCommand, TestChat).Value.Parse();
+            expected = new QueryObject(TestChat, QueryType.ShowDetail, TestListName, 0, String.Empty, TestEmptyTag);
             Assert.IsTrue(result.IsSuccess);
             Assert.IsTrue(expected.Equals(result.Value));
             
             //Tests All command parser
-            result = Parser.BuildParser(TestState, TestAllCommand, TestChat, TestChatMember).Value.Parse();
-            expected = new QueryObject(TestChat, TestChatMember, QueryType.All, null, 0, String.Empty, TestEmptyTag);
+            result = Parser.BuildParser(TestState, TestAllCommand, TestChat).Value.Parse();
+            expected = new QueryObject(TestChat, QueryType.All, null, 0, String.Empty, TestEmptyTag);
             Assert.IsTrue(result.IsSuccess);
             Assert.IsTrue(expected.Equals(result.Value));
             
             //Tests NewList command parser
-            result = Parser.BuildParser(TestState, TestNewListCommand, TestChat, TestChatMember).Value.Parse();
-            expected = new QueryObject(TestChat, TestChatMember, QueryType.NewList, TestListName, 0, String.Empty, TestEmptyTag);
+            result = Parser.BuildParser(TestState, TestNewListCommand, TestChat).Value.Parse();
+            expected = new QueryObject(TestChat, QueryType.NewList, TestListName, 0, String.Empty, TestEmptyTag);
             Assert.IsTrue(result.IsSuccess);
             Assert.IsTrue(expected.Equals(result.Value));
 
             //Tests NewTransaction command parser
-            result = Parser.BuildParser(TestState, TestNewTransactionLongCommand, TestChat, TestChatMember).Value.Parse();
-            expected = new QueryObject(TestChat, TestChatMember, QueryType.NewTransaction, TestListName, TestValue, TestDescription, TestTags);
+            result = Parser.BuildParser(TestState, TestNewTransactionLongCommand, TestChat).Value.Parse();
+            expected = new QueryObject(TestChat, QueryType.NewTransaction, TestListName, TestValue, TestDescription, TestTags);
             Assert.IsTrue(result.IsSuccess);
             Assert.IsTrue(expected.Equals(result.Value));
 
             //Tests Reset command parser
-            result = Parser.BuildParser(TestState, TestResetCommand, TestChat, TestChatMember).Value.Parse();
-            expected = new QueryObject(TestChat, TestChatMember, QueryType.Reset, TestListName, 0, String.Empty, TestEmptyTag);
+            result = Parser.BuildParser(TestState, TestResetCommand, TestChat).Value.Parse();
+            expected = new QueryObject(TestChat, QueryType.Reset, TestListName, 0, String.Empty, TestEmptyTag);
             Assert.IsTrue(result.IsSuccess);
             Assert.IsTrue(expected.Equals(result.Value));
 
             //Tests Balance command parser
-            result = Parser.BuildParser(TestState, TestBalanceCommand, TestChat, TestChatMember).Value.Parse();
-            expected = new QueryObject(TestChat, TestChatMember, QueryType.Balance, TestListName, 0, String.Empty, TestEmptyTag);
+            result = Parser.BuildParser(TestState, TestBalanceCommand, TestChat).Value.Parse();
+            expected = new QueryObject(TestChat, QueryType.Balance, TestListName, 0, String.Empty, TestEmptyTag);
             Assert.IsTrue(result.IsSuccess);
             Assert.IsTrue(expected.Equals(result.Value));
         }

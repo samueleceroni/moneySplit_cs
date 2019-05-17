@@ -50,7 +50,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bot.cs" />
+    <Compile Include="Bot\Bot.cs" />
     <Compile Include="Parser\AbstractQueryParser.cs" />
     <Compile Include="Parser\AllParser.cs" />
     <Compile Include="Parser\BalanceParser.cs" />

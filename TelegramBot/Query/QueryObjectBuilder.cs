@@ -38,10 +38,6 @@ namespace TelegramBot.Query
         /// User/Group's chat Id
         /// </summary>
         public Chat Chat { get; set; }
-        /// <summary>
-        /// User that executed the command
-        /// </summary>
-        public ChatMember ChatMember { get; set; }
 
         /// <summary>
         /// Creates a QueryObjectBuilder object an set to default values some property
@@ -51,7 +47,6 @@ namespace TelegramBot.Query
             Tags = new List<string>();
             Type = QueryType.None;
             Chat = null;
-            ChatMember = null;
             Description = String.Empty;
         }
 
@@ -64,7 +59,6 @@ namespace TelegramBot.Query
             return Result.Ok<QueryObject>(
                         new QueryObject(
                             Chat,
-                            ChatMember,
                             Type,
                             ListName,
                             Value,

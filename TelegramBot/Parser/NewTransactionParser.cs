@@ -12,7 +12,7 @@ namespace TelegramBot.Parser
 {
     public class NewTransactionParser : AbstractQueryParser
     {
-        public NewTransactionParser(State userState, string text, Chat chat, ChatMember chatMember) => Init(userState, text, chat, chatMember);
+        public NewTransactionParser(State userState, string text, Chat chat) => Init(userState, text, chat);
 
         /// <summary>
         /// Creates a QueryObject from text
@@ -26,7 +26,6 @@ namespace TelegramBot.Parser
             var builder = new QueryObjectBuilder()
             {
                 Chat = chat,
-                ChatMember = chatMember,
                 Type = QueryType.NewTransaction,
                 Value = GetValue(),
                 ListName = GetListName(),
