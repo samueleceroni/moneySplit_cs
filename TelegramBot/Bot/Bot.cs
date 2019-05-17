@@ -5,7 +5,7 @@ using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 using Telegram.Bot;
 using TelegramBot.User;
-using TelegramBot.Parser;
+using TelegramBot.Logger;
 
 namespace TelegramBot.Bot
 {
@@ -22,6 +22,7 @@ namespace TelegramBot.Bot
             botClient = new TelegramBotClient(token);
             botUser = botClient.GetMeAsync().Result;
             botClient.OnMessage += OnMessageReceived;
+            SingletonLogger.Istance.TraceInformation($"Bot Started: ${botUser.Id}");
         }
 
         private async void OnMessageReceived(object sender, MessageEventArgs messageEventArgs)
@@ -31,18 +32,29 @@ namespace TelegramBot.Bot
             var user = message.From;
 
             if (message == null || message.Type != MessageType.Text)
+            {
+                SingletonLogger.Istance.TraceInformation($"Message from ${user.Id} in chat ${chat.Id} does not contain text");
                 return;
+            }
 
             var state = GetUserState(user.Id);
             var parser = Parser.Parser.BuildParser(state, message.Text, chat);
 
             if (parser.IsFailure)
+            {
+                SingletonLogger.Istance.TraceInformation($"Message from ${user.Id} in chat ${chat.Id}: parse failed");
                 return;
+            }
 
             var query = parser.Value.Parse();
 
             if (query.IsFailure)
+            {
+                SingletonLogger.Istance.TraceInformation($"Message from ${user.Id} in chat ${chat.Id}: query error");
                 return;
+            }
+
+            SingletonLogger.Istance.TraceInformation($"Message from ${user.Id} in chat ${chat.Id}: OK");
 
             //QUERY AL DB
             //TODO: Formatter

@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace TelegramBot.Logger
 {
-    public class Logger : TraceSource
+    public class SingletonLogger : TraceSource
     {
-        private static Logger istance;
+        private static SingletonLogger istance;
         public static readonly string LoggerFilePath = @"log.txt";
         public static readonly string LoggerName = "TelegramBot.Logger";
 
-        public Logger(string name) : base(name)
+        public SingletonLogger(string name) : base(name)
         {
             this.Listeners.Clear();
             TextWriterTraceListener txt = new TextWriterTraceListener(LoggerFilePath);
@@ -23,9 +23,9 @@ namespace TelegramBot.Logger
             Trace.AutoFlush = true;
         }
 
-        public static Logger Istance
+        public static SingletonLogger Istance
         {
-            get => istance == null ? istance = new Logger(LoggerName) : istance;
+            get => istance == null ? istance = new SingletonLogger(LoggerName) : istance;
         }
     }
 }
