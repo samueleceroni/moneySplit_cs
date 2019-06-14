@@ -1,0 +1,39 @@
+﻿<Window x:Class="GUI.TransactionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI"
+        mc:Ignorable="d"
+        Title="TransactionWindow" Height="531.4" Width="249.6">
+    <Grid>
+        <Label x:Name="transactioIDLabel" Content="Transaction ID" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="transactionAmountLabel" Content="Amount" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="85"/>
+        <Label x:Name="transactionDescriptionLabel" Content="Description" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top" Width="222"/>
+        <Label x:Name="transactionIDValueLabel" Content="-1" HorizontalContentAlignment="Right" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Margin="100,10,0,0" VerticalAlignment="Top" Width="130" Height="26"/>
+        <TextBox x:Name="transactionAmountValue" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="26" Margin="100,41,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="130"/>
+        <TextBox x:Name="transactionDescriptionTextBox" HorizontalAlignment="Left" Height="60" Margin="10,134,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="222"/>
+        <Label x:Name="storeLabel" Content="Store" HorizontalAlignment="Left" Margin="12,331,0,0" VerticalAlignment="Top" Width="85"/>
+        <ComboBox x:Name="storeComboBox" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="102,331,0,0" VerticalAlignment="Top" Width="130" SelectedIndex="0" Height="26">
+            <ComboBoxItem Name="noStoreComboBoxItem">None</ComboBoxItem>
+        </ComboBox>
+        <Label x:Name="storeReviewLabel" IsEnabled="False" Content="Store Review" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="12,362,0,0" VerticalAlignment="Top" Width="220"/>
+        <TextBox x:Name="storeReviewTextBox" IsEnabled="False" HorizontalAlignment="Left" Height="60" Margin="12,393,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="220"/>
+        <Label x:Name="recurrenceLabel" IsEnabled="False" Content="Repeat every" HorizontalAlignment="Left" Margin="12,233,0,0" VerticalAlignment="Top" Width="85"/>
+        <TextBox x:Name="numberRecurrenceTextBox" IsEnabled="False" HorizontalAlignment="Left" Height="23" Margin="102,236,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="49" />
+        <ComboBox x:Name="transactionRecurrenceComboBox" IsEnabled="False" HorizontalAlignment="Left" Margin="157,236,0,0" VerticalAlignment="Top" Width="75" SelectedIndex="0" Height="24" RenderTransformOrigin="1.662,0.583">
+            <ComboBoxItem Name="Day">Day</ComboBoxItem>
+            <ComboBoxItem Name="Week">Week</ComboBoxItem>
+            <ComboBoxItem Name="Month">Month</ComboBoxItem>
+            <ComboBoxItem Name="Year">Year</ComboBoxItem>
+        </ComboBox>
+        <Button x:Name="saveButton" Content="Save" HorizontalAlignment="Left" Margin="12,458,0,0" VerticalAlignment="Top" Width="220" Height="26"/>
+        <CheckBox x:Name="recurrenceCheckBox" IsEnabled="False" Content="Is Recurrent" HorizontalAlignment="Left" Margin="12,213,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="transactionRecurrenceStartDateLabel" IsEnabled="False" HorizontalContentAlignment="Center" Content="Starting date" HorizontalAlignment="Left" Margin="14,268,0,0" VerticalAlignment="Top" Width="105"/>
+        <DatePicker x:Name="transactionRecurrenceStartDatePicker" HorizontalAlignment="Left" Margin="14,294,0,0" VerticalAlignment="Top" IsEnabled="False" Width="105" />
+        <Label x:Name="transactionRecurrenceEndDateLabel" IsEnabled="False" HorizontalContentAlignment="Center" Content="End date" HorizontalAlignment="Left" Margin="127,268,0,0" VerticalAlignment="Top" Width="105"/>
+        <DatePicker x:Name="transactionRecurrenceEndDatePicker" HorizontalAlignment="Left" Margin="127,294,0,0" VerticalAlignment="Top" IsEnabled="False" Width="105" />
+        <Label x:Name="transactionDateLabel" Content="Date" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Width="85"/>
+        <Label x:Name="transactionDateValueLabel" Content="xx/xx/xxxx xx:xx" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="100,72,0,0" VerticalAlignment="Top" Width="130"/>
+    </Grid>
+</Window>

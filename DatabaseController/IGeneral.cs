@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace DatabaseController
 {
-    public class Class1
+    interface IGeneral
     {
-        public void Main () { }
+        void NewStore();
+        void GetContextID(int telegramID);
     }
 }

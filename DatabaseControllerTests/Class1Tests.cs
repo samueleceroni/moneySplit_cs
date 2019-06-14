@@ -14,7 +14,8 @@ namespace DatabaseController
         [TestMethod()]
         public void MainTest()
         {
-
+            var a = new Class1();
+            a.Main();
         }
     }
 }
