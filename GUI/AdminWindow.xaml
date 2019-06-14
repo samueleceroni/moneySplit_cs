@@ -5,8 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="AdminWindow" Height="450" Width="800">
+        Title="AdminWindow" Height="450" Width="647.49">
     <Grid>
-        
+        <Label x:Name="tagScoreboardLabel" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Center" Content="Tag Scoreboard" HorizontalAlignment="Left" Margin="10,24,0,0" VerticalAlignment="Top" Width="279"/>
+        <DataGrid x:Name="tagScoreboardDataGrid" HorizontalAlignment="Left" Height="181" Margin="10,55,0,0" VerticalAlignment="Top" Width="279"/>
+        <ComboBox x:Name="bankAccountSelectorComboBox" HorizontalAlignment="Left" Margin="94,272,0,0" VerticalAlignment="Top" Width="120" Height="26"/>
+        <Label x:Name="bankAccountSelectorLabel" Content="BankAccount" HorizontalAlignment="Left" Margin="10,272,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="addTransactionToBankAccountLabel" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" Content="Add transaction to bank account" HorizontalAlignment="Left" Margin="10,241,0,0" VerticalAlignment="Top" Width="279"/>
+        <Label x:Name="addTransactionBankAccountAmountLabel" Content="Amount" HorizontalAlignment="Left" Margin="10,303,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="addTransactionToBankAccountButton" Content="Add" HorizontalAlignment="Left" Margin="219,271,0,0" VerticalAlignment="Top" Width="70" Height="54"/>
+        <TextBox x:Name="addTransactionToBankAccountTextBox" HorizontalAlignment="Left" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Height="23" Margin="94,303,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="storeReviewsLabel" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Center" Content="StoreReviews" HorizontalAlignment="Left" Margin="347,24,0,0" VerticalAlignment="Top" Width="279"/>
+        <ComboBox x:Name="storeComboBox" HorizontalAlignment="Left" Margin="392,57,0,0" VerticalAlignment="Top" Width="234" Height="28"/>
+        <Label x:Name="storeLabel" Content="Store" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Margin="347,57,0,0" VerticalAlignment="Top" Width="40"/>
+        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="148" Margin="347,90,0,0" VerticalAlignment="Top" Width="279"/>
     </Grid>
 </Window>

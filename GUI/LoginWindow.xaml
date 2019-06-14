@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="LoginWindow" Height="159.333" Width="256.333">
     <Grid>
-        <TextBox x:Name="loginIDTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" Margin="10,11,0,0" TextWrapping="Wrap" TextAlignment="Center" Text="Enter ID" VerticalAlignment="Top" Width="68"/>
+        <TextBox x:Name="loginIDTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" Margin="10,11,0,0" TextWrapping="Wrap" TextAlignment="Center"  Text="Enter ID" VerticalAlignment="Top" Width="68"/>
         <Button x:Name="loginButton" Content="Login" HorizontalAlignment="Left" VerticalAlignment="Top" Width="73" Margin="165,11,0,0" Height="23"/>
         <Button x:Name="registerUserButton" Content="Register User" HorizontalAlignment="Left" VerticalAlignment="Top" Width="228" Margin="10,39,0,0" Height="23"/>
         <Button x:Name="adminViewButton" Content="Admin View" HorizontalAlignment="Left" VerticalAlignment="Top" Width="228" Margin="10,95,0,0" Height="23"/>
