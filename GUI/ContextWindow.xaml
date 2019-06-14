@@ -10,13 +10,13 @@
         <DataGrid x:Name="listDataGrid" HorizontalAlignment="Left" Height="233" Margin="397,116,0,0" VerticalAlignment="Top" Width="343"/>
         <Label x:Name="listLabel" HorizontalContentAlignment="Center" Content="Lists" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Margin="397,46,0,0" VerticalAlignment="Top" Width="343"/>
         <Label x:Name="filtersLabel" HorizontalContentAlignment="Center" Content="Filters:" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Margin="397,79,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="comboBox" Text="Show Versions" HorizontalAlignment="Left" Margin="450,79,0,0" VerticalAlignment="Top" Width="97" Height="28" SelectionChanged="ComboBox_SelectionChanged" SelectedIndex="0">
+        <ComboBox x:Name="comboBox" Text="Show Versions" HorizontalAlignment="Left" Margin="450,79,0,0" VerticalAlignment="Top" Width="97" Height="28" SelectedIndex="0">
             <ComboBoxItem Name="listFilterItemNoVersions">Versions: No</ComboBoxItem>
             <ComboBoxItem Name="listFilterItemWithVerions">Versions: Yes</ComboBoxItem>
         </ComboBox>
-        <Button x:Name="button" Content="New list" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="137,79,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="button_Copy" Content="New bank account" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="137,109,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="button1" Content="New Store" HorizontalAlignment="Left" Margin="169,148,0,0" VerticalAlignment="Top" Width="75" Click="Button1_Click"/>
+        <Button x:Name="newListButton" Content="New list" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="137,79,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="newBankAccountButton" Content="New bank account" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="137,109,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="newStoreButton" Content="New Store" HorizontalAlignment="Left" Margin="169,148,0,0" VerticalAlignment="Top" Width="75" />
         <Label x:Name="contextIDLabel" Content="Context ID: " HorizontalAlignment="Left" Margin="34,10,0,0" VerticalAlignment="Top"/>
         <Label x:Name="contextNameLabel" Content="Context Name: " HorizontalAlignment="Left" Margin="165,10,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label" Content="Users!" HorizontalAlignment="Left" Margin="165,214,0,0" VerticalAlignment="Top"/>
