@@ -324,7 +324,7 @@ namespace DatabaseController
         /// <param name="version">Is null if all version are requested</param>
         /// <param name="transactionType">Is null if all transaction type are requested</param>
         /// <returns></returns>
-        public static Result<IEnumerable<GeneralTransactionDouble>> GetAllTransaction(int operatorContextID, int listID, int? version = null, int? transactionType = null)
+        public static Result<IEnumerable<GeneralTransactionDouble>> GetAllTransaction(int operatorContextID, int listID, int? version = null, int? transactionType = null, IEnumerable<string> hashtags = null)
         {
             var listsResult = GetAllListsDouble(operatorContextID);
             if (listsResult.IsFailure) { return Result.Fail<IEnumerable<GeneralTransactionDouble>>(listsResult.Error); }
@@ -341,8 +341,29 @@ namespace DatabaseController
                 from tr in db.GeneralTransactions
                 where listsIDs.Contains(tr.ListId)
                 select tr;
+            if (hashtags != null && hashtags.Count() > 0)
+            {
+                transactions =
+                    from tr in transactions
+                    join tagTr in db.TaggedTransactions on tr.TransactionId equals tagTr.TransactionId
+                    where hashtags.Contains(tagTr.TagName)
+                    select tr;
+            }
+
             transactions = transactions.Where(tr => transactionType == null ? true : tr.TransType == transactionType);
             return Result.Ok<IEnumerable<GeneralTransactionDouble>>(transactions.Select(tran => new GeneralTransactionDouble(tran)));
+        }
+
+        public static Result<int> GetNumberOfListVersions(int operatorContextID, int listID)
+        {
+            var listsResult = GetAllListsDouble(operatorContextID);
+            var completeListRes = listsResult.Map(lists => lists.Where(list => list.ListId == listID))
+                                                 .Ensure(lists => lists.Count() == 1, LIST_NOT_FOUND + OR_NOT_PERMITTED)
+                                                 .Map(lists => lists.First());
+            if (completeListRes.IsFailure) { return Result.Fail<int>(completeListRes.Error); }
+            var completeList = completeListRes.Value;
+            return listsResult.Map(lists => lists.Where(list => list.Name == completeList.Name && list.ContextId == completeList.ContextId))
+                              .Map(lists => lists.Count());
         }
 
         public static Result<GeneralListDouble> GetListFullDetail(int operatorContextID, int listID)
@@ -401,6 +422,42 @@ namespace DatabaseController
                 };
             }
             db.GeneralTransactions.InsertOnSubmit(newTransaction);
+            return DBSubmitOrFail().Map(() => InsertHashTags(newTransaction.TransactionId, description));
+        }
+
+        private static Result InsertHashTags(int transactionId, string description)
+        {
+            var hashtags = description.Split(' ')
+                                      .Where(word => word.Length > 1 && word.StartsWith("#"))
+                                      .Select(word => word.Remove(0, 1)).Distinct();
+            var presentHashtags =
+                from ht in db.Tags
+                select ht;
+            var presentHashtagsName = presentHashtags.Select(ht => ht.TagName);
+            foreach (string hashtag in hashtags)
+            {
+                if (!presentHashtagsName.Contains(hashtag))
+                {
+                    var newHashTag = new Tag()
+                    {
+                        TagName = hashtag,
+                        Usage = 1
+                    };
+                    db.Tags.InsertOnSubmit(newHashTag);
+                } else
+                {
+                    var selectedHashTag = presentHashtags.Single(ht => ht.TagName == hashtag);
+                    selectedHashTag.Usage += 1;
+                }
+
+                var newTaggedTransaction = new TaggedTransaction()
+                {
+                    TransactionId = transactionId,
+                    TagName = hashtag
+                };
+                db.TaggedTransactions.InsertOnSubmit(newTaggedTransaction);
+
+            }
             return DBSubmitOrFail();
         }
 

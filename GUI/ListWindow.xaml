@@ -27,14 +27,14 @@
             </DataGrid.Columns>
         </DataGrid>
         <Label x:Name="versionLabel" Content="List Version" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="419,114,0,0" VerticalAlignment="Top" Height="24" Width="112" Grid.ColumnSpan="2"/>
-        <ComboBox x:Name="versionComboBox" HorizontalAlignment="Left" Margin="419,146,0,0" VerticalAlignment="Top" Width="112" SelectedIndex="0" Height="24" Grid.ColumnSpan="2">
+        <ComboBox x:Name="versionComboBox" HorizontalAlignment="Left" Margin="419,146,0,0" VerticalAlignment="Top" Width="112" SelectedIndex="0" Height="24" Grid.ColumnSpan="2" SelectionChanged="VersionComboBox_SelectionChanged">
             <ComboBoxItem Name="allVersionsListFilter">All</ComboBoxItem>
         </ComboBox>
         <Label x:Name="transactionLabel" Content="Transactions" HorizontalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="366,77,0,0" VerticalAlignment="Top" Width="749" Grid.ColumnSpan="2"/>
-        <Label x:Name="hashTagLabel" Content="HashTags" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="26" Margin="158,112,0,0" VerticalAlignment="Top" Width="434" Grid.Column="1"/>
-        <TextBox x:Name="hashTagTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="25" Margin="158,145,0,0" TextWrapping="Wrap" Text="#" VerticalAlignment="Top" Width="434" Grid.Column="1"/>
+        <Label x:Name="hashTagLabel" Content="HashTags" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="26" Margin="158,112,0,0" VerticalAlignment="Top" Width="454" Grid.Column="1"/>
+        <TextBox x:Name="hashTagTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="25" Margin="158,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="341" Grid.Column="1"/>
         <Label x:Name="TransactionTypeLabel" Content="Transaction Type" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="33,112,0,0" VerticalAlignment="Top" RenderTransformOrigin="0,-0.462" Width="120" Grid.Column="1"/>
-        <ComboBox x:Name="transactionTypeComboBox" HorizontalAlignment="Left" Margin="33,146,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0" Grid.Column="1" Height="24">
+        <ComboBox x:Name="transactionTypeComboBox" HorizontalAlignment="Left" Margin="33,146,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0" Grid.Column="1" Height="24" SelectionChanged="TransactionTypeComboBox_SelectionChanged">
             <ComboBoxItem Name="AllTransaction">All</ComboBoxItem>
             <ComboBoxItem Name="OnlyRecurring">Recurring</ComboBoxItem>
             <ComboBoxItem Name="OnlyNormal">Normal</ComboBoxItem>
@@ -69,7 +69,6 @@
         <Button x:Name="deleteTransactionButton" Content="Delete" HorizontalAlignment="Left" Margin="271,329,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
         <Label x:Name="otherLabel" Content="Other" HorizontalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="17,367,0,0" VerticalAlignment="Top" Width="329"/>
         <Button x:Name="createStore" Content="New Store" HorizontalAlignment="Left" Margin="17,407,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
-        <Button x:Name="editTransactionButton" Content="Edit" HorizontalAlignment="Left" Margin="178,329,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
         <Label x:Name="listDescriptionLabel" Content="List ID: " HorizontalAlignment="Left" Margin="17,7,0,0" VerticalAlignment="Top" Width="46"/>
         <Button x:Name="shareListButton" Content="Share List" HorizontalAlignment="Left" Margin="97,407,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
         <Label x:Name="listIDValueLabel" Content="" HorizontalAlignment="Left" Margin="68,7,0,0" VerticalAlignment="Top" Width="67"/>
@@ -83,6 +82,7 @@
         <Label x:Name="IBANValueLabel" Content="" HorizontalAlignment="Left" Margin="68,38,0,0" VerticalAlignment="Top" Width="155"/>
         <Label x:Name="CF_OwnerLabel" Content="Owner CF:" HorizontalAlignment="Left" Margin="228,38,0,0" VerticalAlignment="Top" Width="78"/>
         <Label x:Name="CF_OwnerValueLabel" Content="" HorizontalAlignment="Left" Margin="311,38,0,0" VerticalAlignment="Top" Width="159" Grid.ColumnSpan="2"/>
+        <Button x:Name="reloadTable" Content="Reload Table" Grid.Column="1" HorizontalAlignment="Left" Margin="504,146,0,0" VerticalAlignment="Top" Width="108" Height="24" Click="ReloadTable_Click"/>
 
     </Grid>
 </Window>

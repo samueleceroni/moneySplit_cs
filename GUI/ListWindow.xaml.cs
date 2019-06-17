@@ -58,17 +58,28 @@ namespace GUI
             IBANValueLabel.Content = IBAN;
             CF_OwnerValueLabel.Content = CF_Owner;
             totalValueLabel.Content = list.TotalAmount + " €";
+            
+            var numberOfVersionsResult = DatabaseController.DatabaseController.GetNumberOfListVersions(UserContextID, listID);
+            if (numberOfVersionsResult.IsFailure) { MessageBox.Show(numberOfVersionsResult.Error, ERROR, MessageBoxButton.OK, MessageBoxImage.Error); this.Close(); return; }
+            int numberOfVersions = numberOfVersionsResult.Value;
+            foreach (int i in Enumerable.Range(1, numberOfVersions))
+            {
+                versionComboBox.Items.Add(i);
+            }
             LoadTransactionsTable();
         }
 
         private void LoadTransactionsTable()
         {
+            IEnumerable<string> hashtags = null;
+            if (hashTagTextBox != null && hashTagTextBox.Text.Trim().Length > 0) hashtags = hashTagTextBox.Text.Trim().Split(' ');
             int? versionNull = null;
             if (Int32.TryParse(versionComboBox.SelectedValue.ToString(), out int version)) { versionNull = version; };
             int? transactionType = null;
-            if (transactionTypeComboBox.SelectedItem == OnlyRecurring) { transactionType = 1; }
-            if (transactionTypeComboBox.SelectedItem == OnlyNormal) { transactionType = 0; }
-            var transactionsResult = DatabaseController.DatabaseController.GetAllTransaction(UserContextID, ListID, versionNull, transactionType);
+            if (transactionTypeComboBox == null) { transactionType = null; }
+            else if (transactionTypeComboBox.SelectedItem == OnlyRecurring) { transactionType = 1; }
+            else if (transactionTypeComboBox.SelectedItem == OnlyNormal) { transactionType = 0; }
+            var transactionsResult = DatabaseController.DatabaseController.GetAllTransaction(UserContextID, ListID, versionNull, transactionType, hashtags);
             if (transactionsResult.IsFailure) { MessageBox.Show(transactionsResult.Error, ERROR, MessageBoxButton.OK, MessageBoxImage.Error); this.Close(); return; }
             var transactions = transactionsResult.Value;
             transactionDataGrid.Items.Clear();
@@ -76,9 +87,6 @@ namespace GUI
             {
                 transactionDataGrid.Items.Add(transaction);
             }
-
-            
-
         }
 
         void OnLoad(object sender, RoutedEventArgs e)
@@ -133,6 +141,21 @@ namespace GUI
                               .GetListFullDetail(UserContextID, ListID)
                               .OnSuccess(list => totalValueLabel.Content = list.TotalAmount + " €")
                               .OnFailure(error => { MessageBox.Show(error, ERROR, MessageBoxButton.OK, MessageBoxImage.Error); this.Close(); return; });
+            LoadTransactionsTable();
+        }
+
+        private void VersionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            LoadTransactionsTable();
+        }
+
+        private void TransactionTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            LoadTransactionsTable();
+        }
+
+        private void ReloadTable_Click(object sender, RoutedEventArgs e)
+        {
             LoadTransactionsTable();
         }
     }

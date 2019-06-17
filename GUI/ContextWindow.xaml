@@ -5,9 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="ContextWindow" Height="450" Width="1020.8">
+        Title="ContextWindow" Height="403" Width="1020.8">
     <Grid>
-        <DataGrid x:Name="listsDataGrid" HorizontalAlignment="Left" Height="254" Margin="430,103,0,0" VerticalAlignment="Top" Width="528" CanUserResizeRows="True" SelectionChanged="ListsDataGrid_SelectionChanged">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="410*"/>
+            <ColumnDefinition Width="603*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="listsDataGrid" HorizontalAlignment="Left" Height="254" Margin="20.4,103,0,0" VerticalAlignment="Top" Width="528" CanUserResizeRows="True" SelectionChanged="ListsDataGrid_SelectionChanged" Grid.Column="1">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ListId" IsReadOnly="True" Binding="{Binding Path=ListId}" />
                 <DataGridTextColumn Header="Vers" IsReadOnly="True" Binding="{Binding Path=Vers}"/>
@@ -17,13 +21,12 @@
                 <DataGridTextColumn Header="CF Owner" IsReadOnly="True" Binding="{Binding Path=CF_owner}"/>
                 <DataGridTextColumn Header="List Type" IsReadOnly="True" Binding="{Binding Path=ListType}"/>
                 <DataGridTextColumn Header="Total" IsReadOnly="True" Binding="{Binding Path=TotalAmount}"/>
-                
+
             </DataGrid.Columns>
         </DataGrid>
-        <Label x:Name="listLabel" HorizontalContentAlignment="Center" Content="Lists" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Margin="430,33,0,0" VerticalAlignment="Top" Width="528"/>
-        <Label x:Name="showLabel" HorizontalContentAlignment="Center" Content="Show: " BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Margin="430,66,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="newListButton" Content="New list" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="358,211,0,0" VerticalAlignment="Top" Width="59" Height="108" Click="NewListButton_Click"/>
-        <Button x:Name="newStoreButton" Content="New Store" HorizontalAlignment="Left" Margin="23,331,0,0" VerticalAlignment="Top" Width="394" Height="26" Click="NewStoreButton_Click" />
+        <Label x:Name="listLabel" HorizontalContentAlignment="Center" Content="Lists" BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Margin="20.4,33,0,0" VerticalAlignment="Top" Width="528" Grid.Column="1"/>
+        <Label x:Name="showLabel" HorizontalContentAlignment="Center" Content="Show: " BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Margin="20.4,66,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Button x:Name="newListButton" Content="New list" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="358,211,0,0" VerticalAlignment="Top" Width="59" Height="108" Click="NewListButton_Click" Grid.ColumnSpan="2"/>
         <Label x:Name="contextIDLabel" Content="Context ID: " HorizontalAlignment="Left" Margin="21,52,0,0" VerticalAlignment="Top" Width="74"/>
         <Label x:Name="contextNameLabel" Content="Context Name: " HorizontalAlignment="Left" Margin="21,83,0,0" VerticalAlignment="Top"/>
         <Label x:Name="contextTelegramIDLabel" Content="TelegramID: " HorizontalAlignment="Left" Margin="21,114,0,0" VerticalAlignment="Top" Width="74"/>
@@ -31,7 +34,7 @@
         <Label x:Name="contextNameValueLabel" HorizontalContentAlignment="Right" Content="" HorizontalAlignment="Left" Margin="118,83,0,0" VerticalAlignment="Top" Width="75"/>
         <Label x:Name="contextTelegramIDValueLabel" HorizontalContentAlignment="Right" Content="" HorizontalAlignment="Left" Margin="100,114,0,0" VerticalAlignment="Top" Width="93"/>
         <Label x:Name="infoLabel" Content="Info" HorizontalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Margin="21,19,0,0" VerticalAlignment="Top" Width="172"/>
-        <Label x:Name="operationLabel" HorizontalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" Content="Operations" HorizontalAlignment="Left" Margin="21,178,0,0" VerticalAlignment="Top" Width="396"/>
+        <Label x:Name="operationLabel" HorizontalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" Content="Operations" HorizontalAlignment="Left" Margin="21,178,0,0" VerticalAlignment="Top" Width="396" Grid.ColumnSpan="2"/>
         <Label x:Name="newListNameLabel" Content="New List Name:" HorizontalAlignment="Left" Margin="21,211,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="newListNameTextBox" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="26" Margin="118,211,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="235"/>
         <CheckBox x:Name="newListIsBankAccountCheckBox" Content="Is Bank Account" HorizontalAlignment="Left" Margin="21,242,0,0" VerticalAlignment="Top"/>
@@ -39,19 +42,19 @@
         <TextBox x:Name="newListIbanTextBox" IsEnabled="{Binding ElementName=newListIsBankAccountCheckBox, Path=IsChecked}" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="26" Margin="64,262,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="289"/>
         <Label x:Name="CFOwnerLabel" IsEnabled="{Binding ElementName=newListIsBankAccountCheckBox, Path=IsChecked}" HorizontalContentAlignment="Right" Content="Owner CF:" HorizontalAlignment="Left" Margin="21,293,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.863,0.538"/>
         <TextBox x:Name="CFOwnerTextBox" IsEnabled="{Binding ElementName=newListIsBankAccountCheckBox, Path=IsChecked}" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="26" Margin="87,293,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="266"/>
-        <Label x:Name="groupPartecipantLabel" Visibility="Visible" Content="Group partecipant" HorizontalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Margin="198,19,0,0" VerticalAlignment="Top" Width="219"/>
-        <DataGrid x:Name="groupUsersDataGrid" Visibility="Visible" HorizontalAlignment="Left" Height="121" Margin="198,52,0,0" VerticalAlignment="Top" Width="219">
+        <Label x:Name="groupPartecipantLabel" Visibility="Visible" Content="Group partecipant" HorizontalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Margin="198,19,0,0" VerticalAlignment="Top" Width="219" Grid.ColumnSpan="2"/>
+        <DataGrid x:Name="groupUsersDataGrid" Visibility="Visible" HorizontalAlignment="Left" Height="121" Margin="198,52,0,0" VerticalAlignment="Top" Width="219" Grid.ColumnSpan="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Telegram User ID" IsReadOnly="True" Binding="{Binding Path=TelegramUserId}" />
                 <DataGridTextColumn Header="Is Admin" IsReadOnly="True" Binding="{Binding Path=IsAdmin}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Label x:Name="addUserToGroupTelegramIdLabel" Visibility="Visible" Content="Telegram ID: " HorizontalAlignment="Left" Margin="23,373,0,0" VerticalAlignment="Top" Width="79"/>
-        <TextBox x:Name="addUserToGroupTelegramIdTextBox" Visibility="Visible" VerticalContentAlignment="center" HorizontalContentAlignment="Right"  HorizontalAlignment="Left" Height="26" Margin="107,373,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="92"/>
-        <Button x:Name="addUserToGroup" Visibility="Visible" Content="Add telegram user to group" HorizontalAlignment="Left" Margin="264,373,0,0" VerticalAlignment="Top" Width="153" Height="26" Click="AddUserToGroup_Click"/>
-        <CheckBox x:Name="addUserToGroupIsAdminCheckBox" Visibility="Visible" IsChecked="False" Content="Admin" HorizontalAlignment="Left" Margin="204,379,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.145,0.453"/>
-        <CheckBox x:Name="showBankAccountCheckBox" IsChecked="True" Content="Bank Account" HorizontalAlignment="Left" Margin="593,73,0,0" VerticalAlignment="Top" Checked="ShowBankAccountCheckBox_CheckChange" Unchecked="ShowBankAccountCheckBox_CheckChange"/>
-        <CheckBox x:Name="showNormalListCheckBox" IsChecked="True" Content="General List" HorizontalAlignment="Left" Margin="492,73,0,0" VerticalAlignment="Top" Checked="ShowBankAccountCheckBox_CheckChange" Unchecked="ShowBankAccountCheckBox_CheckChange"/>
+        <Label x:Name="addUserToGroupTelegramIdLabel" Visibility="Visible" Content="Telegram ID: " HorizontalAlignment="Left" Margin="25,329,0,0" VerticalAlignment="Top" Width="79"/>
+        <TextBox x:Name="addUserToGroupTelegramIdTextBox" Visibility="Visible" VerticalContentAlignment="center" HorizontalContentAlignment="Right"  HorizontalAlignment="Left" Height="26" Margin="109,329,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="92"/>
+        <Button x:Name="addUserToGroup" Visibility="Visible" Content="Add telegram user to group" HorizontalAlignment="Left" Margin="266,329,0,0" VerticalAlignment="Top" Width="153" Height="26" Click="AddUserToGroup_Click" Grid.ColumnSpan="2"/>
+        <CheckBox x:Name="addUserToGroupIsAdminCheckBox" Visibility="Visible" IsChecked="False" Content="Admin" HorizontalAlignment="Left" Margin="206,335,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.145,0.453"/>
+        <CheckBox x:Name="showBankAccountCheckBox" IsChecked="True" Content="Bank Account" HorizontalAlignment="Left" Margin="183.4,73,0,0" VerticalAlignment="Top" Checked="ShowBankAccountCheckBox_CheckChange" Unchecked="ShowBankAccountCheckBox_CheckChange" Grid.Column="1"/>
+        <CheckBox x:Name="showNormalListCheckBox" IsChecked="True" Content="General List" HorizontalAlignment="Left" Margin="82.4,73,0,0" VerticalAlignment="Top" Checked="ShowBankAccountCheckBox_CheckChange" Unchecked="ShowBankAccountCheckBox_CheckChange" Grid.Column="1"/>
 
     </Grid>
 </Window>
