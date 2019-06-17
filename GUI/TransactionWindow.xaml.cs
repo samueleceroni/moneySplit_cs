@@ -22,6 +22,24 @@ namespace GUI
         public TransactionWindow()
         {
             InitializeComponent();
+            Loaded += OnLoad;
+            Closed += new EventHandler(OnClose);
+        }
+
+        void OnLoad(object sender, RoutedEventArgs e)
+        {
+            this.Owner.Hide();
+        }
+
+        void OnClose(object sender, EventArgs e)
+        {
+            this.Owner.Show();
+        }
+
+        private void StoreComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            storeReviewLabel.IsEnabled = (storeComboBox.SelectedItem == noStoreComboBoxItem);
+            storeReviewTextBox.IsEnabled = (storeComboBox.SelectedItem == noStoreComboBoxItem);
         }
     }
 }

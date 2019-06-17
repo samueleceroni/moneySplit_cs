@@ -14,43 +14,9 @@
     <Type Name="GeneralContext">
       <Column Name="ContextId" Type="System.Decimal" DbType="Decimal(9,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="GeneralContext_TelegramGroup" Member="TelegramGroup" ThisKey="ContextId" OtherKey="ContextId" Type="TelegramGroup" Cardinality="One" />
-      <Association Name="GeneralContext_GeneralList" Member="GeneralLists" ThisKey="ContextId" OtherKey="ContextId" Type="GeneralList" />
       <Association Name="GeneralContext_MoneySplitUser" Member="MoneySplitUser" ThisKey="ContextId" OtherKey="ContextId" Type="MoneySplitUser" Cardinality="One" />
       <Association Name="GeneralContext_SharedContext" Member="SharedContext" ThisKey="ContextId" OtherKey="ContextId" Type="SharedContext" Cardinality="One" />
-    </Type>
-  </Table>
-  <Table Name="dbo.GeneralList" Member="GeneralLists">
-    <Type Name="GeneralList">
-      <Column Name="ListId" Type="System.Decimal" DbType="Decimal(16,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Vers" Type="System.Decimal" DbType="Decimal(9,0) NOT NULL" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="ContextId" Type="System.Decimal" DbType="Decimal(9,0) NOT NULL" CanBeNull="false" />
-      <Column Name="Iban" Type="System.String" DbType="Char(27)" CanBeNull="true" />
-      <Column Name="CF_owner" Type="System.String" DbType="Char(16)" CanBeNull="true" />
-      <Column Name="ListType" Type="System.Decimal" DbType="Decimal(2,0) NOT NULL" CanBeNull="false" />
-      <Column Name="TotalAmount" Type="System.Decimal" DbType="Decimal(16,0) NOT NULL" CanBeNull="false" />
-      <Association Name="GeneralList_GeneralTransaction" Member="GeneralTransactions" ThisKey="ListId" OtherKey="ListId" Type="GeneralTransaction" />
-      <Association Name="GeneralContext_GeneralList" Member="GeneralContext" ThisKey="ContextId" OtherKey="ContextId" Type="GeneralContext" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.GeneralTransaction" Member="GeneralTransactions">
-    <Type Name="GeneralTransaction">
-      <Column Name="TransactionId" Type="System.Decimal" DbType="Decimal(16,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Amount" Type="System.Decimal" DbType="Decimal(15,2) NOT NULL" CanBeNull="false" />
-      <Column Name="Description" Type="System.String" DbType="VarChar(1000) NOT NULL" CanBeNull="false" />
-      <Column Name="TransType" Type="System.Decimal" DbType="Decimal(2,0) NOT NULL" CanBeNull="false" />
-      <Column Name="Date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="DayRecurrence" Type="System.Decimal" DbType="Decimal(2,0)" CanBeNull="true" />
-      <Column Name="MonthRecurrence" Type="System.Decimal" DbType="Decimal(2,0)" CanBeNull="true" />
-      <Column Name="Time" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="StartDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="EndDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="ListId" Type="System.Decimal" DbType="Decimal(16,0) NOT NULL" CanBeNull="false" />
-      <Column Name="UserAuthor" Type="System.Decimal" DbType="Decimal(9,0)" CanBeNull="true" />
-      <Association Name="GeneralTransaction_StoreTransaction" Member="StoreTransaction" ThisKey="TransactionId" OtherKey="TransactionId" Type="StoreTransaction" Cardinality="One" />
-      <Association Name="GeneralTransaction_TaggedTransaction" Member="TaggedTransactions" ThisKey="TransactionId" OtherKey="TransactionId" Type="TaggedTransaction" />
-      <Association Name="GeneralList_GeneralTransaction" Member="GeneralList" ThisKey="ListId" OtherKey="ListId" Type="GeneralList" IsForeignKey="true" />
-      <Association Name="MoneySplitUser_GeneralTransaction" Member="MoneySplitUser" ThisKey="UserAuthor" OtherKey="ContextId" Type="MoneySplitUser" IsForeignKey="true" />
+      <Association Name="GeneralContext_GeneralList" Member="GeneralLists" ThisKey="ContextId" OtherKey="ContextId" Type="GeneralList" />
     </Type>
   </Table>
   <Table Name="dbo.GroupUser" Member="GroupUsers">
@@ -74,10 +40,10 @@
     <Type Name="MoneySplitUser">
       <Column Name="Name" Type="System.String" DbType="Char(25) NOT NULL" CanBeNull="false" />
       <Column Name="ContextId" Type="System.Decimal" DbType="Decimal(9,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="MoneySplitUser_GeneralTransaction" Member="GeneralTransactions" ThisKey="ContextId" OtherKey="UserAuthor" Type="GeneralTransaction" />
       <Association Name="MoneySplitUser_MoneySplitTelegramUser" Member="MoneySplitTelegramUser" ThisKey="ContextId" OtherKey="ContextId" Type="MoneySplitTelegramUser" Cardinality="One" />
       <Association Name="MoneySplitUser_SharedContext" Member="SharedContexts" ThisKey="ContextId" OtherKey="UserCreatorId" Type="SharedContext" />
       <Association Name="MoneySplitUser_SharedContextUser" Member="SharedContextUsers" ThisKey="ContextId" OtherKey="UserId" Type="SharedContextUser" />
+      <Association Name="MoneySplitUser_GeneralTransaction" Member="GeneralTransactions" ThisKey="ContextId" OtherKey="UserAuthor" Type="GeneralTransaction" />
       <Association Name="GeneralContext_MoneySplitUser" Member="GeneralContext" ThisKey="ContextId" OtherKey="ContextId" Type="GeneralContext" IsForeignKey="true" />
     </Type>
   </Table>
@@ -123,8 +89,8 @@
       <Column Name="Rev_Star" Type="System.Decimal" DbType="Decimal(2,0)" CanBeNull="true" />
       <Column Name="Rev_Date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="VatAccount" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
-      <Association Name="GeneralTransaction_StoreTransaction" Member="GeneralTransaction" ThisKey="TransactionId" OtherKey="TransactionId" Type="GeneralTransaction" IsForeignKey="true" />
       <Association Name="Store_StoreTransaction" Member="Store" ThisKey="VatAccount" OtherKey="VatAccount" Type="Store" IsForeignKey="true" />
+      <Association Name="GeneralTransaction_StoreTransaction" Member="GeneralTransaction" ThisKey="TransactionId" OtherKey="TransactionId" Type="GeneralTransaction" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Tag" Member="Tags">
@@ -138,8 +104,8 @@
     <Type Name="TaggedTransaction">
       <Column Name="TagName" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="TransactionId" Type="System.Decimal" DbType="Decimal(16,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="GeneralTransaction_TaggedTransaction" Member="GeneralTransaction" ThisKey="TransactionId" OtherKey="TransactionId" Type="GeneralTransaction" IsForeignKey="true" />
       <Association Name="Tag_TaggedTransaction" Member="Tag" ThisKey="TagName" OtherKey="TagName" Type="Tag" IsForeignKey="true" />
+      <Association Name="GeneralTransaction_TaggedTransaction" Member="GeneralTransaction" ThisKey="TransactionId" OtherKey="TransactionId" Type="GeneralTransaction" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.MoneySplitCompleteUser" Member="MoneySplitCompleteUsers">
@@ -147,6 +113,40 @@
       <Column Name="ContextId" Type="System.Decimal" DbType="Decimal(9,0) NOT NULL" CanBeNull="false" />
       <Column Name="TelegramId" Type="System.String" DbType="VarChar(16)" CanBeNull="true" />
       <Column Name="Name" Type="System.String" DbType="Char(25) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GeneralList" Member="GeneralLists">
+    <Type Name="GeneralList">
+      <Column Name="ListId" Type="System.Decimal" DbType="Decimal(16,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Vers" Type="System.Decimal" DbType="Decimal(9,0) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ContextId" Type="System.Decimal" DbType="Decimal(9,0) NOT NULL" CanBeNull="false" />
+      <Column Name="Iban" Type="System.String" DbType="Char(27)" CanBeNull="true" />
+      <Column Name="CF_owner" Type="System.String" DbType="Char(16)" CanBeNull="true" />
+      <Column Name="ListType" Type="System.Decimal" DbType="Decimal(2,0) NOT NULL" CanBeNull="false" />
+      <Column Name="TotalAmount" Type="System.Decimal" DbType="Decimal(16,0) NOT NULL" CanBeNull="false" />
+      <Association Name="GeneralList_GeneralTransaction" Member="GeneralTransactions" ThisKey="ListId" OtherKey="ListId" Type="GeneralTransaction" />
+      <Association Name="GeneralContext_GeneralList" Member="GeneralContext" ThisKey="ContextId" OtherKey="ContextId" Type="GeneralContext" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GeneralTransaction" Member="GeneralTransactions">
+    <Type Name="GeneralTransaction">
+      <Column Name="TransactionId" Type="System.Decimal" DbType="Decimal(16,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Decimal(15,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="TransType" Type="System.Decimal" DbType="Decimal(2,0) NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="DayRecurrence" Type="System.Decimal" DbType="Decimal(2,0)" CanBeNull="true" />
+      <Column Name="MonthRecurrence" Type="System.Decimal" DbType="Decimal(2,0)" CanBeNull="true" />
+      <Column Name="Time" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ListId" Type="System.Decimal" DbType="Decimal(16,0) NOT NULL" CanBeNull="false" />
+      <Column Name="UserAuthor" Type="System.Decimal" DbType="Decimal(9,0)" CanBeNull="true" />
+      <Association Name="GeneralTransaction_StoreTransaction" Member="StoreTransaction" ThisKey="TransactionId" OtherKey="TransactionId" Type="StoreTransaction" Cardinality="One" />
+      <Association Name="GeneralTransaction_TaggedTransaction" Member="TaggedTransactions" ThisKey="TransactionId" OtherKey="TransactionId" Type="TaggedTransaction" />
+      <Association Name="GeneralList_GeneralTransaction" Member="GeneralList" ThisKey="ListId" OtherKey="ListId" Type="GeneralList" IsForeignKey="true" />
+      <Association Name="MoneySplitUser_GeneralTransaction" Member="MoneySplitUser" ThisKey="UserAuthor" OtherKey="ContextId" Type="MoneySplitUser" IsForeignKey="true" />
     </Type>
   </Table>
   <Function Name="dbo.GetNextAvailableIDValue" Method="GetNextAvailableIDValue">

@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace GUI
 {
     /// <summary>
-    /// Interaction logic for AdminWindow.xaml
+    /// Interaction logic for newStoreModal.xaml
     /// </summary>
-    public partial class AdminWindow : Window
+    public partial class NewStoreModal : Window
     {
-        public AdminWindow()
+        public NewStoreModal()
         {
             InitializeComponent();
             Loaded += OnLoad;

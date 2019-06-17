@@ -36,12 +36,6 @@ namespace DatabaseController
     partial void InsertGeneralContext(GeneralContext instance);
     partial void UpdateGeneralContext(GeneralContext instance);
     partial void DeleteGeneralContext(GeneralContext instance);
-    partial void InsertGeneralList(GeneralList instance);
-    partial void UpdateGeneralList(GeneralList instance);
-    partial void DeleteGeneralList(GeneralList instance);
-    partial void InsertGeneralTransaction(GeneralTransaction instance);
-    partial void UpdateGeneralTransaction(GeneralTransaction instance);
-    partial void DeleteGeneralTransaction(GeneralTransaction instance);
     partial void InsertGroupUser(GroupUser instance);
     partial void UpdateGroupUser(GroupUser instance);
     partial void DeleteGroupUser(GroupUser instance);
@@ -72,6 +66,12 @@ namespace DatabaseController
     partial void InsertTaggedTransaction(TaggedTransaction instance);
     partial void UpdateTaggedTransaction(TaggedTransaction instance);
     partial void DeleteTaggedTransaction(TaggedTransaction instance);
+    partial void InsertGeneralList(GeneralList instance);
+    partial void UpdateGeneralList(GeneralList instance);
+    partial void DeleteGeneralList(GeneralList instance);
+    partial void InsertGeneralTransaction(GeneralTransaction instance);
+    partial void UpdateGeneralTransaction(GeneralTransaction instance);
+    partial void DeleteGeneralTransaction(GeneralTransaction instance);
     #endregion
 		
 		public MoneySplitDataClassesDataContext() : 
@@ -117,22 +117,6 @@ namespace DatabaseController
 			get
 			{
 				return this.GetTable<GeneralContext>();
-			}
-		}
-		
-		public System.Data.Linq.Table<GeneralList> GeneralLists
-		{
-			get
-			{
-				return this.GetTable<GeneralList>();
-			}
-		}
-		
-		public System.Data.Linq.Table<GeneralTransaction> GeneralTransactions
-		{
-			get
-			{
-				return this.GetTable<GeneralTransaction>();
 			}
 		}
 		
@@ -221,6 +205,22 @@ namespace DatabaseController
 			get
 			{
 				return this.GetTable<MoneySplitCompleteUser>();
+			}
+		}
+		
+		public System.Data.Linq.Table<GeneralList> GeneralLists
+		{
+			get
+			{
+				return this.GetTable<GeneralList>();
+			}
+		}
+		
+		public System.Data.Linq.Table<GeneralTransaction> GeneralTransactions
+		{
+			get
+			{
+				return this.GetTable<GeneralTransaction>();
 			}
 		}
 		
@@ -449,11 +449,11 @@ namespace DatabaseController
 		
 		private EntityRef<TelegramGroup> _TelegramGroup;
 		
-		private EntitySet<GeneralList> _GeneralLists;
-		
 		private EntityRef<MoneySplitUser> _MoneySplitUser;
 		
 		private EntityRef<SharedContext> _SharedContext;
+		
+		private EntitySet<GeneralList> _GeneralLists;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -466,9 +466,9 @@ namespace DatabaseController
 		public GeneralContext()
 		{
 			this._TelegramGroup = default(EntityRef<TelegramGroup>);
-			this._GeneralLists = new EntitySet<GeneralList>(new Action<GeneralList>(this.attach_GeneralLists), new Action<GeneralList>(this.detach_GeneralLists));
 			this._MoneySplitUser = default(EntityRef<MoneySplitUser>);
 			this._SharedContext = default(EntityRef<SharedContext>);
+			this._GeneralLists = new EntitySet<GeneralList>(new Action<GeneralList>(this.attach_GeneralLists), new Action<GeneralList>(this.detach_GeneralLists));
 			OnCreated();
 		}
 		
@@ -518,19 +518,6 @@ namespace DatabaseController
 					}
 					this.SendPropertyChanged("TelegramGroup");
 				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GeneralContext_GeneralList", Storage="_GeneralLists", ThisKey="ContextId", OtherKey="ContextId")]
-		public EntitySet<GeneralList> GeneralLists
-		{
-			get
-			{
-				return this._GeneralLists;
-			}
-			set
-			{
-				this._GeneralLists.Assign(value);
 			}
 		}
 		
@@ -592,6 +579,19 @@ namespace DatabaseController
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GeneralContext_GeneralList", Storage="_GeneralLists", ThisKey="ContextId", OtherKey="ContextId")]
+		public EntitySet<GeneralList> GeneralLists
+		{
+			get
+			{
+				return this._GeneralLists;
+			}
+			set
+			{
+				this._GeneralLists.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -622,773 +622,6 @@ namespace DatabaseController
 		{
 			this.SendPropertyChanging();
 			entity.GeneralContext = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.GeneralList")]
-	public partial class GeneralList : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private decimal _ListId;
-		
-		private decimal _Vers;
-		
-		private string _Name;
-		
-		private decimal _ContextId;
-		
-		private string _Iban;
-		
-		private string _CF_owner;
-		
-		private decimal _ListType;
-		
-		private decimal _TotalAmount;
-		
-		private EntitySet<GeneralTransaction> _GeneralTransactions;
-		
-		private EntityRef<GeneralContext> _GeneralContext;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnListIdChanging(decimal value);
-    partial void OnListIdChanged();
-    partial void OnVersChanging(decimal value);
-    partial void OnVersChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnContextIdChanging(decimal value);
-    partial void OnContextIdChanged();
-    partial void OnIbanChanging(string value);
-    partial void OnIbanChanged();
-    partial void OnCF_ownerChanging(string value);
-    partial void OnCF_ownerChanged();
-    partial void OnListTypeChanging(decimal value);
-    partial void OnListTypeChanged();
-    partial void OnTotalAmountChanging(decimal value);
-    partial void OnTotalAmountChanged();
-    #endregion
-		
-		public GeneralList()
-		{
-			this._GeneralTransactions = new EntitySet<GeneralTransaction>(new Action<GeneralTransaction>(this.attach_GeneralTransactions), new Action<GeneralTransaction>(this.detach_GeneralTransactions));
-			this._GeneralContext = default(EntityRef<GeneralContext>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ListId", DbType="Decimal(16,0) NOT NULL", IsPrimaryKey=true)]
-		public decimal ListId
-		{
-			get
-			{
-				return this._ListId;
-			}
-			set
-			{
-				if ((this._ListId != value))
-				{
-					this.OnListIdChanging(value);
-					this.SendPropertyChanging();
-					this._ListId = value;
-					this.SendPropertyChanged("ListId");
-					this.OnListIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Vers", DbType="Decimal(9,0) NOT NULL")]
-		public decimal Vers
-		{
-			get
-			{
-				return this._Vers;
-			}
-			set
-			{
-				if ((this._Vers != value))
-				{
-					this.OnVersChanging(value);
-					this.SendPropertyChanging();
-					this._Vers = value;
-					this.SendPropertyChanged("Vers");
-					this.OnVersChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContextId", DbType="Decimal(9,0) NOT NULL")]
-		public decimal ContextId
-		{
-			get
-			{
-				return this._ContextId;
-			}
-			set
-			{
-				if ((this._ContextId != value))
-				{
-					if (this._GeneralContext.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnContextIdChanging(value);
-					this.SendPropertyChanging();
-					this._ContextId = value;
-					this.SendPropertyChanged("ContextId");
-					this.OnContextIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Iban", DbType="Char(27)")]
-		public string Iban
-		{
-			get
-			{
-				return this._Iban;
-			}
-			set
-			{
-				if ((this._Iban != value))
-				{
-					this.OnIbanChanging(value);
-					this.SendPropertyChanging();
-					this._Iban = value;
-					this.SendPropertyChanged("Iban");
-					this.OnIbanChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CF_owner", DbType="Char(16)")]
-		public string CF_owner
-		{
-			get
-			{
-				return this._CF_owner;
-			}
-			set
-			{
-				if ((this._CF_owner != value))
-				{
-					this.OnCF_ownerChanging(value);
-					this.SendPropertyChanging();
-					this._CF_owner = value;
-					this.SendPropertyChanged("CF_owner");
-					this.OnCF_ownerChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ListType", DbType="Decimal(2,0) NOT NULL")]
-		public decimal ListType
-		{
-			get
-			{
-				return this._ListType;
-			}
-			set
-			{
-				if ((this._ListType != value))
-				{
-					this.OnListTypeChanging(value);
-					this.SendPropertyChanging();
-					this._ListType = value;
-					this.SendPropertyChanged("ListType");
-					this.OnListTypeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalAmount", DbType="Decimal(16,0) NOT NULL")]
-		public decimal TotalAmount
-		{
-			get
-			{
-				return this._TotalAmount;
-			}
-			set
-			{
-				if ((this._TotalAmount != value))
-				{
-					this.OnTotalAmountChanging(value);
-					this.SendPropertyChanging();
-					this._TotalAmount = value;
-					this.SendPropertyChanged("TotalAmount");
-					this.OnTotalAmountChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GeneralList_GeneralTransaction", Storage="_GeneralTransactions", ThisKey="ListId", OtherKey="ListId")]
-		public EntitySet<GeneralTransaction> GeneralTransactions
-		{
-			get
-			{
-				return this._GeneralTransactions;
-			}
-			set
-			{
-				this._GeneralTransactions.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GeneralContext_GeneralList", Storage="_GeneralContext", ThisKey="ContextId", OtherKey="ContextId", IsForeignKey=true)]
-		public GeneralContext GeneralContext
-		{
-			get
-			{
-				return this._GeneralContext.Entity;
-			}
-			set
-			{
-				GeneralContext previousValue = this._GeneralContext.Entity;
-				if (((previousValue != value) 
-							|| (this._GeneralContext.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._GeneralContext.Entity = null;
-						previousValue.GeneralLists.Remove(this);
-					}
-					this._GeneralContext.Entity = value;
-					if ((value != null))
-					{
-						value.GeneralLists.Add(this);
-						this._ContextId = value.ContextId;
-					}
-					else
-					{
-						this._ContextId = default(decimal);
-					}
-					this.SendPropertyChanged("GeneralContext");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_GeneralTransactions(GeneralTransaction entity)
-		{
-			this.SendPropertyChanging();
-			entity.GeneralList = this;
-		}
-		
-		private void detach_GeneralTransactions(GeneralTransaction entity)
-		{
-			this.SendPropertyChanging();
-			entity.GeneralList = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.GeneralTransaction")]
-	public partial class GeneralTransaction : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private decimal _TransactionId;
-		
-		private decimal _Amount;
-		
-		private string _Description;
-		
-		private decimal _TransType;
-		
-		private System.Nullable<System.DateTime> _Date;
-		
-		private System.Nullable<decimal> _DayRecurrence;
-		
-		private System.Nullable<decimal> _MonthRecurrence;
-		
-		private System.Nullable<System.DateTime> _Time;
-		
-		private System.Nullable<System.DateTime> _StartDate;
-		
-		private System.Nullable<System.DateTime> _EndDate;
-		
-		private decimal _ListId;
-		
-		private System.Nullable<decimal> _UserAuthor;
-		
-		private EntityRef<StoreTransaction> _StoreTransaction;
-		
-		private EntitySet<TaggedTransaction> _TaggedTransactions;
-		
-		private EntityRef<GeneralList> _GeneralList;
-		
-		private EntityRef<MoneySplitUser> _MoneySplitUser;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnTransactionIdChanging(decimal value);
-    partial void OnTransactionIdChanged();
-    partial void OnAmountChanging(decimal value);
-    partial void OnAmountChanged();
-    partial void OnDescriptionChanging(string value);
-    partial void OnDescriptionChanged();
-    partial void OnTransTypeChanging(decimal value);
-    partial void OnTransTypeChanged();
-    partial void OnDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateChanged();
-    partial void OnDayRecurrenceChanging(System.Nullable<decimal> value);
-    partial void OnDayRecurrenceChanged();
-    partial void OnMonthRecurrenceChanging(System.Nullable<decimal> value);
-    partial void OnMonthRecurrenceChanged();
-    partial void OnTimeChanging(System.Nullable<System.DateTime> value);
-    partial void OnTimeChanged();
-    partial void OnStartDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnStartDateChanged();
-    partial void OnEndDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnEndDateChanged();
-    partial void OnListIdChanging(decimal value);
-    partial void OnListIdChanged();
-    partial void OnUserAuthorChanging(System.Nullable<decimal> value);
-    partial void OnUserAuthorChanged();
-    #endregion
-		
-		public GeneralTransaction()
-		{
-			this._StoreTransaction = default(EntityRef<StoreTransaction>);
-			this._TaggedTransactions = new EntitySet<TaggedTransaction>(new Action<TaggedTransaction>(this.attach_TaggedTransactions), new Action<TaggedTransaction>(this.detach_TaggedTransactions));
-			this._GeneralList = default(EntityRef<GeneralList>);
-			this._MoneySplitUser = default(EntityRef<MoneySplitUser>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TransactionId", DbType="Decimal(16,0) NOT NULL", IsPrimaryKey=true)]
-		public decimal TransactionId
-		{
-			get
-			{
-				return this._TransactionId;
-			}
-			set
-			{
-				if ((this._TransactionId != value))
-				{
-					this.OnTransactionIdChanging(value);
-					this.SendPropertyChanging();
-					this._TransactionId = value;
-					this.SendPropertyChanged("TransactionId");
-					this.OnTransactionIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Amount", DbType="Decimal(15,2) NOT NULL")]
-		public decimal Amount
-		{
-			get
-			{
-				return this._Amount;
-			}
-			set
-			{
-				if ((this._Amount != value))
-				{
-					this.OnAmountChanging(value);
-					this.SendPropertyChanging();
-					this._Amount = value;
-					this.SendPropertyChanged("Amount");
-					this.OnAmountChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(1000) NOT NULL", CanBeNull=false)]
-		public string Description
-		{
-			get
-			{
-				return this._Description;
-			}
-			set
-			{
-				if ((this._Description != value))
-				{
-					this.OnDescriptionChanging(value);
-					this.SendPropertyChanging();
-					this._Description = value;
-					this.SendPropertyChanged("Description");
-					this.OnDescriptionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TransType", DbType="Decimal(2,0) NOT NULL")]
-		public decimal TransType
-		{
-			get
-			{
-				return this._TransType;
-			}
-			set
-			{
-				if ((this._TransType != value))
-				{
-					this.OnTransTypeChanging(value);
-					this.SendPropertyChanging();
-					this._TransType = value;
-					this.SendPropertyChanged("TransType");
-					this.OnTransTypeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="Date")]
-		public System.Nullable<System.DateTime> Date
-		{
-			get
-			{
-				return this._Date;
-			}
-			set
-			{
-				if ((this._Date != value))
-				{
-					this.OnDateChanging(value);
-					this.SendPropertyChanging();
-					this._Date = value;
-					this.SendPropertyChanged("Date");
-					this.OnDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DayRecurrence", DbType="Decimal(2,0)")]
-		public System.Nullable<decimal> DayRecurrence
-		{
-			get
-			{
-				return this._DayRecurrence;
-			}
-			set
-			{
-				if ((this._DayRecurrence != value))
-				{
-					this.OnDayRecurrenceChanging(value);
-					this.SendPropertyChanging();
-					this._DayRecurrence = value;
-					this.SendPropertyChanged("DayRecurrence");
-					this.OnDayRecurrenceChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MonthRecurrence", DbType="Decimal(2,0)")]
-		public System.Nullable<decimal> MonthRecurrence
-		{
-			get
-			{
-				return this._MonthRecurrence;
-			}
-			set
-			{
-				if ((this._MonthRecurrence != value))
-				{
-					this.OnMonthRecurrenceChanging(value);
-					this.SendPropertyChanging();
-					this._MonthRecurrence = value;
-					this.SendPropertyChanged("MonthRecurrence");
-					this.OnMonthRecurrenceChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Time", DbType="Date")]
-		public System.Nullable<System.DateTime> Time
-		{
-			get
-			{
-				return this._Time;
-			}
-			set
-			{
-				if ((this._Time != value))
-				{
-					this.OnTimeChanging(value);
-					this.SendPropertyChanging();
-					this._Time = value;
-					this.SendPropertyChanged("Time");
-					this.OnTimeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartDate", DbType="Date")]
-		public System.Nullable<System.DateTime> StartDate
-		{
-			get
-			{
-				return this._StartDate;
-			}
-			set
-			{
-				if ((this._StartDate != value))
-				{
-					this.OnStartDateChanging(value);
-					this.SendPropertyChanging();
-					this._StartDate = value;
-					this.SendPropertyChanged("StartDate");
-					this.OnStartDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndDate", DbType="Date")]
-		public System.Nullable<System.DateTime> EndDate
-		{
-			get
-			{
-				return this._EndDate;
-			}
-			set
-			{
-				if ((this._EndDate != value))
-				{
-					this.OnEndDateChanging(value);
-					this.SendPropertyChanging();
-					this._EndDate = value;
-					this.SendPropertyChanged("EndDate");
-					this.OnEndDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ListId", DbType="Decimal(16,0) NOT NULL")]
-		public decimal ListId
-		{
-			get
-			{
-				return this._ListId;
-			}
-			set
-			{
-				if ((this._ListId != value))
-				{
-					if (this._GeneralList.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnListIdChanging(value);
-					this.SendPropertyChanging();
-					this._ListId = value;
-					this.SendPropertyChanged("ListId");
-					this.OnListIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserAuthor", DbType="Decimal(9,0)")]
-		public System.Nullable<decimal> UserAuthor
-		{
-			get
-			{
-				return this._UserAuthor;
-			}
-			set
-			{
-				if ((this._UserAuthor != value))
-				{
-					if (this._MoneySplitUser.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnUserAuthorChanging(value);
-					this.SendPropertyChanging();
-					this._UserAuthor = value;
-					this.SendPropertyChanged("UserAuthor");
-					this.OnUserAuthorChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GeneralTransaction_StoreTransaction", Storage="_StoreTransaction", ThisKey="TransactionId", OtherKey="TransactionId", IsUnique=true, IsForeignKey=false)]
-		public StoreTransaction StoreTransaction
-		{
-			get
-			{
-				return this._StoreTransaction.Entity;
-			}
-			set
-			{
-				StoreTransaction previousValue = this._StoreTransaction.Entity;
-				if (((previousValue != value) 
-							|| (this._StoreTransaction.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._StoreTransaction.Entity = null;
-						previousValue.GeneralTransaction = null;
-					}
-					this._StoreTransaction.Entity = value;
-					if ((value != null))
-					{
-						value.GeneralTransaction = this;
-					}
-					this.SendPropertyChanged("StoreTransaction");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GeneralTransaction_TaggedTransaction", Storage="_TaggedTransactions", ThisKey="TransactionId", OtherKey="TransactionId")]
-		public EntitySet<TaggedTransaction> TaggedTransactions
-		{
-			get
-			{
-				return this._TaggedTransactions;
-			}
-			set
-			{
-				this._TaggedTransactions.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GeneralList_GeneralTransaction", Storage="_GeneralList", ThisKey="ListId", OtherKey="ListId", IsForeignKey=true)]
-		public GeneralList GeneralList
-		{
-			get
-			{
-				return this._GeneralList.Entity;
-			}
-			set
-			{
-				GeneralList previousValue = this._GeneralList.Entity;
-				if (((previousValue != value) 
-							|| (this._GeneralList.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._GeneralList.Entity = null;
-						previousValue.GeneralTransactions.Remove(this);
-					}
-					this._GeneralList.Entity = value;
-					if ((value != null))
-					{
-						value.GeneralTransactions.Add(this);
-						this._ListId = value.ListId;
-					}
-					else
-					{
-						this._ListId = default(decimal);
-					}
-					this.SendPropertyChanged("GeneralList");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="MoneySplitUser_GeneralTransaction", Storage="_MoneySplitUser", ThisKey="UserAuthor", OtherKey="ContextId", IsForeignKey=true)]
-		public MoneySplitUser MoneySplitUser
-		{
-			get
-			{
-				return this._MoneySplitUser.Entity;
-			}
-			set
-			{
-				MoneySplitUser previousValue = this._MoneySplitUser.Entity;
-				if (((previousValue != value) 
-							|| (this._MoneySplitUser.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._MoneySplitUser.Entity = null;
-						previousValue.GeneralTransactions.Remove(this);
-					}
-					this._MoneySplitUser.Entity = value;
-					if ((value != null))
-					{
-						value.GeneralTransactions.Add(this);
-						this._UserAuthor = value.ContextId;
-					}
-					else
-					{
-						this._UserAuthor = default(Nullable<decimal>);
-					}
-					this.SendPropertyChanged("MoneySplitUser");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_TaggedTransactions(TaggedTransaction entity)
-		{
-			this.SendPropertyChanging();
-			entity.GeneralTransaction = this;
-		}
-		
-		private void detach_TaggedTransactions(TaggedTransaction entity)
-		{
-			this.SendPropertyChanging();
-			entity.GeneralTransaction = null;
 		}
 	}
 	
@@ -1749,13 +982,13 @@ namespace DatabaseController
 		
 		private decimal _ContextId;
 		
-		private EntitySet<GeneralTransaction> _GeneralTransactions;
-		
 		private EntityRef<MoneySplitTelegramUser> _MoneySplitTelegramUser;
 		
 		private EntitySet<SharedContext> _SharedContexts;
 		
 		private EntitySet<SharedContextUser> _SharedContextUsers;
+		
+		private EntitySet<GeneralTransaction> _GeneralTransactions;
 		
 		private EntityRef<GeneralContext> _GeneralContext;
 		
@@ -1771,10 +1004,10 @@ namespace DatabaseController
 		
 		public MoneySplitUser()
 		{
-			this._GeneralTransactions = new EntitySet<GeneralTransaction>(new Action<GeneralTransaction>(this.attach_GeneralTransactions), new Action<GeneralTransaction>(this.detach_GeneralTransactions));
 			this._MoneySplitTelegramUser = default(EntityRef<MoneySplitTelegramUser>);
 			this._SharedContexts = new EntitySet<SharedContext>(new Action<SharedContext>(this.attach_SharedContexts), new Action<SharedContext>(this.detach_SharedContexts));
 			this._SharedContextUsers = new EntitySet<SharedContextUser>(new Action<SharedContextUser>(this.attach_SharedContextUsers), new Action<SharedContextUser>(this.detach_SharedContextUsers));
+			this._GeneralTransactions = new EntitySet<GeneralTransaction>(new Action<GeneralTransaction>(this.attach_GeneralTransactions), new Action<GeneralTransaction>(this.detach_GeneralTransactions));
 			this._GeneralContext = default(EntityRef<GeneralContext>);
 			OnCreated();
 		}
@@ -1820,19 +1053,6 @@ namespace DatabaseController
 					this.SendPropertyChanged("ContextId");
 					this.OnContextIdChanged();
 				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="MoneySplitUser_GeneralTransaction", Storage="_GeneralTransactions", ThisKey="ContextId", OtherKey="UserAuthor")]
-		public EntitySet<GeneralTransaction> GeneralTransactions
-		{
-			get
-			{
-				return this._GeneralTransactions;
-			}
-			set
-			{
-				this._GeneralTransactions.Assign(value);
 			}
 		}
 		
@@ -1891,6 +1111,19 @@ namespace DatabaseController
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="MoneySplitUser_GeneralTransaction", Storage="_GeneralTransactions", ThisKey="ContextId", OtherKey="UserAuthor")]
+		public EntitySet<GeneralTransaction> GeneralTransactions
+		{
+			get
+			{
+				return this._GeneralTransactions;
+			}
+			set
+			{
+				this._GeneralTransactions.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GeneralContext_MoneySplitUser", Storage="_GeneralContext", ThisKey="ContextId", OtherKey="ContextId", IsForeignKey=true)]
 		public GeneralContext GeneralContext
 		{
@@ -1945,18 +1178,6 @@ namespace DatabaseController
 			}
 		}
 		
-		private void attach_GeneralTransactions(GeneralTransaction entity)
-		{
-			this.SendPropertyChanging();
-			entity.MoneySplitUser = this;
-		}
-		
-		private void detach_GeneralTransactions(GeneralTransaction entity)
-		{
-			this.SendPropertyChanging();
-			entity.MoneySplitUser = null;
-		}
-		
 		private void attach_SharedContexts(SharedContext entity)
 		{
 			this.SendPropertyChanging();
@@ -1976,6 +1197,18 @@ namespace DatabaseController
 		}
 		
 		private void detach_SharedContextUsers(SharedContextUser entity)
+		{
+			this.SendPropertyChanging();
+			entity.MoneySplitUser = null;
+		}
+		
+		private void attach_GeneralTransactions(GeneralTransaction entity)
+		{
+			this.SendPropertyChanging();
+			entity.MoneySplitUser = this;
+		}
+		
+		private void detach_GeneralTransactions(GeneralTransaction entity)
 		{
 			this.SendPropertyChanging();
 			entity.MoneySplitUser = null;
@@ -2698,9 +1931,9 @@ namespace DatabaseController
 		
 		private string _VatAccount;
 		
-		private EntityRef<GeneralTransaction> _GeneralTransaction;
-		
 		private EntityRef<Store> _Store;
+		
+		private EntityRef<GeneralTransaction> _GeneralTransaction;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -2722,8 +1955,8 @@ namespace DatabaseController
 		
 		public StoreTransaction()
 		{
-			this._GeneralTransaction = default(EntityRef<GeneralTransaction>);
 			this._Store = default(EntityRef<Store>);
+			this._GeneralTransaction = default(EntityRef<GeneralTransaction>);
 			OnCreated();
 		}
 		
@@ -2855,40 +2088,6 @@ namespace DatabaseController
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GeneralTransaction_StoreTransaction", Storage="_GeneralTransaction", ThisKey="TransactionId", OtherKey="TransactionId", IsForeignKey=true)]
-		public GeneralTransaction GeneralTransaction
-		{
-			get
-			{
-				return this._GeneralTransaction.Entity;
-			}
-			set
-			{
-				GeneralTransaction previousValue = this._GeneralTransaction.Entity;
-				if (((previousValue != value) 
-							|| (this._GeneralTransaction.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._GeneralTransaction.Entity = null;
-						previousValue.StoreTransaction = null;
-					}
-					this._GeneralTransaction.Entity = value;
-					if ((value != null))
-					{
-						value.StoreTransaction = this;
-						this._TransactionId = value.TransactionId;
-					}
-					else
-					{
-						this._TransactionId = default(decimal);
-					}
-					this.SendPropertyChanged("GeneralTransaction");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Store_StoreTransaction", Storage="_Store", ThisKey="VatAccount", OtherKey="VatAccount", IsForeignKey=true)]
 		public Store Store
 		{
@@ -2919,6 +2118,40 @@ namespace DatabaseController
 						this._VatAccount = default(string);
 					}
 					this.SendPropertyChanged("Store");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GeneralTransaction_StoreTransaction", Storage="_GeneralTransaction", ThisKey="TransactionId", OtherKey="TransactionId", IsForeignKey=true)]
+		public GeneralTransaction GeneralTransaction
+		{
+			get
+			{
+				return this._GeneralTransaction.Entity;
+			}
+			set
+			{
+				GeneralTransaction previousValue = this._GeneralTransaction.Entity;
+				if (((previousValue != value) 
+							|| (this._GeneralTransaction.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._GeneralTransaction.Entity = null;
+						previousValue.StoreTransaction = null;
+					}
+					this._GeneralTransaction.Entity = value;
+					if ((value != null))
+					{
+						value.StoreTransaction = this;
+						this._TransactionId = value.TransactionId;
+					}
+					else
+					{
+						this._TransactionId = default(decimal);
+					}
+					this.SendPropertyChanged("GeneralTransaction");
 				}
 			}
 		}
@@ -3068,9 +2301,9 @@ namespace DatabaseController
 		
 		private decimal _TransactionId;
 		
-		private EntityRef<GeneralTransaction> _GeneralTransaction;
-		
 		private EntityRef<Tag> _Tag;
+		
+		private EntityRef<GeneralTransaction> _GeneralTransaction;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -3084,8 +2317,8 @@ namespace DatabaseController
 		
 		public TaggedTransaction()
 		{
-			this._GeneralTransaction = default(EntityRef<GeneralTransaction>);
 			this._Tag = default(EntityRef<Tag>);
+			this._GeneralTransaction = default(EntityRef<GeneralTransaction>);
 			OnCreated();
 		}
 		
@@ -3137,40 +2370,6 @@ namespace DatabaseController
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GeneralTransaction_TaggedTransaction", Storage="_GeneralTransaction", ThisKey="TransactionId", OtherKey="TransactionId", IsForeignKey=true)]
-		public GeneralTransaction GeneralTransaction
-		{
-			get
-			{
-				return this._GeneralTransaction.Entity;
-			}
-			set
-			{
-				GeneralTransaction previousValue = this._GeneralTransaction.Entity;
-				if (((previousValue != value) 
-							|| (this._GeneralTransaction.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._GeneralTransaction.Entity = null;
-						previousValue.TaggedTransactions.Remove(this);
-					}
-					this._GeneralTransaction.Entity = value;
-					if ((value != null))
-					{
-						value.TaggedTransactions.Add(this);
-						this._TransactionId = value.TransactionId;
-					}
-					else
-					{
-						this._TransactionId = default(decimal);
-					}
-					this.SendPropertyChanged("GeneralTransaction");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Tag_TaggedTransaction", Storage="_Tag", ThisKey="TagName", OtherKey="TagName", IsForeignKey=true)]
 		public Tag Tag
 		{
@@ -3201,6 +2400,40 @@ namespace DatabaseController
 						this._TagName = default(string);
 					}
 					this.SendPropertyChanged("Tag");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GeneralTransaction_TaggedTransaction", Storage="_GeneralTransaction", ThisKey="TransactionId", OtherKey="TransactionId", IsForeignKey=true)]
+		public GeneralTransaction GeneralTransaction
+		{
+			get
+			{
+				return this._GeneralTransaction.Entity;
+			}
+			set
+			{
+				GeneralTransaction previousValue = this._GeneralTransaction.Entity;
+				if (((previousValue != value) 
+							|| (this._GeneralTransaction.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._GeneralTransaction.Entity = null;
+						previousValue.TaggedTransactions.Remove(this);
+					}
+					this._GeneralTransaction.Entity = value;
+					if ((value != null))
+					{
+						value.TaggedTransactions.Add(this);
+						this._TransactionId = value.TransactionId;
+					}
+					else
+					{
+						this._TransactionId = default(decimal);
+					}
+					this.SendPropertyChanged("GeneralTransaction");
 				}
 			}
 		}
@@ -3286,6 +2519,773 @@ namespace DatabaseController
 					this._Name = value;
 				}
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.GeneralList")]
+	public partial class GeneralList : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private decimal _ListId;
+		
+		private decimal _Vers;
+		
+		private string _Name;
+		
+		private decimal _ContextId;
+		
+		private string _Iban;
+		
+		private string _CF_owner;
+		
+		private decimal _ListType;
+		
+		private decimal _TotalAmount;
+		
+		private EntitySet<GeneralTransaction> _GeneralTransactions;
+		
+		private EntityRef<GeneralContext> _GeneralContext;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnListIdChanging(decimal value);
+    partial void OnListIdChanged();
+    partial void OnVersChanging(decimal value);
+    partial void OnVersChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnContextIdChanging(decimal value);
+    partial void OnContextIdChanged();
+    partial void OnIbanChanging(string value);
+    partial void OnIbanChanged();
+    partial void OnCF_ownerChanging(string value);
+    partial void OnCF_ownerChanged();
+    partial void OnListTypeChanging(decimal value);
+    partial void OnListTypeChanged();
+    partial void OnTotalAmountChanging(decimal value);
+    partial void OnTotalAmountChanged();
+    #endregion
+		
+		public GeneralList()
+		{
+			this._GeneralTransactions = new EntitySet<GeneralTransaction>(new Action<GeneralTransaction>(this.attach_GeneralTransactions), new Action<GeneralTransaction>(this.detach_GeneralTransactions));
+			this._GeneralContext = default(EntityRef<GeneralContext>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ListId", AutoSync=AutoSync.OnInsert, DbType="Decimal(16,0) NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public decimal ListId
+		{
+			get
+			{
+				return this._ListId;
+			}
+			set
+			{
+				if ((this._ListId != value))
+				{
+					this.OnListIdChanging(value);
+					this.SendPropertyChanging();
+					this._ListId = value;
+					this.SendPropertyChanged("ListId");
+					this.OnListIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Vers", DbType="Decimal(9,0) NOT NULL")]
+		public decimal Vers
+		{
+			get
+			{
+				return this._Vers;
+			}
+			set
+			{
+				if ((this._Vers != value))
+				{
+					this.OnVersChanging(value);
+					this.SendPropertyChanging();
+					this._Vers = value;
+					this.SendPropertyChanged("Vers");
+					this.OnVersChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContextId", DbType="Decimal(9,0) NOT NULL")]
+		public decimal ContextId
+		{
+			get
+			{
+				return this._ContextId;
+			}
+			set
+			{
+				if ((this._ContextId != value))
+				{
+					if (this._GeneralContext.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnContextIdChanging(value);
+					this.SendPropertyChanging();
+					this._ContextId = value;
+					this.SendPropertyChanged("ContextId");
+					this.OnContextIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Iban", DbType="Char(27)")]
+		public string Iban
+		{
+			get
+			{
+				return this._Iban;
+			}
+			set
+			{
+				if ((this._Iban != value))
+				{
+					this.OnIbanChanging(value);
+					this.SendPropertyChanging();
+					this._Iban = value;
+					this.SendPropertyChanged("Iban");
+					this.OnIbanChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CF_owner", DbType="Char(16)")]
+		public string CF_owner
+		{
+			get
+			{
+				return this._CF_owner;
+			}
+			set
+			{
+				if ((this._CF_owner != value))
+				{
+					this.OnCF_ownerChanging(value);
+					this.SendPropertyChanging();
+					this._CF_owner = value;
+					this.SendPropertyChanged("CF_owner");
+					this.OnCF_ownerChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ListType", DbType="Decimal(2,0) NOT NULL")]
+		public decimal ListType
+		{
+			get
+			{
+				return this._ListType;
+			}
+			set
+			{
+				if ((this._ListType != value))
+				{
+					this.OnListTypeChanging(value);
+					this.SendPropertyChanging();
+					this._ListType = value;
+					this.SendPropertyChanged("ListType");
+					this.OnListTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalAmount", DbType="Decimal(16,0) NOT NULL")]
+		public decimal TotalAmount
+		{
+			get
+			{
+				return this._TotalAmount;
+			}
+			set
+			{
+				if ((this._TotalAmount != value))
+				{
+					this.OnTotalAmountChanging(value);
+					this.SendPropertyChanging();
+					this._TotalAmount = value;
+					this.SendPropertyChanged("TotalAmount");
+					this.OnTotalAmountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GeneralList_GeneralTransaction", Storage="_GeneralTransactions", ThisKey="ListId", OtherKey="ListId")]
+		public EntitySet<GeneralTransaction> GeneralTransactions
+		{
+			get
+			{
+				return this._GeneralTransactions;
+			}
+			set
+			{
+				this._GeneralTransactions.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GeneralContext_GeneralList", Storage="_GeneralContext", ThisKey="ContextId", OtherKey="ContextId", IsForeignKey=true)]
+		public GeneralContext GeneralContext
+		{
+			get
+			{
+				return this._GeneralContext.Entity;
+			}
+			set
+			{
+				GeneralContext previousValue = this._GeneralContext.Entity;
+				if (((previousValue != value) 
+							|| (this._GeneralContext.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._GeneralContext.Entity = null;
+						previousValue.GeneralLists.Remove(this);
+					}
+					this._GeneralContext.Entity = value;
+					if ((value != null))
+					{
+						value.GeneralLists.Add(this);
+						this._ContextId = value.ContextId;
+					}
+					else
+					{
+						this._ContextId = default(decimal);
+					}
+					this.SendPropertyChanged("GeneralContext");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_GeneralTransactions(GeneralTransaction entity)
+		{
+			this.SendPropertyChanging();
+			entity.GeneralList = this;
+		}
+		
+		private void detach_GeneralTransactions(GeneralTransaction entity)
+		{
+			this.SendPropertyChanging();
+			entity.GeneralList = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.GeneralTransaction")]
+	public partial class GeneralTransaction : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private decimal _TransactionId;
+		
+		private decimal _Amount;
+		
+		private string _Description;
+		
+		private decimal _TransType;
+		
+		private System.Nullable<System.DateTime> _Date;
+		
+		private System.Nullable<decimal> _DayRecurrence;
+		
+		private System.Nullable<decimal> _MonthRecurrence;
+		
+		private System.Nullable<System.DateTime> _Time;
+		
+		private System.Nullable<System.DateTime> _StartDate;
+		
+		private System.Nullable<System.DateTime> _EndDate;
+		
+		private decimal _ListId;
+		
+		private System.Nullable<decimal> _UserAuthor;
+		
+		private EntityRef<StoreTransaction> _StoreTransaction;
+		
+		private EntitySet<TaggedTransaction> _TaggedTransactions;
+		
+		private EntityRef<GeneralList> _GeneralList;
+		
+		private EntityRef<MoneySplitUser> _MoneySplitUser;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnTransactionIdChanging(decimal value);
+    partial void OnTransactionIdChanged();
+    partial void OnAmountChanging(decimal value);
+    partial void OnAmountChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnTransTypeChanging(decimal value);
+    partial void OnTransTypeChanged();
+    partial void OnDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateChanged();
+    partial void OnDayRecurrenceChanging(System.Nullable<decimal> value);
+    partial void OnDayRecurrenceChanged();
+    partial void OnMonthRecurrenceChanging(System.Nullable<decimal> value);
+    partial void OnMonthRecurrenceChanged();
+    partial void OnTimeChanging(System.Nullable<System.DateTime> value);
+    partial void OnTimeChanged();
+    partial void OnStartDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnStartDateChanged();
+    partial void OnEndDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnEndDateChanged();
+    partial void OnListIdChanging(decimal value);
+    partial void OnListIdChanged();
+    partial void OnUserAuthorChanging(System.Nullable<decimal> value);
+    partial void OnUserAuthorChanged();
+    #endregion
+		
+		public GeneralTransaction()
+		{
+			this._StoreTransaction = default(EntityRef<StoreTransaction>);
+			this._TaggedTransactions = new EntitySet<TaggedTransaction>(new Action<TaggedTransaction>(this.attach_TaggedTransactions), new Action<TaggedTransaction>(this.detach_TaggedTransactions));
+			this._GeneralList = default(EntityRef<GeneralList>);
+			this._MoneySplitUser = default(EntityRef<MoneySplitUser>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TransactionId", AutoSync=AutoSync.OnInsert, DbType="Decimal(16,0) NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public decimal TransactionId
+		{
+			get
+			{
+				return this._TransactionId;
+			}
+			set
+			{
+				if ((this._TransactionId != value))
+				{
+					this.OnTransactionIdChanging(value);
+					this.SendPropertyChanging();
+					this._TransactionId = value;
+					this.SendPropertyChanged("TransactionId");
+					this.OnTransactionIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Amount", DbType="Decimal(15,2) NOT NULL")]
+		public decimal Amount
+		{
+			get
+			{
+				return this._Amount;
+			}
+			set
+			{
+				if ((this._Amount != value))
+				{
+					this.OnAmountChanging(value);
+					this.SendPropertyChanging();
+					this._Amount = value;
+					this.SendPropertyChanged("Amount");
+					this.OnAmountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(1000) NOT NULL", CanBeNull=false)]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TransType", DbType="Decimal(2,0) NOT NULL")]
+		public decimal TransType
+		{
+			get
+			{
+				return this._TransType;
+			}
+			set
+			{
+				if ((this._TransType != value))
+				{
+					this.OnTransTypeChanging(value);
+					this.SendPropertyChanging();
+					this._TransType = value;
+					this.SendPropertyChanged("TransType");
+					this.OnTransTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="Date")]
+		public System.Nullable<System.DateTime> Date
+		{
+			get
+			{
+				return this._Date;
+			}
+			set
+			{
+				if ((this._Date != value))
+				{
+					this.OnDateChanging(value);
+					this.SendPropertyChanging();
+					this._Date = value;
+					this.SendPropertyChanged("Date");
+					this.OnDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DayRecurrence", DbType="Decimal(2,0)")]
+		public System.Nullable<decimal> DayRecurrence
+		{
+			get
+			{
+				return this._DayRecurrence;
+			}
+			set
+			{
+				if ((this._DayRecurrence != value))
+				{
+					this.OnDayRecurrenceChanging(value);
+					this.SendPropertyChanging();
+					this._DayRecurrence = value;
+					this.SendPropertyChanged("DayRecurrence");
+					this.OnDayRecurrenceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MonthRecurrence", DbType="Decimal(2,0)")]
+		public System.Nullable<decimal> MonthRecurrence
+		{
+			get
+			{
+				return this._MonthRecurrence;
+			}
+			set
+			{
+				if ((this._MonthRecurrence != value))
+				{
+					this.OnMonthRecurrenceChanging(value);
+					this.SendPropertyChanging();
+					this._MonthRecurrence = value;
+					this.SendPropertyChanged("MonthRecurrence");
+					this.OnMonthRecurrenceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Time", DbType="Date")]
+		public System.Nullable<System.DateTime> Time
+		{
+			get
+			{
+				return this._Time;
+			}
+			set
+			{
+				if ((this._Time != value))
+				{
+					this.OnTimeChanging(value);
+					this.SendPropertyChanging();
+					this._Time = value;
+					this.SendPropertyChanged("Time");
+					this.OnTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartDate", DbType="Date")]
+		public System.Nullable<System.DateTime> StartDate
+		{
+			get
+			{
+				return this._StartDate;
+			}
+			set
+			{
+				if ((this._StartDate != value))
+				{
+					this.OnStartDateChanging(value);
+					this.SendPropertyChanging();
+					this._StartDate = value;
+					this.SendPropertyChanged("StartDate");
+					this.OnStartDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndDate", DbType="Date")]
+		public System.Nullable<System.DateTime> EndDate
+		{
+			get
+			{
+				return this._EndDate;
+			}
+			set
+			{
+				if ((this._EndDate != value))
+				{
+					this.OnEndDateChanging(value);
+					this.SendPropertyChanging();
+					this._EndDate = value;
+					this.SendPropertyChanged("EndDate");
+					this.OnEndDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ListId", DbType="Decimal(16,0) NOT NULL")]
+		public decimal ListId
+		{
+			get
+			{
+				return this._ListId;
+			}
+			set
+			{
+				if ((this._ListId != value))
+				{
+					if (this._GeneralList.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnListIdChanging(value);
+					this.SendPropertyChanging();
+					this._ListId = value;
+					this.SendPropertyChanged("ListId");
+					this.OnListIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserAuthor", DbType="Decimal(9,0)")]
+		public System.Nullable<decimal> UserAuthor
+		{
+			get
+			{
+				return this._UserAuthor;
+			}
+			set
+			{
+				if ((this._UserAuthor != value))
+				{
+					if (this._MoneySplitUser.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserAuthorChanging(value);
+					this.SendPropertyChanging();
+					this._UserAuthor = value;
+					this.SendPropertyChanged("UserAuthor");
+					this.OnUserAuthorChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GeneralTransaction_StoreTransaction", Storage="_StoreTransaction", ThisKey="TransactionId", OtherKey="TransactionId", IsUnique=true, IsForeignKey=false)]
+		public StoreTransaction StoreTransaction
+		{
+			get
+			{
+				return this._StoreTransaction.Entity;
+			}
+			set
+			{
+				StoreTransaction previousValue = this._StoreTransaction.Entity;
+				if (((previousValue != value) 
+							|| (this._StoreTransaction.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._StoreTransaction.Entity = null;
+						previousValue.GeneralTransaction = null;
+					}
+					this._StoreTransaction.Entity = value;
+					if ((value != null))
+					{
+						value.GeneralTransaction = this;
+					}
+					this.SendPropertyChanged("StoreTransaction");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GeneralTransaction_TaggedTransaction", Storage="_TaggedTransactions", ThisKey="TransactionId", OtherKey="TransactionId")]
+		public EntitySet<TaggedTransaction> TaggedTransactions
+		{
+			get
+			{
+				return this._TaggedTransactions;
+			}
+			set
+			{
+				this._TaggedTransactions.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GeneralList_GeneralTransaction", Storage="_GeneralList", ThisKey="ListId", OtherKey="ListId", IsForeignKey=true)]
+		public GeneralList GeneralList
+		{
+			get
+			{
+				return this._GeneralList.Entity;
+			}
+			set
+			{
+				GeneralList previousValue = this._GeneralList.Entity;
+				if (((previousValue != value) 
+							|| (this._GeneralList.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._GeneralList.Entity = null;
+						previousValue.GeneralTransactions.Remove(this);
+					}
+					this._GeneralList.Entity = value;
+					if ((value != null))
+					{
+						value.GeneralTransactions.Add(this);
+						this._ListId = value.ListId;
+					}
+					else
+					{
+						this._ListId = default(decimal);
+					}
+					this.SendPropertyChanged("GeneralList");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="MoneySplitUser_GeneralTransaction", Storage="_MoneySplitUser", ThisKey="UserAuthor", OtherKey="ContextId", IsForeignKey=true)]
+		public MoneySplitUser MoneySplitUser
+		{
+			get
+			{
+				return this._MoneySplitUser.Entity;
+			}
+			set
+			{
+				MoneySplitUser previousValue = this._MoneySplitUser.Entity;
+				if (((previousValue != value) 
+							|| (this._MoneySplitUser.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._MoneySplitUser.Entity = null;
+						previousValue.GeneralTransactions.Remove(this);
+					}
+					this._MoneySplitUser.Entity = value;
+					if ((value != null))
+					{
+						value.GeneralTransactions.Add(this);
+						this._UserAuthor = value.ContextId;
+					}
+					else
+					{
+						this._UserAuthor = default(Nullable<decimal>);
+					}
+					this.SendPropertyChanged("MoneySplitUser");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_TaggedTransactions(TaggedTransaction entity)
+		{
+			this.SendPropertyChanging();
+			entity.GeneralTransaction = this;
+		}
+		
+		private void detach_TaggedTransactions(TaggedTransaction entity)
+		{
+			this.SendPropertyChanging();
+			entity.GeneralTransaction = null;
 		}
 	}
 	

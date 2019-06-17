@@ -46,7 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseController.cs" />
-    <Compile Include="IDatabaseController.cs" />
     <Compile Include="MoneySplitDataClasses.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

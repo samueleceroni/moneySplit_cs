@@ -5,17 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="159.333" Width="256.333">
+        Title="LoginWindow" Height="231.333" Width="277.333">
     <Grid>
-        <TextBox x:Name="loginIDTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" Margin="10,11,0,0" TextWrapping="Wrap" TextAlignment="Center"  Text="Enter ID" VerticalAlignment="Top" Width="68"/>
-        <Button x:Name="loginButton" Content="Login" HorizontalAlignment="Left" VerticalAlignment="Top" Width="73" Margin="165,11,0,0" Height="23"/>
-        <Button x:Name="registerUserButton" Content="Register User" HorizontalAlignment="Left" VerticalAlignment="Top" Width="228" Margin="10,39,0,0" Height="23"/>
-        <Button x:Name="adminViewButton" Content="Admin View" HorizontalAlignment="Left" VerticalAlignment="Top" Width="228" Margin="10,95,0,0" Height="23"/>
-        <ComboBox x:Name="typeIDComboBox" HorizontalAlignment="Left" Margin="83,11,0,0" VerticalAlignment="Top" Width="77" Height="23" SelectedIndex="0">
-            <ComboBoxItem Name="allVersionsListFilter">Context</ComboBoxItem>
-            <ComboBoxItem Name="lastVersionListFilter">Telegram</ComboBoxItem>
+        <TextBox x:Name="loginIDTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" Margin="10,11,0,0" TextWrapping="Wrap" TextAlignment="Center"  Text="Enter ID" VerticalAlignment="Top" Width="74"/>
+        <Button x:Name="loginButton" Content="Login" HorizontalAlignment="Left" VerticalAlignment="Top" Width="79" Margin="179,11,0,0" Height="23" Click="LoginButton_Click"/>
+        <Button x:Name="registerUserButton" Content="Register User" HorizontalAlignment="Left" VerticalAlignment="Top" Width="112" Margin="147,39,0,0" Height="69" Click="RegisterUserButton_Click"/>
+        <Button x:Name="adminViewButton" Content="Admin View" HorizontalAlignment="Left" VerticalAlignment="Top" Width="249" Margin="10,167,0,0" Height="23" Click="AdminViewButton_Click"/>
+        <ComboBox x:Name="typeIDComboBox" HorizontalAlignment="Left" Margin="89,11,0,0" VerticalAlignment="Top" Width="84" Height="23" SelectedIndex="0">
+            <ComboBoxItem Name="contextComboItem">Context</ComboBoxItem>
+            <ComboBoxItem Name="telegramComboItem">Telegram</ComboBoxItem>
         </ComboBox>
-        <Button x:Name="registerGroupButton" Content="Register Group" HorizontalAlignment="Left" VerticalAlignment="Top" Width="228" Margin="10,67,0,0" Height="23"/>
+        <Button x:Name="registerGroupButton" Content="Register Group" HorizontalAlignment="Left" VerticalAlignment="Top" Width="112" Margin="147,113,0,0" Height="49" Click="RegisterGroupButton_Click"/>
+        <TextBox x:Name="registerGroupTelegramIdTextBox" HorizontalAlignment="Left" Height="22" Margin="10,113,0,0" TextWrapping="Wrap" Text="Telegram Group ID" VerticalAlignment="Top" Width="132"/>
+        <TextBox x:Name="registerUserTelegramIdTextBox" IsEnabled="{Binding ElementName=isTelegramUserCheckBox, Path=IsChecked}" HorizontalAlignment="Left" Height="22" Margin="10,86,0,0" TextWrapping="Wrap" Text="Telegram User ID" VerticalAlignment="Top" Width="132"/>
+        <CheckBox x:Name="isTelegramUserCheckBox" IsChecked="True" Content="Use telegram?" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Width="111"/>
+        <TextBox x:Name="registerGroupNameTextBox" HorizontalAlignment="Left" Height="22" Margin="10,140,0,0" TextWrapping="Wrap" Text="Telegram Group Name" VerticalAlignment="Top" Width="132"/>
+        <TextBox x:Name="registerUserNameTextBox" HorizontalAlignment="Left" Height="22" Margin="10,39,0,0" TextWrapping="Wrap" Text="Name of the new user" VerticalAlignment="Top" Width="132" RenderTransformOrigin="-0.595,-1.182"/>
 
     </Grid>
 </Window>
