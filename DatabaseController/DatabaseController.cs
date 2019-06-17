@@ -9,7 +9,7 @@ namespace DatabaseController
 {
     public static class DatabaseController
     {
-        static readonly MoneySplitDataClassesDataContext db = new MoneySplitDataClassesDataContext();
+        private static readonly MoneySplitDataClassesDataContext db = new MoneySplitDataClassesDataContext();
         private static readonly string NOT_IMPLEMENTED = "Function is not implemented yet.";
         private static readonly string NAME_CAN_NOT_BE_EMPTY = "Name can not be empty.";
         private static readonly string INTERNAL_ERROR = "Internal error.";
@@ -36,8 +36,11 @@ namespace DatabaseController
 
         private static Result DBSubmitOrFail(string errorString = null)
         {
-            return Result.Try(() => db.SubmitChanges(System.Data.Linq.ConflictMode.FailOnFirstConflict),
+            var result = Result.Try(() => db.SubmitChanges(System.Data.Linq.ConflictMode.FailOnFirstConflict),
                                                      (Exception exc) => errorString ?? INTERNAL_ERROR + CANNOT_SUBMIT_CHANGES + exc.ToString());
+            //db.Connection.Close();
+            //db.Connection.Open();
+            return result;
         }
 
         private static int CreateNewGeneralContext()
@@ -367,7 +370,7 @@ namespace DatabaseController
             return (a && !b) || (!a && b);
         }
 
-        public static Result AddNewTransaction(int operatorContextID, int listID, double amount, string description, int transactionType = 0, int? dayRecurrence = null, int? monthRecurrence = null, DateTime? time = null, DateTime? startDate = null, DateTime? endDate = null, int? userAuthor = null, DateTime ? date = null)
+        public static Result AddNewTransaction(int operatorContextID, int listID, decimal amount, string description, int transactionType = 0, int? dayRecurrence = null, int? monthRecurrence = null, DateTime? time = null, DateTime? startDate = null, DateTime? endDate = null, int? userAuthor = null, DateTime ? date = null)
         {
 
             var listRes = GetAllLists(operatorContextID).Map(lists => lists.Where(list1 => list1.ListId == listID))
@@ -381,7 +384,7 @@ namespace DatabaseController
             
             var newTransaction = new GeneralTransaction
             {
-                Amount = (decimal)amount,
+                Amount = amount,
                 Description = description,
                 TransType = transactionType,
                 Date = date ?? DateTime.Now,
@@ -393,16 +396,16 @@ namespace DatabaseController
                 ListId = listID,
                 UserAuthor = userAuthor
             };
-
+            
             var listToUpdate =
                 (from lists in db.GeneralLists
                 where lists.ListId == list.ListId
                 select list).Single();
             decimal nextAmount = (decimal)amount + list.TotalAmount;
             listToUpdate.TotalAmount = nextAmount;
-
+            Result result = DBSubmitOrFail();
             db.GeneralTransactions.InsertOnSubmit(newTransaction);
-            return DBSubmitOrFail();
+            return result.OnSuccess(() => DBSubmitOrFail());
         }
 
         public static Result<int> GetIDOfLastVersionOfList(int operatorContextID, int listID)

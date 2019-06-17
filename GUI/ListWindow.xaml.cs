@@ -96,7 +96,7 @@ namespace GUI
             var listIdLastVersion = DatabaseController.DatabaseController.GetIDOfLastVersionOfList(UserContextID, ListID);
             if (listIdLastVersion.IsFailure) { MessageBox.Show(listIdLastVersion.Error, ERROR, MessageBoxButton.OK, MessageBoxImage.Error); this.Close(); return; }
 
-            var amountRes = Result.Create(Double.TryParse(newTransactionAmountTextBox.Text, out double newTransactionAmount), newTransactionAmount, AMOUNT_MUST_BE_NUMBER);
+            var amountRes = Result.Create(Decimal.TryParse(newTransactionAmountTextBox.Text, out decimal newTransactionAmount), newTransactionAmount, AMOUNT_MUST_BE_NUMBER);
             if (amountRes.IsFailure) { MessageBox.Show(amountRes.Error, ERROR, MessageBoxButton.OK, MessageBoxImage.Error); return; }
 
 
