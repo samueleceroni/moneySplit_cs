@@ -44,5 +44,27 @@ namespace DatabaseController.Properties {
                 return ((string)(this["MONEYSPLITConnectionString1"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-V80Q6D3\\SQLEXPRESS;Initial Catalog=MONEYSPLIT1;Integrated Sec" +
+            "urity=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False")]
+        public string MONEYSPLIT1ConnectionString {
+            get {
+                return ((string)(this["MONEYSPLIT1ConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-V80Q6D3\\SQLEXPRESS;Initial Catalog=MONEYSPLIT;Integrated Secu" +
+            "rity=True;Connect Timeout=30;TrustServerCertificate=False")]
+        public string MONEYSPLITConnectionString2 {
+            get {
+                return ((string)(this["MONEYSPLITConnectionString2"]));
+            }
+        }
     }
 }

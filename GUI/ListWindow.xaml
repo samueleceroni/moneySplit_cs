@@ -52,18 +52,18 @@
         <Label x:Name="newTransactionDescriptionLabel" HorizontalContentAlignment="Center" Content="Description" HorizontalAlignment="Left" Margin="17,130,0,0" VerticalAlignment="Top" Width="141"/>
         <TextBox x:Name="newTransactionDescriptionTextBox" Foreground="DarkSlateGray" HorizontalAlignment="Left" Height="43" Margin="17,156,0,0" TextWrapping="Wrap" Text="e.g. Coffee" VerticalAlignment="Top" Width="141"/>
         <CheckBox x:Name="newTransactionIsRecurringCheckBox" Content="Recurring" HorizontalAlignment="Left" Margin="17,204,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="newTransactionRecurrenceStartDateLabel" IsEnabled="False" HorizontalContentAlignment="Center" Content="Starting date" HorizontalAlignment="Left" Margin="17,224,0,0" VerticalAlignment="Top" Width="102"/>
-        <DatePicker x:Name="newTransactionRecurrenceStartDatePicker" HorizontalAlignment="Left" Margin="17,250,0,0" VerticalAlignment="Top" IsEnabled="False" />
-        <Label x:Name="newTransactionRecurrenceRepetitionLabel" IsEnabled="False" HorizontalContentAlignment="Center" Content="Repeat every" HorizontalAlignment="Left" Margin="240,224,0,0" VerticalAlignment="Top" Width="106"/>
-        <TextBox x:Name="newTransactionRecurrenceRepetitionTextBox" VerticalContentAlignment="Center" IsEnabled="False" HorizontalAlignment="Left" Height="24" Margin="240,250,0,0" TextWrapping="Wrap" Text="1" HorizontalContentAlignment="Right" VerticalAlignment="Top" Width="26"/>
-        <ComboBox x:Name="newTransactionRecurrenceRepetitionComboBox" IsEnabled="False" HorizontalAlignment="Left" Margin="271,250,0,0" VerticalAlignment="Top" Width="75" SelectedIndex="0" Height="24" RenderTransformOrigin="1.662,0.583">
+        <Label x:Name="newTransactionRecurrenceStartDateLabel" IsEnabled="{Binding ElementName=newTransactionIsRecurringCheckBox, Path=IsChecked}" HorizontalContentAlignment="Center" Content="Starting date" HorizontalAlignment="Left" Margin="17,224,0,0" VerticalAlignment="Top" Width="102"/>
+        <DatePicker x:Name="newTransactionRecurrenceStartDatePicker" HorizontalAlignment="Left" Margin="17,250,0,0" VerticalAlignment="Top" IsEnabled="{Binding ElementName=newTransactionIsRecurringCheckBox, Path=IsChecked}" />
+        <Label x:Name="newTransactionRecurrenceRepetitionLabel" IsEnabled="{Binding ElementName=newTransactionIsRecurringCheckBox, Path=IsChecked}" HorizontalContentAlignment="Center" Content="Repeat every" HorizontalAlignment="Left" Margin="240,224,0,0" VerticalAlignment="Top" Width="106"/>
+        <TextBox x:Name="newTransactionRecurrenceRepetitionTextBox" VerticalContentAlignment="Center" IsEnabled="{Binding ElementName=newTransactionIsRecurringCheckBox, Path=IsChecked}" HorizontalAlignment="Left" Height="24" Margin="240,250,0,0" TextWrapping="Wrap" Text="1" HorizontalContentAlignment="Right" VerticalAlignment="Top" Width="26"/>
+        <ComboBox x:Name="newTransactionRecurrenceRepetitionComboBox" IsEnabled="{Binding ElementName=newTransactionIsRecurringCheckBox, Path=IsChecked}" HorizontalAlignment="Left" Margin="271,250,0,0" VerticalAlignment="Top" Width="75" SelectedIndex="0" Height="24" RenderTransformOrigin="1.662,0.583">
             <ComboBoxItem Name="Day">Day</ComboBoxItem>
             <ComboBoxItem Name="Week">Week</ComboBoxItem>
             <ComboBoxItem Name="Month">Month</ComboBoxItem>
             <ComboBoxItem Name="Year">Year</ComboBoxItem>
         </ComboBox>
-        <Label x:Name="newTransactionRecurrenceEndDateLabel" IsEnabled="False" HorizontalContentAlignment="Center" Content="End date" HorizontalAlignment="Left" Margin="127,224,0,0" VerticalAlignment="Top" Width="102"/>
-        <DatePicker x:Name="newTransactionRecurrenceEndDatePicker" HorizontalAlignment="Left" Margin="127,250,0,0" VerticalAlignment="Top" IsEnabled="False" />
+        <Label x:Name="newTransactionRecurrenceEndDateLabel" IsEnabled="{Binding ElementName=newTransactionIsRecurringCheckBox, Path=IsChecked}" HorizontalContentAlignment="Center" Content="End date" HorizontalAlignment="Left" Margin="127,224,0,0" VerticalAlignment="Top" Width="102"/>
+        <DatePicker x:Name="newTransactionRecurrenceEndDatePicker" HorizontalAlignment="Left" Margin="127,250,0,0" VerticalAlignment="Top" IsEnabled="{Binding ElementName=newTransactionIsRecurringCheckBox, Path=IsChecked}" />
         <TextBox x:Name="manageTransactionIDTextBox" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" Margin="53,329,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="50"/>
         <Label x:Name="manageTransactionIDlabel" Content="ID:" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="17,329,0,0" VerticalAlignment="Top" Height="23"/>
         <Button x:Name="deleteTransactionButton" Content="Delete" HorizontalAlignment="Left" Margin="271,329,0,0" VerticalAlignment="Top" Width="75" Height="23"/>

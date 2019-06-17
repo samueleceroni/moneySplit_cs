@@ -24,6 +24,7 @@ namespace DatabaseController
         private static readonly string LIST_NOT_FOUND = "List Not Found.";
         private static readonly string OR_NOT_PERMITTED = "Otherwise you can not access it.";
         private static readonly string WHEN_RECURRENT_A_RECURRENCE_SHOULD_BE_SELECTED = "When recurrent a recurrence should be selected.";
+        private static readonly string START_DATE_CAN_NOT_BE_NULL = "Start date must be selected.";
 
 
         private static int NextAvailableContextId {
@@ -154,27 +155,6 @@ namespace DatabaseController
             return DBSubmitOrFail();
         }
 
-        public static IEnumerable<GeneralTransaction> GetTransactions(int contextId, string listName, int? listVersion = null)
-        {
-
-            var allLists =
-                from list in db.GeneralLists
-                where list.ContextId == contextId && list.Name == listName
-                select new { listId = list.ListId, listVersion = list.Vers};
-
-            if (listVersion != null)
-            {
-                allLists = allLists.Where((list) => list.listVersion == listVersion);
-            }
-            var lists = allLists.Select((list) => list.listId);
-
-            var Transactions =
-                from trans in db.GeneralTransactions
-                where lists.Contains(trans.ListId)
-                select trans;
-            return Transactions;
-        }
-
         public static Result CheckRealContextID(int contextId)
         {
             var contextUser =
@@ -293,10 +273,11 @@ namespace DatabaseController
 
             // groups in which is the user (or none if the context is a group)
             var groups =
-                (from GU in db.GroupUsers join MSTU in db.MoneySplitTelegramUsers on GU.TelegramUserId equals MSTU.TelegramId
-                where MSTU.ContextId == contextID
-                select GU.TelegramGroup.ContextId).Distinct();
-            
+                (from GU in db.GroupUsers
+                 join MSTU in db.MoneySplitTelegramUsers on GU.TelegramUserId equals MSTU.TelegramId
+                 where MSTU.ContextId == contextID
+                 select GU.TelegramGroup.ContextId).Distinct();
+
             // shared contexts in which is the user (or none if the context is a group)
             var sharedContextsUser =
                 (from sharedContext in db.SharedContextUsers
@@ -305,28 +286,34 @@ namespace DatabaseController
 
             // shared context in which there is a group in which there is the user (or none if the context is a group)
             var sharedContextUserGroup =
-                (from SCG in db.SharedContextGroups join GU in db.GroupUsers on SCG.TelegramGroup equals GU.TelegramGroup join MSTU in db.MoneySplitTelegramUsers on GU.TelegramUserId equals MSTU.TelegramId
+                (from SCG in db.SharedContextGroups
+                 join GU in db.GroupUsers on SCG.TelegramGroup equals GU.TelegramGroup
+                 join MSTU in db.MoneySplitTelegramUsers on GU.TelegramUserId equals MSTU.TelegramId
                  where MSTU.ContextId == contextID
                  select SCG.SharedContextId).Distinct();
 
             var sharedContextGroup =
                 (from SCG in db.SharedContextGroups
-                where SCG.TelegramGroup.ContextId == contextID
-                select SCG.SharedContextId).Distinct();
+                 where SCG.TelegramGroup.ContextId == contextID
+                 select SCG.SharedContextId).Distinct();
 
             var lists =
                 (from list in db.GeneralLists
-                where list.ContextId == contextID
-                   || groups.Contains(list.ContextId)
-                   || sharedContextsUser.Contains(list.ContextId)
-                   || sharedContextUserGroup.Contains(list.ContextId)
-                   || sharedContextGroup.Contains(list.ContextId)
-                select list).Distinct()
-                            .Where(list => !(list.ListType==1 && !includeBankAccount))
-                            .Where(list => !(list.ListType==0 && !includeGeneralList));
+                 where list.ContextId == contextID
+                    || groups.Contains(list.ContextId)
+                    || sharedContextsUser.Contains(list.ContextId)
+                    || sharedContextUserGroup.Contains(list.ContextId)
+                    || sharedContextGroup.Contains(list.ContextId)
+                 select list).Distinct()
+                            .Where(list => !(list.ListType == 1 && !includeBankAccount))
+                            .Where(list => !(list.ListType == 0 && !includeGeneralList));
 
             return Result.Ok<IEnumerable<GeneralList>>(lists);
+        }
 
+        public static Result<IEnumerable<GeneralListDouble>> GetAllListsDouble(int contextID, bool includeGeneralList = true, bool includeBankAccount = true)
+        {
+            return GetAllLists(contextID, includeGeneralList, includeBankAccount).Map(lists => lists.Select(list => new GeneralListDouble(list)));
         }
 
         /// <summary>
@@ -337,13 +324,13 @@ namespace DatabaseController
         /// <param name="version">Is null if all version are requested</param>
         /// <param name="transactionType">Is null if all transaction type are requested</param>
         /// <returns></returns>
-        public static Result<IEnumerable<GeneralTransaction>> GetAllTransaction(int operatorContextID, int listID, int? version = null, int? transactionType = null)
+        public static Result<IEnumerable<GeneralTransactionDouble>> GetAllTransaction(int operatorContextID, int listID, int? version = null, int? transactionType = null)
         {
-            var listsResult = GetAllLists(operatorContextID);
-            if (listsResult.IsFailure) { return Result.Fail<IEnumerable<GeneralTransaction>>(listsResult.Error); }
+            var listsResult = GetAllListsDouble(operatorContextID);
+            if (listsResult.IsFailure) { return Result.Fail<IEnumerable<GeneralTransactionDouble>>(listsResult.Error); }
             var allListsUser = listsResult.Value;
             var identifiedLists = allListsUser.Where(list => list.ListId == listID);
-            if (identifiedLists.Count() == 0) { return Result.Fail<IEnumerable<GeneralTransaction>>(LIST_NOT_FOUND + OR_NOT_PERMITTED); }
+            if (identifiedLists.Count() == 0) { return Result.Fail<IEnumerable<GeneralTransactionDouble>>(LIST_NOT_FOUND + OR_NOT_PERMITTED); }
             var refList = identifiedLists.First();
 
             var lists = allListsUser.Where(list => list.Name == refList.Name)
@@ -355,12 +342,12 @@ namespace DatabaseController
                 where listsIDs.Contains(tr.ListId)
                 select tr;
             transactions = transactions.Where(tr => transactionType == null ? true : tr.TransType == transactionType);
-            return Result.Ok<IEnumerable<GeneralTransaction>>(transactions);
+            return Result.Ok<IEnumerable<GeneralTransactionDouble>>(transactions.Select(tran => new GeneralTransactionDouble(tran)));
         }
 
-        public static Result<GeneralList> GetListFullDetail(int operatorContextID, int listID)
+        public static Result<GeneralListDouble> GetListFullDetail(int operatorContextID, int listID)
         {
-            return GetAllLists(operatorContextID).Map(lists => lists.Where(list => list.ListId == listID))
+            return GetAllListsDouble(operatorContextID).Map(lists => lists.Where(list => list.ListId == listID))
                                                  .Ensure(lists => lists.Count() == 1, LIST_NOT_FOUND + OR_NOT_PERMITTED)
                                                  .Map(lists => lists.First());
         }
@@ -370,42 +357,51 @@ namespace DatabaseController
             return (a && !b) || (!a && b);
         }
 
-        public static Result AddNewTransaction(int operatorContextID, int listID, decimal amount, string description, int transactionType = 0, int? dayRecurrence = null, int? monthRecurrence = null, DateTime? time = null, DateTime? startDate = null, DateTime? endDate = null, int? userAuthor = null, DateTime ? date = null)
+        public static Result AddNewTransaction(int operatorContextID, int listID, decimal amount, string description, int transactionType = 0, int? userAuthor = null, int? dayRecurrence = null, int? monthRecurrence = null, DateTime? startDate = null, DateTime? endDate = null, DateTime ? date = null, DateTime ? recurrenceTime = null)
         {
 
             var listRes = GetAllLists(operatorContextID).Map(lists => lists.Where(list1 => list1.ListId == listID))
                                                         .Ensure(lists => lists.Count() == 1, LIST_NOT_FOUND + OR_NOT_PERMITTED)
                                                         .Map(lists => lists.First())
-                                                        .Ensure(value => (transactionType == 0 && (dayRecurrence == null && monthRecurrence == null))
-                                                                      || (transactionType == 1 && (Xor(dayRecurrence == null, monthRecurrence == null))), WHEN_RECURRENT_A_RECURRENCE_SHOULD_BE_SELECTED);
+                                                        .Ensure(value => (transactionType == 0 || (transactionType == 1 && (Xor(dayRecurrence == null, monthRecurrence == null)))), WHEN_RECURRENT_A_RECURRENCE_SHOULD_BE_SELECTED)
+                                                        .Ensure(value => (transactionType == 0 || (transactionType == 1 && startDate != null)), START_DATE_CAN_NOT_BE_NULL);
             if (listRes.IsFailure) return listRes;
 
             var list = listRes.Value;
+            int newAmount = (int)(amount * 100);
+            GeneralTransaction newTransaction;
             
-            var newTransaction = new GeneralTransaction
+            if (transactionType == 0)
             {
-                Amount = amount,
-                Description = description,
-                TransType = transactionType,
-                Date = date ?? DateTime.Now,
-                DayRecurrence = dayRecurrence,
-                MonthRecurrence = monthRecurrence,
-                Time = time,
-                StartDate = startDate,
-                EndDate = endDate,
-                ListId = listID,
-                UserAuthor = userAuthor
-            };
-            
-            var listToUpdate =
-                (from lists in db.GeneralLists
-                where lists.ListId == list.ListId
-                select list).Single();
-            decimal nextAmount = (decimal)amount + list.TotalAmount;
-            listToUpdate.TotalAmount = nextAmount;
-            Result result = DBSubmitOrFail();
+                newTransaction = new GeneralTransaction
+                {
+                    Amount = newAmount,
+                    Description = description,
+                    TransType = transactionType,
+                    Date = date ?? DateTime.Now,
+                    ListId = listID,
+                    UserAuthor = userAuthor
+                };
+                list.TotalAmount += newAmount;
+            } else
+            {
+                newTransaction = new GeneralTransaction
+                {
+                    Amount = newAmount,
+                    Description = description,
+                    TransType = transactionType,
+                    Date = date ?? DateTime.Now,
+                    DayRecurrence = dayRecurrence,
+                    MonthRecurrence = monthRecurrence,
+                    Time = recurrenceTime,
+                    StartDate = startDate,
+                    EndDate = endDate,
+                    ListId = listID,
+                    UserAuthor = userAuthor
+                };
+            }
             db.GeneralTransactions.InsertOnSubmit(newTransaction);
-            return result.OnSuccess(() => DBSubmitOrFail());
+            return DBSubmitOrFail();
         }
 
         public static Result<int> GetIDOfLastVersionOfList(int operatorContextID, int listID)

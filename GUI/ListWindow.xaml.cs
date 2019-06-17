@@ -122,11 +122,11 @@ namespace GUI
                     monthRecurrence = repetition * 12;
                 }
                 resAddTrans = DatabaseController.DatabaseController
-                                                .AddNewTransaction(UserContextID, listIdLastVersion.Value, amountRes.Value, newTransactionDescriptionTextBox.Text, 1, dayRecurrence, monthRecurrence, null, newTransactionRecurrenceStartDatePicker.SelectedDate, newTransactionRecurrenceEndDatePicker.SelectedDate, UserContextID);
+                                                .AddNewTransaction(UserContextID, listIdLastVersion.Value, amountRes.Value, newTransactionDescriptionTextBox.Text, 1, null, dayRecurrence, monthRecurrence, newTransactionRecurrenceStartDatePicker.SelectedDate, newTransactionRecurrenceEndDatePicker.SelectedDate);
             } else
             {
                 resAddTrans = DatabaseController.DatabaseController
-                                                .AddNewTransaction(UserContextID, listIdLastVersion.Value, amountRes.Value, newTransactionDescriptionTextBox.Text);
+                                                .AddNewTransaction(UserContextID, listIdLastVersion.Value, amountRes.Value, newTransactionDescriptionTextBox.Text, 0);
             }
             if (resAddTrans.IsFailure) { MessageBox.Show(resAddTrans.Error, ERROR, MessageBoxButton.OK, MessageBoxImage.Error); return; }
             DatabaseController.DatabaseController

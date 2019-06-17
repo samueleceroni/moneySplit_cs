@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseController.cs" />
+    <Compile Include="GeneralListDouble.cs" />
+    <Compile Include="GeneralTransactionDouble.cs" />
     <Compile Include="MoneySplitDataClasses.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -94,7 +94,7 @@ namespace GUI
             listsDataGrid.Items.Clear();
             bool includeGeneralList = showNormalListCheckBox.IsChecked ?? true;
             bool includeBankAccount = showBankAccountCheckBox.IsChecked ?? true;
-            var listsResult = DatabaseController.DatabaseController.GetAllLists(ContextID, includeGeneralList, includeBankAccount);
+            var listsResult = DatabaseController.DatabaseController.GetAllListsDouble(ContextID, includeGeneralList, includeBankAccount);
 
             if (listsResult.IsFailure) { MessageBox.Show(CAN_NOT_LOAD_LISTS + listsResult.Error, ERROR, MessageBoxButton.OK, MessageBoxImage.Error); return; }
             var lists = listsResult.Value;
@@ -153,7 +153,7 @@ namespace GUI
         private void ListsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (listsDataGrid.SelectedItem == null) return;
-            int listID = (int) ((GeneralList) listsDataGrid.SelectedItem).ListId;
+            int listID = ((GeneralListDouble) listsDataGrid.SelectedItem).ListId;
 
             new ListWindow(ContextID, listID) { Owner = this }.ShowDialog();
         }

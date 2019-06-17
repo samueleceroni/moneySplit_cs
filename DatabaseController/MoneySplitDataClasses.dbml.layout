@@ -2,221 +2,221 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 14.25, 15.25" name="MoneySplitDataClasses">
   <DataContextMoniker Name="/MoneySplitDataClassesDataContext" />
   <nestedChildShapes>
-    <classShape Id="c83bd29a-8256-42fd-b855-d6800b4d40a7" absoluteBounds="3.5, 6.125, 2, 1.3862939453125005">
+    <classShape Id="607902ff-ddcf-4d6b-a1d6-ba917282ff90" absoluteBounds="3.5, 6.125, 2, 1.3862939453125005">
       <DataClassMoniker Name="/MoneySplitDataClassesDataContext/TelegramGroup" />
       <nestedChildShapes>
-        <elementListCompartment Id="81e20d13-2072-4603-89dc-9df0eeecfbd2" absoluteBounds="3.515, 6.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="b89a3968-2b47-43cc-b37f-023036e2a50c" absoluteBounds="3.515, 6.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="25cab6c0-589c-4f75-8476-90aa12c218ef" absoluteBounds="0.75, 6.875, 2, 1.0016910807291666">
+    <classShape Id="2074a2dd-65b2-433f-9da6-c804f1d4fa5c" absoluteBounds="0.75, 6.875, 2, 1.0016910807291666">
       <DataClassMoniker Name="/MoneySplitDataClassesDataContext/GeneralContext" />
       <nestedChildShapes>
-        <elementListCompartment Id="179f2f62-2e22-4cc9-b84e-eb38277cdb83" absoluteBounds="0.765, 7.335, 1.9700000000000002, 0.44169108072916669" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="bf154234-d643-499c-9f80-44b0bbe32489" absoluteBounds="0.765, 7.335, 1.9700000000000002, 0.44169108072916669" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="0b490779-6606-4755-998b-13646ea4fd0c" absoluteBounds="9, 4.125, 2, 1.3862939453125005">
+    <classShape Id="2e558b25-acff-499e-9fc5-b3d6cba6d99e" absoluteBounds="3.5, 8.25, 2, 2.3478011067708344">
+      <DataClassMoniker Name="/MoneySplitDataClassesDataContext/GeneralList" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5afea906-037f-4deb-a9ee-f5554d8927ae" absoluteBounds="3.515, 8.71, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5b090d6c-3733-4484-8fce-85936262cc31" absoluteBounds="6.25, 8.75, 2, 3.1170068359375023">
+      <DataClassMoniker Name="/MoneySplitDataClassesDataContext/GeneralTransaction" />
+      <nestedChildShapes>
+        <elementListCompartment Id="93318efc-ba28-4577-ac14-4185486744ee" absoluteBounds="6.265, 9.21, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d03ef1c8-46ad-417a-a5df-fbef2a78535f" absoluteBounds="9, 4.125, 2, 1.3862939453125005">
       <DataClassMoniker Name="/MoneySplitDataClassesDataContext/GroupUser" />
       <nestedChildShapes>
-        <elementListCompartment Id="3407fb2d-f61f-4764-942b-bbc24f4589a2" absoluteBounds="9.015, 4.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="68c2c625-a54a-476c-92b2-7b80a9580559" absoluteBounds="9.015, 4.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="efaa0ae1-0045-40b9-8ce5-e76f22b58537" absoluteBounds="6.25, 4.125, 2, 1.1939925130208344">
+    <classShape Id="7e178f97-3405-4570-8779-34e0368ef938" absoluteBounds="6.25, 4.125, 2, 1.1939925130208344">
       <DataClassMoniker Name="/MoneySplitDataClassesDataContext/MoneySplitTelegramUser" />
       <nestedChildShapes>
-        <elementListCompartment Id="cde053ea-7ce2-4279-8608-cee722c702f6" absoluteBounds="6.265, 4.585, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="97fb3680-90c9-4642-af51-2717f2ea880e" absoluteBounds="6.265, 4.585, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="8071c91b-9b2d-4230-995c-9e71e360bfc4" absoluteBounds="3.5, 4.125, 2, 1.1939925130208344">
+    <classShape Id="235acc6d-af71-4492-b17e-c28e29e21323" absoluteBounds="3.5, 4.125, 2, 1.1939925130208344">
       <DataClassMoniker Name="/MoneySplitDataClassesDataContext/MoneySplitUser" />
       <nestedChildShapes>
-        <elementListCompartment Id="ff7bdd25-f813-4905-923a-3eaf1aad5c22" absoluteBounds="3.515, 4.585, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="fa580e1e-9e53-4a57-8e7a-29e486432853" absoluteBounds="3.515, 4.585, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="1baec9cf-4b60-4a2f-9cb6-17b3b64a6a54" absoluteBounds="6.25, 6.375, 2, 1.1939925130208344">
+    <classShape Id="b072b0b6-3b95-42b9-830f-36cf8ef8240c" absoluteBounds="6.25, 6.375, 2, 1.1939925130208344">
       <DataClassMoniker Name="/MoneySplitDataClassesDataContext/SharedContext" />
       <nestedChildShapes>
-        <elementListCompartment Id="bd37a8f3-996d-4881-9696-743bdec9d5b6" absoluteBounds="6.265, 6.835, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="f7125279-24bd-481d-b574-903c206daca2" absoluteBounds="6.265, 6.835, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="bf8f4fd9-d375-49fa-8dd1-45841e387550" absoluteBounds="9, 6.25, 2, 1.1939925130208344">
+    <classShape Id="6ef336c3-4e6e-4423-96e2-10b4a9837766" absoluteBounds="9, 6.25, 2, 1.1939925130208344">
       <DataClassMoniker Name="/MoneySplitDataClassesDataContext/SharedContextGroup" />
       <nestedChildShapes>
-        <elementListCompartment Id="766a6ecc-b4e2-4d52-86e5-0f865915d9c7" absoluteBounds="9.015, 6.71, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="20992393-8eb4-4ce8-ac34-4a9279ade76a" absoluteBounds="9.015, 6.71, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="1f377518-a577-4dd4-b428-f453cf6e534a" absoluteBounds="9, 8.25, 2, 1.1939925130208344">
+    <classShape Id="73664836-0866-4078-8d21-96ee37f6b4e6" absoluteBounds="9, 8.25, 2, 1.1939925130208344">
       <DataClassMoniker Name="/MoneySplitDataClassesDataContext/SharedContextUser" />
       <nestedChildShapes>
-        <elementListCompartment Id="bbd43545-17f1-43f3-9974-daff203cff9d" absoluteBounds="9.015, 8.71, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="5b400c02-712e-4e9b-a00b-e24e6ba01722" absoluteBounds="9.015, 8.71, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="63b06f52-c9ab-4084-b1fc-902df072e795" absoluteBounds="9.25, 13.625, 2, 1.3862939453124987">
+    <classShape Id="734f0742-bcf4-4aab-b3ad-5f21f298543c" absoluteBounds="9.25, 13.625, 2, 1.3862939453124987">
       <DataClassMoniker Name="/MoneySplitDataClassesDataContext/Store" />
       <nestedChildShapes>
-        <elementListCompartment Id="9fcbe440-fe03-44d9-a2c8-da7620c83faf" absoluteBounds="9.265, 14.085, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="f4eba638-e206-45f7-a32f-da2aa1906706" absoluteBounds="9.265, 14.085, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="3b0416f1-2f45-4aee-8d7c-466e4a789d8b" absoluteBounds="12, 9.375, 2, 1.9631982421874987">
+    <classShape Id="cfb33341-a309-4b03-8834-59215ac9769d" absoluteBounds="12, 9.375, 2, 1.9631982421874987">
       <DataClassMoniker Name="/MoneySplitDataClassesDataContext/StoreTransaction" />
       <nestedChildShapes>
-        <elementListCompartment Id="c7f73806-71d1-4f3f-aa52-23dbf77146c7" absoluteBounds="12.015, 9.835, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="4fc25ce1-c8af-4934-9f42-ff419e420100" absoluteBounds="12.015, 9.835, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="ea1a4142-2951-46f8-961d-73725b23fdeb" absoluteBounds="6.25, 12.75, 2, 1.1939925130208344">
+    <classShape Id="837ec85f-8f50-4e4a-beb2-696823fbe39c" absoluteBounds="6.25, 12.75, 2, 1.1939925130208344">
       <DataClassMoniker Name="/MoneySplitDataClassesDataContext/Tag" />
       <nestedChildShapes>
-        <elementListCompartment Id="a1661830-d048-4944-a1de-062bfa42ed7e" absoluteBounds="6.265, 13.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="bc35d99e-61d2-4ed5-aaba-6694eeece232" absoluteBounds="6.265, 13.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="7e951727-8f2d-474a-b6ed-bcc5d38b30f5" absoluteBounds="9, 10.75, 2, 1.1939925130208344">
+    <classShape Id="709c9928-3c8e-4ab9-bbab-db0c47008527" absoluteBounds="9, 10.75, 2, 1.1939925130208344">
       <DataClassMoniker Name="/MoneySplitDataClassesDataContext/TaggedTransaction" />
       <nestedChildShapes>
-        <elementListCompartment Id="35c5c23f-c2c7-4f2e-94b6-14ca8af1ffe1" absoluteBounds="9.015, 11.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="d73e6c4c-769b-453f-9708-6caca1e925b0" absoluteBounds="9.015, 11.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 7.19314697265625); (3.5 : 7.19314697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 7.19314697265625); (3.5 : 7.19314697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/MoneySplitDataClassesDataContext/GeneralContext/GeneralContext_TelegramGroup" />
       <nodes>
-        <classShapeMoniker Id="25cab6c0-589c-4f75-8476-90aa12c218ef" />
-        <classShapeMoniker Id="c83bd29a-8256-42fd-b855-d6800b4d40a7" />
+        <classShapeMoniker Id="2074a2dd-65b2-433f-9da6-c804f1d4fa5c" />
+        <classShapeMoniker Id="607902ff-ddcf-4d6b-a1d6-ba917282ff90" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 6.125); (5.875 : 5.75); (5.875 : 5.8862939453125); (5.95457751402244 : 5.8862939453125 : JumpStart); (6.1212441806891 : 5.8862939453125 : JumpEnd); (8.625 : 5.8862939453125); (9 : 5.5112939453125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(1.75 : 7.87669108072917); (1.75 : 9.42390055338542); (3.5 : 9.42390055338542)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MoneySplitDataClassesDataContext/GeneralContext/GeneralContext_GeneralList" />
+      <nodes>
+        <classShapeMoniker Id="2074a2dd-65b2-433f-9da6-c804f1d4fa5c" />
+        <classShapeMoniker Id="2e558b25-acff-499e-9fc5-b3d6cba6d99e" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 9.67390055338542); (5.94791666666667 : 9.67390055338542 : JumpStart); (6.11458333333333 : 9.67390055338542 : JumpEnd); (6.25 : 9.67390055338542)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MoneySplitDataClassesDataContext/GeneralList/GeneralList_GeneralTransaction" />
+      <nodes>
+        <classShapeMoniker Id="2e558b25-acff-499e-9fc5-b3d6cba6d99e" />
+        <classShapeMoniker Id="5b090d6c-3733-4484-8fce-85936262cc31" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 6.125); (5.875 : 5.75); (5.875 : 5.8862939453125); (5.88541666666667 : 5.8862939453125 : JumpStart); (6.1212441806891 : 5.8862939453125 : JumpEnd); (8.625 : 5.8862939453125); (9 : 5.5112939453125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/MoneySplitDataClassesDataContext/TelegramGroup/TelegramGroup_GroupUser" />
       <nodes>
-        <classShapeMoniker Id="c83bd29a-8256-42fd-b855-d6800b4d40a7" />
-        <classShapeMoniker Id="0b490779-6606-4755-998b-13646ea4fd0c" />
+        <classShapeMoniker Id="607902ff-ddcf-4d6b-a1d6-ba917282ff90" />
+        <classShapeMoniker Id="d03ef1c8-46ad-417a-a5df-fbef2a78535f" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.25 : 4.72199625651042); (9 : 4.72199625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.25 : 4.72199625651042); (9 : 4.72199625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/MoneySplitDataClassesDataContext/MoneySplitTelegramUser/MoneySplitTelegramUser_GroupUser" />
       <nodes>
-        <classShapeMoniker Id="efaa0ae1-0045-40b9-8ce5-e76f22b58537" />
-        <classShapeMoniker Id="0b490779-6606-4755-998b-13646ea4fd0c" />
+        <classShapeMoniker Id="7e178f97-3405-4570-8779-34e0368ef938" />
+        <classShapeMoniker Id="d03ef1c8-46ad-417a-a5df-fbef2a78535f" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 4.67512950826322); (6.25 : 4.67512950826322)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.5 : 5.31899251302083); (6.03125 : 5.85024251302083); (6.03125 : 10.8017056946615); (6.25 : 10.8017056946615)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MoneySplitDataClassesDataContext/MoneySplitUser/MoneySplitUser_GeneralTransaction" />
+      <nodes>
+        <classShapeMoniker Id="235acc6d-af71-4492-b17e-c28e29e21323" />
+        <classShapeMoniker Id="5b090d6c-3733-4484-8fce-85936262cc31" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 4.67512950826322); (6.25 : 4.67512950826322)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/MoneySplitDataClassesDataContext/MoneySplitUser/MoneySplitUser_MoneySplitTelegramUser" />
       <nodes>
-        <classShapeMoniker Id="8071c91b-9b2d-4230-995c-9e71e360bfc4" />
-        <classShapeMoniker Id="efaa0ae1-0045-40b9-8ce5-e76f22b58537" />
+        <classShapeMoniker Id="235acc6d-af71-4492-b17e-c28e29e21323" />
+        <classShapeMoniker Id="7e178f97-3405-4570-8779-34e0368ef938" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.75 : 6.875); (1.75 : 4.72199625651042); (3.5 : 4.72199625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(1.75 : 6.875); (1.75 : 4.72199625651042); (3.5 : 4.72199625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/MoneySplitDataClassesDataContext/GeneralContext/GeneralContext_MoneySplitUser" />
       <nodes>
-        <classShapeMoniker Id="25cab6c0-589c-4f75-8476-90aa12c218ef" />
-        <classShapeMoniker Id="8071c91b-9b2d-4230-995c-9e71e360bfc4" />
+        <classShapeMoniker Id="2074a2dd-65b2-433f-9da6-c804f1d4fa5c" />
+        <classShapeMoniker Id="235acc6d-af71-4492-b17e-c28e29e21323" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 7.37584554036458); (3.25 : 7.37584554036458); (3.25 : 7.81899251302083); (5.94791666666667 : 7.81899251302083 : JumpStart); (6.11458333333333 : 7.81899251302083 : JumpEnd); (7.25 : 7.81899251302083); (7.25 : 7.56899251302083)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 7.87669108072917); (3.125 : 8.25169108072917); (3.125 : 7.94399251302083); (5.875 : 7.94399251302083); (5.97232443490112 : 7.84666807811971 : JumpStart); (6.09017556509888 : 7.72881694792196 : JumpEnd); (6.25 : 7.56899251302083)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/MoneySplitDataClassesDataContext/GeneralContext/GeneralContext_SharedContext" />
       <nodes>
-        <classShapeMoniker Id="25cab6c0-589c-4f75-8476-90aa12c218ef" />
-        <classShapeMoniker Id="1baec9cf-4b60-4a2f-9cb6-17b3b64a6a54" />
+        <classShapeMoniker Id="2074a2dd-65b2-433f-9da6-c804f1d4fa5c" />
+        <classShapeMoniker Id="b072b0b6-3b95-42b9-830f-36cf8ef8240c" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.4706094150641 : 5.31899251302083); (6.15625 : 6.00463309795673); (6.15625 : 6.28125); (6.25 : 6.375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.4706094150641 : 5.31899251302083); (5.90982443490112 : 5.75820753285785 : JumpStart); (6.02767556509888 : 5.87605866305561 : JumpEnd); (6.15625 : 6.00463309795673); (6.15625 : 6.28125); (6.25 : 6.375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/MoneySplitDataClassesDataContext/MoneySplitUser/MoneySplitUser_SharedContext" />
       <nodes>
-        <classShapeMoniker Id="8071c91b-9b2d-4230-995c-9e71e360bfc4" />
-        <classShapeMoniker Id="1baec9cf-4b60-4a2f-9cb6-17b3b64a6a54" />
+        <classShapeMoniker Id="235acc6d-af71-4492-b17e-c28e29e21323" />
+        <classShapeMoniker Id="b072b0b6-3b95-42b9-830f-36cf8ef8240c" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.25 : 6.90949625651042); (9 : 6.90949625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.25 : 6.90949625651042); (9 : 6.90949625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/MoneySplitDataClassesDataContext/SharedContext/SharedContext_SharedContextGroup" />
       <nodes>
-        <classShapeMoniker Id="1baec9cf-4b60-4a2f-9cb6-17b3b64a6a54" />
-        <classShapeMoniker Id="bf8f4fd9-d375-49fa-8dd1-45841e387550" />
+        <classShapeMoniker Id="b072b0b6-3b95-42b9-830f-36cf8ef8240c" />
+        <classShapeMoniker Id="6ef336c3-4e6e-4423-96e2-10b4a9837766" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 6.28125); (5.94791666666667 : 6.28125 : JumpStart); (6.17708333333333 : 6.28125 : JumpEnd); (9 : 6.28125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.5 : 6.28125); (5.88541666666667 : 6.28125 : JumpStart); (6.11458333333333 : 6.28125 : JumpEnd); (9 : 6.28125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/MoneySplitDataClassesDataContext/TelegramGroup/TelegramGroup_SharedContextGroup" />
       <nodes>
-        <classShapeMoniker Id="c83bd29a-8256-42fd-b855-d6800b4d40a7" />
-        <classShapeMoniker Id="bf8f4fd9-d375-49fa-8dd1-45841e387550" />
+        <classShapeMoniker Id="607902ff-ddcf-4d6b-a1d6-ba917282ff90" />
+        <classShapeMoniker Id="6ef336c3-4e6e-4423-96e2-10b4a9837766" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 5.2987854858774); (6.09375 : 5.8925354858774); (6.09375 : 7.75); (8.41269676817807 : 7.75); (9 : 8.26928757136418)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.5 : 5.26021034314904); (5.96875 : 5.72896034314904); (5.96875 : 7.75); (5.9856591796875 : 7.75 : JumpStart); (6.15232584635417 : 7.75 : JumpEnd); (8.41269676817807 : 7.75); (9 : 8.26928757136418)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/MoneySplitDataClassesDataContext/MoneySplitUser/MoneySplitUser_SharedContextUser" />
       <nodes>
-        <classShapeMoniker Id="8071c91b-9b2d-4230-995c-9e71e360bfc4" />
-        <classShapeMoniker Id="1f377518-a577-4dd4-b428-f453cf6e534a" />
+        <classShapeMoniker Id="235acc6d-af71-4492-b17e-c28e29e21323" />
+        <classShapeMoniker Id="73664836-0866-4078-8d21-96ee37f6b4e6" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(8.25 : 7.56899251302083); (9 : 8.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/MoneySplitDataClassesDataContext/SharedContext/SharedContext_SharedContextUser" />
       <nodes>
-        <classShapeMoniker Id="1baec9cf-4b60-4a2f-9cb6-17b3b64a6a54" />
-        <classShapeMoniker Id="1f377518-a577-4dd4-b428-f453cf6e534a" />
+        <classShapeMoniker Id="b072b0b6-3b95-42b9-830f-36cf8ef8240c" />
+        <classShapeMoniker Id="73664836-0866-4078-8d21-96ee37f6b4e6" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(11.15625 : 13.625); (11.15625 : 10.4235006282552); (12 : 10.4235006282552)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.25 : 10.0969962565104); (12 : 10.0969962565104)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MoneySplitDataClassesDataContext/GeneralTransaction/GeneralTransaction_StoreTransaction" />
+      <nodes>
+        <classShapeMoniker Id="5b090d6c-3733-4484-8fce-85936262cc31" />
+        <classShapeMoniker Id="cfb33341-a309-4b03-8834-59215ac9769d" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(11.15625 : 13.625); (11.15625 : 10.4235006282552); (12 : 10.4235006282552)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/MoneySplitDataClassesDataContext/Store/Store_StoreTransaction" />
       <nodes>
-        <classShapeMoniker Id="63b06f52-c9ab-4084-b1fc-902df072e795" />
-        <classShapeMoniker Id="3b0416f1-2f45-4aee-8d7c-466e4a789d8b" />
+        <classShapeMoniker Id="734f0742-bcf4-4aab-b3ad-5f21f298543c" />
+        <classShapeMoniker Id="cfb33341-a309-4b03-8834-59215ac9769d" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.25 : 11.3085034179688); (9 : 11.3085034179688)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MoneySplitDataClassesDataContext/GeneralTransaction/GeneralTransaction_TaggedTransaction" />
+      <nodes>
+        <classShapeMoniker Id="5b090d6c-3733-4484-8fce-85936262cc31" />
+        <classShapeMoniker Id="709c9928-3c8e-4ab9-bbab-db0c47008527" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(8.25 : 13.15625); (9.09375 : 13.15625); (9.09375 : 11.9439925130208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/MoneySplitDataClassesDataContext/Tag/Tag_TaggedTransaction" />
       <nodes>
-        <classShapeMoniker Id="ea1a4142-2951-46f8-961d-73725b23fdeb" />
-        <classShapeMoniker Id="7e951727-8f2d-474a-b6ed-bcc5d38b30f5" />
+        <classShapeMoniker Id="837ec85f-8f50-4e4a-beb2-696823fbe39c" />
+        <classShapeMoniker Id="709c9928-3c8e-4ab9-bbab-db0c47008527" />
       </nodes>
     </associationConnector>
-    <classShape Id="481607e3-dfa9-4c66-8a75-c56dd0bd6b8b" absoluteBounds="2.375, 11.375, 2, 1.3862939453125005">
+    <classShape Id="725bbe27-e9d2-48dd-9e3c-8c48b27fd586" absoluteBounds="1.875, 11.75, 2, 1.3862939453125">
       <DataClassMoniker Name="/MoneySplitDataClassesDataContext/MoneySplitCompleteUser" />
       <nestedChildShapes>
-        <elementListCompartment Id="139fe7a3-0540-432f-8e5e-ded1128347d4" absoluteBounds="2.39, 11.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="7356e8d4-fcd6-43a2-843e-31c8c989a620" absoluteBounds="1.8900000000000001, 12.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="87a03434-7a2e-44f4-93bf-c9ed95e45f4e" absoluteBounds="2.625, 8.375, 2, 2.3478011067708335">
-      <DataClassMoniker Name="/MoneySplitDataClassesDataContext/GeneralList" />
-      <nestedChildShapes>
-        <elementListCompartment Id="4f37fea0-1c4a-420f-bbb5-a27c58441b46" absoluteBounds="2.6399999999999997, 8.835, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <associationConnector edgePoints="[(1.75 : 7.87669108072917); (1.75 : 8.25); (3.625 : 8.25); (3.625 : 8.375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/MoneySplitDataClassesDataContext/GeneralContext/GeneralContext_GeneralList" />
-      <nodes>
-        <classShapeMoniker Id="25cab6c0-589c-4f75-8476-90aa12c218ef" />
-        <classShapeMoniker Id="87a03434-7a2e-44f4-93bf-c9ed95e45f4e" />
-      </nodes>
-    </associationConnector>
-    <classShape Id="ba1235ef-88c1-42b5-96f8-91609f7f8176" absoluteBounds="6.25, 9, 2, 3.1170068359375">
-      <DataClassMoniker Name="/MoneySplitDataClassesDataContext/GeneralTransaction" />
-      <nestedChildShapes>
-        <elementListCompartment Id="0a2dfcfd-9dab-4659-8afe-8750969aaaa1" absoluteBounds="6.265, 9.46, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <associationConnector edgePoints="[(8.25 : 9.90249657063802); (12 : 9.90249657063802)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/MoneySplitDataClassesDataContext/GeneralTransaction/GeneralTransaction_StoreTransaction" />
-      <nodes>
-        <classShapeMoniker Id="ba1235ef-88c1-42b5-96f8-91609f7f8176" />
-        <classShapeMoniker Id="3b0416f1-2f45-4aee-8d7c-466e4a789d8b" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(8.25 : 11.3469962565104); (9 : 11.3469962565104)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/MoneySplitDataClassesDataContext/GeneralTransaction/GeneralTransaction_TaggedTransaction" />
-      <nodes>
-        <classShapeMoniker Id="ba1235ef-88c1-42b5-96f8-91609f7f8176" />
-        <classShapeMoniker Id="7e951727-8f2d-474a-b6ed-bcc5d38b30f5" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(4.625 : 9.86140055338542); (5.94791666666667 : 9.86140055338542 : JumpStart); (6.11458333333333 : 9.86140055338542 : JumpEnd); (6.25 : 9.86140055338542)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/MoneySplitDataClassesDataContext/GeneralList/GeneralList_GeneralTransaction" />
-      <nodes>
-        <classShapeMoniker Id="87a03434-7a2e-44f4-93bf-c9ed95e45f4e" />
-        <classShapeMoniker Id="ba1235ef-88c1-42b5-96f8-91609f7f8176" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 5.30705158789063); (6.03125 : 5.83830158789063); (6.03125 : 11.0204556946615); (6.25 : 11.0204556946615)]" fixedFrom="NotFixed" fixedTo="Algorithm">
-      <AssociationMoniker Name="/MoneySplitDataClassesDataContext/MoneySplitUser/MoneySplitUser_GeneralTransaction" />
-      <nodes>
-        <classShapeMoniker Id="8071c91b-9b2d-4230-995c-9e71e360bfc4" />
-        <classShapeMoniker Id="ba1235ef-88c1-42b5-96f8-91609f7f8176" />
-      </nodes>
-    </associationConnector>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>
