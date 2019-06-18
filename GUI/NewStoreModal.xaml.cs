@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using CSharpFunctionalExtensions;
 
 namespace GUI
 {
@@ -19,6 +20,10 @@ namespace GUI
     /// </summary>
     public partial class NewStoreModal : Window
     {
+
+        private static readonly string SUCCESSFULLY_CREATED = "Store successfully created.";
+        private static readonly string ERROR = "Error.";
+
         public NewStoreModal()
         {
             InitializeComponent();
@@ -34,6 +39,14 @@ namespace GUI
         void OnClose(object sender, EventArgs e)
         {
             this.Owner.Show();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            DatabaseController.DatabaseController
+                              .RegisterNewStore(vatAccountTextBox.Text, storeNameTextBox.Text, storeAddressTextBox.Text)
+                              .OnSuccess(() => MessageBox.Show(SUCCESSFULLY_CREATED, SUCCESSFULLY_CREATED, MessageBoxButton.OK, MessageBoxImage.Information))
+                              .OnFailure(error => MessageBox.Show(error, ERROR, MessageBoxButton.OK, MessageBoxImage.Error));
         }
     }
 }

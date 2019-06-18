@@ -5,8 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="newStoreModal" Height="450" Width="800">
+        Title="newStoreModal" Height="200.512" Width="361.399">
     <Grid>
-        
+        <Label x:Name="addressLabel" Content="Store Address:" HorizontalAlignment="Left" Margin="23,25,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="storeNameLabel" Content="Store Name:" HorizontalAlignment="Left" Margin="23,56,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="vatAccountLabel" Content="Vat Account:" HorizontalAlignment="Left" Margin="23,87,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="storeAddressTextBox" HorizontalAlignment="Left" Height="26" Margin="117,25,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="226"/>
+        <TextBox x:Name="storeNameTextBox" HorizontalAlignment="Left" Height="26" Margin="117,56,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="226"/>
+        <TextBox x:Name="vatAccountTextBox" HorizontalAlignment="Left" Height="26" Margin="117,87,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="226"/>
+        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="23,118,0,0" VerticalAlignment="Top" Width="320" Height="37" Click="Button_Click"/>
+
     </Grid>
 </Window>

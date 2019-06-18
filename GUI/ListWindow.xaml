@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="ListWindow" Height="501" Width="1143">
+        Title="ListWindow" Height="478" Width="1143">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="39*"/>
@@ -68,9 +68,9 @@
         <Label x:Name="manageTransactionIDlabel" Content="ID:" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="17,329,0,0" VerticalAlignment="Top" Height="23"/>
         <Button x:Name="deleteTransactionButton" Content="Delete" HorizontalAlignment="Left" Margin="271,329,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
         <Label x:Name="otherLabel" Content="Other" HorizontalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="17,367,0,0" VerticalAlignment="Top" Width="329"/>
-        <Button x:Name="createStore" Content="New Store" HorizontalAlignment="Left" Margin="17,407,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
+        <Button x:Name="createStore" Content="New Store" HorizontalAlignment="Left" Margin="271,400,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="CreateStore_Click"/>
         <Label x:Name="listDescriptionLabel" Content="List ID: " HorizontalAlignment="Left" Margin="17,7,0,0" VerticalAlignment="Top" Width="46"/>
-        <Button x:Name="shareListButton" Content="Share List" HorizontalAlignment="Left" Margin="97,407,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
+        <Button x:Name="shareListButton" Content="Share List" HorizontalAlignment="Left" Margin="186,400,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="ShareListButton_Click"/>
         <Label x:Name="listIDValueLabel" Content="" HorizontalAlignment="Left" Margin="68,7,0,0" VerticalAlignment="Top" Width="67"/>
         <Label x:Name="operatorContextIDLabel" Content="Operator ID:" HorizontalAlignment="Left" Margin="140,7,0,0" VerticalAlignment="Top" Width="78"/>
         <Label x:Name="operatorContextIDValueLabel" Content="" HorizontalAlignment="Left" Margin="223,7,0,0" VerticalAlignment="Top" Width="83"/>
@@ -83,6 +83,8 @@
         <Label x:Name="CF_OwnerLabel" Content="Owner CF:" HorizontalAlignment="Left" Margin="228,38,0,0" VerticalAlignment="Top" Width="78"/>
         <Label x:Name="CF_OwnerValueLabel" Content="" HorizontalAlignment="Left" Margin="311,38,0,0" VerticalAlignment="Top" Width="159" Grid.ColumnSpan="2"/>
         <Button x:Name="reloadTable" Content="Reload Table" Grid.Column="1" HorizontalAlignment="Left" Margin="504,146,0,0" VerticalAlignment="Top" Width="108" Height="24" Click="ReloadTable_Click"/>
+        <TextBox x:Name="shareListContextIdTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="30" Margin="93,400,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="79"/>
+        <Label x:Name="shareListContextIdLabel" Content="Context ID:" HorizontalAlignment="Left" Margin="17,400,0,0" VerticalAlignment="Top" Width="71"/>
 
     </Grid>
 </Window>

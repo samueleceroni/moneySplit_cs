@@ -22,8 +22,11 @@ namespace GUI
     public partial class ListWindow : Window
     {
         private static readonly string ERROR = "Error.";
+        private static readonly string SUCCESSFULLY_SHARED = "Successfully shared.";
         private static readonly string AMOUNT_MUST_BE_NUMBER = "Amount for new transaction must be a number.";
         private static readonly string REPETITION_MUST_BE_INTEGER = "Repetition number must be an integer.";
+        private static readonly string CONTEXT_ID_MUST_BE_INTEGER= "Context id must be an integer.";
+
         private int UserContextID { get; }
         private int ListID { get; }
         private int ListContextID { get; }
@@ -157,6 +160,22 @@ namespace GUI
         private void ReloadTable_Click(object sender, RoutedEventArgs e)
         {
             LoadTransactionsTable();
+        }
+
+        private void ShareListButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!Int32.TryParse(shareListContextIdTextBox.Text, out int contextIdToShareTheListWith))
+            {
+                MessageBox.Show(CONTEXT_ID_MUST_BE_INTEGER, ERROR, MessageBoxButton.OK, MessageBoxImage.Error); return;
+            }
+            DatabaseController.DatabaseController.ShareList(UserContextID, ListID, contextIdToShareTheListWith)
+                              .OnSuccess(sharedContextId => MessageBox.Show(SUCCESSFULLY_SHARED, SUCCESSFULLY_SHARED, MessageBoxButton.OK, MessageBoxImage.Information))
+                              .OnFailure(error => MessageBox.Show(error, ERROR, MessageBoxButton.OK, MessageBoxImage.Error));
+        }
+
+        private void CreateStore_Click(object sender, RoutedEventArgs e)
+        {
+            new NewStoreModal { Owner = this }.ShowDialog();
         }
     }
 }

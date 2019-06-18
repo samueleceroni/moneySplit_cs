@@ -25,6 +25,10 @@ namespace DatabaseController
         private static readonly string OR_NOT_PERMITTED = "Otherwise you can not access it.";
         private static readonly string WHEN_RECURRENT_A_RECURRENCE_SHOULD_BE_SELECTED = "When recurrent a recurrence should be selected.";
         private static readonly string START_DATE_CAN_NOT_BE_NULL = "Start date must be selected.";
+        private static readonly string ONLY_USER_CAN_SHARE_A_LIST_NOT_GROUP = "Only users can share a list, not a group.";
+        private static readonly string CONTEXT_NOT_FOUND = "Context not found.";
+        private static readonly string STORE_ALREADY_REGISTERED = "Error. The store is probably already registered.";
+        private static readonly string ALL_FIELDS_SHOULD_NOT_BE_EMPTY = "All fields should not be empty.";
 
 
         private static int NextAvailableContextId {
@@ -254,14 +258,14 @@ namespace DatabaseController
                                             .Map(lists => lists.Count() + 1)
                                             .Ensure(newVersion => (isBankAccount ? newVersion == 1 : true), CAN_NOT_HAVE_BANK_ACCOUNT_WITH_MULTIPLE_VERSION)
                                             .Map(newVersion => new GeneralList
-                                                                {
-                                                                        Vers = newVersion,
-                                                                        Name = listName.Trim(),
-                                                                        ContextId = contextID,
-                                                                        Iban = IBAN,
-                                                                        CF_owner = ownerCF,
-                                                                        ListType = isBankAccount ? 1 : 0
-                                                                })
+                                            {
+                                                Vers = newVersion,
+                                                Name = listName.Trim(),
+                                                ContextId = contextID,
+                                                Iban = IBAN,
+                                                CF_owner = ownerCF,
+                                                ListType = isBankAccount ? 1 : 0
+                                            })
                                             .OnSuccess(newList => db.GeneralLists.InsertOnSubmit(newList))
                                             .Map(value => DBSubmitOrFail());
         }
@@ -378,7 +382,7 @@ namespace DatabaseController
             return (a && !b) || (!a && b);
         }
 
-        public static Result AddNewTransaction(int operatorContextID, int listID, decimal amount, string description, int transactionType = 0, int? userAuthor = null, int? dayRecurrence = null, int? monthRecurrence = null, DateTime? startDate = null, DateTime? endDate = null, DateTime ? date = null, DateTime ? recurrenceTime = null)
+        public static Result AddNewTransaction(int operatorContextID, int listID, decimal amount, string description, int transactionType = 0, int? userAuthor = null, int? dayRecurrence = null, int? monthRecurrence = null, DateTime? startDate = null, DateTime? endDate = null, DateTime? date = null, DateTime? recurrenceTime = null)
         {
 
             var listRes = GetAllLists(operatorContextID).Map(lists => lists.Where(list1 => list1.ListId == listID))
@@ -391,7 +395,7 @@ namespace DatabaseController
             var list = listRes.Value;
             int newAmount = (int)(amount * 100);
             GeneralTransaction newTransaction;
-            
+
             if (transactionType == 0)
             {
                 newTransaction = new GeneralTransaction
@@ -472,7 +476,131 @@ namespace DatabaseController
                                                  .Map(lists => lists.Where(list => list.Vers == lists.Count()))
                                                  .Ensure(lists => lists.Count() == 1, LIST_NOT_FOUND + OR_NOT_PERMITTED)
                                                  .Map(lists => lists.First())
-                                                 .Map(list => (int) list.ListId);
+                                                 .Map(list => (int)list.ListId);
+        }
+
+        private static Result<bool> IsContextAGroup(int contextID)
+        {
+            var isGroups =
+                from groups in db.TelegramGroups
+                where groups.ContextId == contextID
+                select groups;
+            if (isGroups.Count() == 1) { return Result.Ok(true); }
+            var isUser =
+                from user in db.MoneySplitTelegramUsers
+                where user.ContextId == contextID
+                select user;
+            return Result.Create(isUser.Count() == 1, false, CONTEXT_NOT_FOUND);
+        }
+
+        /// <summary>
+        /// NB only users can share the list, not group
+        /// </summary>
+        /// <param name="operatorContextID"></param>
+        /// <param name="listID"></param>
+        /// <returns>The id of the new shared context</returns>
+        public static Result<int> ShareList(int operatorContextID, int listID, int newContextWhoWillSeeTheList)
+        {
+            // if list is already in a shared context it is enough to add the new context into the shared context members. otherwise a new shared context has to be created.
+            var listsRes = GetAllLists(operatorContextID).Map(lists => lists.Where(list1 => list1.ListId == listID))
+                                                         .Ensure(lists => lists.Count() == 1, LIST_NOT_FOUND + OR_NOT_PERMITTED)
+                                                         .Map(lists => lists.First())
+                                                         .Map(list => (from lists in db.GeneralLists
+                                                                       where lists.Name == list.Name && lists.ContextId == list.ContextId
+                                                                       select lists));
+            if (listsRes.IsFailure) return Result.Fail<int>(listsRes.Error);
+            // check operator context id must be a user
+            var users =
+                from user in db.MoneySplitUsers
+                where user.ContextId == operatorContextID
+                select user;
+            if (users.Count() != 1) { return Result.Fail<int>(ONLY_USER_CAN_SHARE_A_LIST_NOT_GROUP); }
+            // check new context if is group or not
+            Result<bool> isGroupResult = IsContextAGroup(newContextWhoWillSeeTheList);
+
+            if (isGroupResult.IsFailure) { return Result.Fail<int>(isGroupResult.Error); }
+            bool isGroup = isGroupResult.Value;
+            var listsSameName = listsRes.Value;
+
+            var cont =
+                from shcont in db.SharedContexts
+                where shcont.ContextId == listsSameName.First().ContextId
+                select shcont;
+
+            int sharedContextId;
+            if (cont.Count() == 0) // i have to create the shared context
+            {
+                var newSharedContext = new SharedContext
+                {
+                    UserCreatorId = operatorContextID,
+                    ContextId = CreateNewGeneralContext()
+                };
+                db.SharedContexts.InsertOnSubmit(newSharedContext);
+
+                sharedContextId = newSharedContext.ContextId;
+                // put the operator in the sharedContext
+                var sharConUserOperator = new SharedContextUser
+                {
+                    UserId = operatorContextID,
+                    SharedContextId = sharedContextId
+                };
+                db.SharedContextUsers.InsertOnSubmit(sharConUserOperator);
+            } else
+            {
+                sharedContextId = cont.First().ContextId;
+            }
+            // change the list owner to the shared context
+            foreach (var list in listsSameName)
+            {
+                list.ContextId = sharedContextId;
+            }
+            // add the context to the sharedContext
+            if (isGroup)
+            {
+                var sharConGroup = new SharedContextGroup
+                {
+                    GroupId = newContextWhoWillSeeTheList,
+                    SharedContextId = sharedContextId
+                };
+                db.SharedContextGroups.InsertOnSubmit(sharConGroup);
+            } else
+            {
+                var sharConUser = new SharedContextUser
+                {
+                    UserId = newContextWhoWillSeeTheList,
+                    SharedContextId = sharedContextId
+                };
+                db.SharedContextUsers.InsertOnSubmit(sharConUser);
+            }
+            return DBSubmitOrFail().Map(() => sharedContextId);
+
+        }
+
+        public static Result RegisterNewStore(string vatAccount, string storeName, string address)
+        {
+            if (string.IsNullOrWhiteSpace(vatAccount) || string.IsNullOrWhiteSpace(storeName) || string.IsNullOrWhiteSpace(address))
+            {
+                return Result.Fail(ALL_FIELDS_SHOULD_NOT_BE_EMPTY);
+            }
+            vatAccount = vatAccount.Replace(" ", "");
+
+            var stores =
+                from store in db.Stores
+                where store.VatAccount == vatAccount.Trim()
+                select store;
+            if (stores.Count() == 1)
+            {
+                return Result.Fail(STORE_ALREADY_REGISTERED);
+            }
+
+            var newStore = new Store
+            {
+                VatAccount = vatAccount.Trim(),
+                StoreName = storeName.Trim(),
+                Address = address.Trim()
+            };
+            db.Stores.InsertOnSubmit(newStore);
+            return DBSubmitOrFail();
         }
     }
 }
