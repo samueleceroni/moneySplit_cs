@@ -27,8 +27,14 @@ namespace DatabaseController
         private static readonly string START_DATE_CAN_NOT_BE_NULL = "Start date must be selected.";
         private static readonly string ONLY_USER_CAN_SHARE_A_LIST_NOT_GROUP = "Only users can share a list, not a group.";
         private static readonly string CONTEXT_NOT_FOUND = "Context not found.";
+        private static readonly string TRANSACTION_NOT_FOUND = "Transaction not found.";
         private static readonly string STORE_ALREADY_REGISTERED = "Error. The store is probably already registered.";
         private static readonly string ALL_FIELDS_SHOULD_NOT_BE_EMPTY = "All fields should not be empty.";
+        private static readonly string CANNOT_ADD_TRANSACTION_MANUALLY_TO_BANK_ACCOUNT = "Can not add transaction manually on a bank account.";
+        private static readonly string STORE_OR_TRANSACTION_DO_NOT_EXIST = "The store or the tansaction do not exist.";
+        private static readonly string ALL_REVIEW_PARAMETERS_OR_NONE = "All review parameters should be specified, or none of them.";
+        private static readonly string REVIEW_STAR_OUT_OF_RANGE = "Star in review is out of range.";
+        private static readonly string OPERATION_NOT_ALLOWED = "Operation not allowed.";
 
 
         private static int NextAvailableContextId {
@@ -382,7 +388,7 @@ namespace DatabaseController
             return (a && !b) || (!a && b);
         }
 
-        public static Result AddNewTransaction(int operatorContextID, int listID, decimal amount, string description, int transactionType = 0, int? userAuthor = null, int? dayRecurrence = null, int? monthRecurrence = null, DateTime? startDate = null, DateTime? endDate = null, DateTime? date = null, DateTime? recurrenceTime = null)
+        public static Result<int> AddNewTransaction(int operatorContextID, int listID, decimal amount, string description, int transactionType = 0, int? userAuthor = null, int? dayRecurrence = null, int? monthRecurrence = null, DateTime? startDate = null, DateTime? endDate = null, DateTime? date = null, DateTime? recurrenceTime = null)
         {
 
             var listRes = GetAllLists(operatorContextID).Map(lists => lists.Where(list1 => list1.ListId == listID))
@@ -390,9 +396,11 @@ namespace DatabaseController
                                                         .Map(lists => lists.First())
                                                         .Ensure(value => (transactionType == 0 || (transactionType == 1 && (Xor(dayRecurrence == null, monthRecurrence == null)))), WHEN_RECURRENT_A_RECURRENCE_SHOULD_BE_SELECTED)
                                                         .Ensure(value => (transactionType == 0 || (transactionType == 1 && startDate != null)), START_DATE_CAN_NOT_BE_NULL);
-            if (listRes.IsFailure) return listRes;
+            if (listRes.IsFailure) return Result.Fail<int>(listRes.Error);
 
             var list = listRes.Value;
+
+            if (list.ListType == 1) { return Result.Fail<int>(CANNOT_ADD_TRANSACTION_MANUALLY_TO_BANK_ACCOUNT); }
             int newAmount = (int)(amount * 100);
             GeneralTransaction newTransaction;
 
@@ -426,7 +434,55 @@ namespace DatabaseController
                 };
             }
             db.GeneralTransactions.InsertOnSubmit(newTransaction);
-            return DBSubmitOrFail().Map(() => InsertHashTags(newTransaction.TransactionId, description));
+            return DBSubmitOrFail().Map(() => InsertHashTags(newTransaction.TransactionId, description)).Map(value => newTransaction.TransactionId);
+        }
+
+        private static Result<GeneralTransaction> GetTransaction(int transactionID)
+        {
+            return Result.Ok(from GT in db.GeneralTransactions where GT.TransactionId == transactionID select GT)
+                         .Ensure(transactions => transactions.Count() == 1, TRANSACTION_NOT_FOUND)
+                         .Map(transactions => transactions.First());
+        }
+
+        public static Result RemoveTransaction(int operatorContextID, int transactionID)
+        {
+            var transRes = GetTransaction(transactionID);
+            if (transRes.IsFailure) return transRes;
+            var trans = transRes.Value;
+            var listRes = GetAllLists(operatorContextID).Map(lists => lists.Where(list1 => list1.ListId == trans.ListId))
+                                                        .Ensure(lists => lists.Count() == 1, OPERATION_NOT_ALLOWED)
+                                                        .Map(lists => lists.First());
+            if (listRes.IsFailure) return listRes;
+            var list = listRes.Value;
+
+            // update list total value
+            list.TotalAmount -= trans.Amount;
+
+            // remove possible store transaction associated with the transaction
+            var storeTransactions =
+                from st in db.StoreTransactions
+                where st.TransactionId == transactionID
+                select st;
+            if (storeTransactions.Count() == 1)
+            {
+                db.StoreTransactions.DeleteOnSubmit(storeTransactions.First());
+            }
+
+            // remove possible tagged transactions and decrement the usage of the tags
+            var taggedTransactions =
+                from tt in db.TaggedTransactions
+                where tt.TransactionId == transactionID
+                select tt;
+            foreach (var tt in taggedTransactions)
+            {
+                // decrement the tag usage
+                tt.Tag.Usage--;
+                // delete the tagged transaction on submit
+                db.TaggedTransactions.DeleteOnSubmit(tt);
+            }
+
+            db.GeneralTransactions.DeleteOnSubmit(trans);
+            return DBSubmitOrFail();
         }
 
         private static Result InsertHashTags(int transactionId, string description)
@@ -602,5 +658,113 @@ namespace DatabaseController
             db.Stores.InsertOnSubmit(newStore);
             return DBSubmitOrFail();
         }
+
+        public static IEnumerable<string> GetAllIban()
+        {
+            return from list in db.GeneralLists
+                   where list.ListType == 1
+                   select list.Iban;
+        }
+
+        public static Result RegisterNewBankAccountTransaction(string IBAN, decimal amount, string description, DateTime? date = null)
+        {
+            var lists =
+                from list in db.GeneralLists
+                where list.Iban == IBAN
+                select list;
+
+            int intAmount = (int)(amount * 100);
+            foreach (var list in lists)
+            {
+                var newTransaction = new GeneralTransaction
+                {
+                    Amount = intAmount,
+                    Description = description,
+                    TransType = 0,
+                    Date = date ?? DateTime.Now,
+                    ListId = list.ListId,
+                };
+                list.TotalAmount += intAmount;
+                db.GeneralTransactions.InsertOnSubmit(newTransaction);
+            }
+            return DBSubmitOrFail();
+        }
+
+        public static IEnumerable<Tag> GetTagScore()
+        {
+            return from tag in db.Tags
+                   orderby tag.Usage descending
+                   select tag;
+        }
+
+        public static IEnumerable<StoreTransaction> GetStoreReviews(string vatAccount)
+        {
+            return from tr in db.StoreTransactions
+                   where tr.Rev_Date != null && tr.VatAccount == vatAccount
+                   select tr;
+        }
+
+        public static IEnumerable<Store> GetStores()
+        {
+            return from store in db.Stores
+                   select store;
+        }
+
+        public static Result AddStoreTransaction(string vatAccount, int transactionId, string title = null, string text = null, int? star = null)
+        {
+            var vats =
+                (from store in db.Stores
+                 where store.VatAccount == vatAccount
+                 select store).Count();
+            var trans =
+                (from tran in db.GeneralTransactions
+                 where tran.TransactionId == transactionId
+                 select tran).Count();
+            if (vats != 1 || trans != 1)
+            {
+                return Result.Fail(STORE_OR_TRANSACTION_DO_NOT_EXIST);
+            }
+
+            if (!((title == null && text == null && star == null) || (title != null && text != null && star != null)))
+            {
+                return Result.Fail(ALL_REVIEW_PARAMETERS_OR_NONE);
+            }
+
+            if (star != null && (star < 1 || star > 5))
+            {
+                return Result.Fail(REVIEW_STAR_OUT_OF_RANGE);
+            }
+
+            var storeTransactionList =
+                (from storeTran in db.StoreTransactions
+                 where storeTran.VatAccount == vatAccount && storeTran.TransactionId == transactionId
+                 select storeTran);
+            StoreTransaction storeTransaction;
+            DateTime? revDate = star == null ? null : (DateTime?)DateTime.Now;
+            if (storeTransactionList.Count() == 1)
+            {
+                storeTransaction = storeTransactionList.First();
+                storeTransaction.VatAccount = vatAccount;
+                storeTransaction.TransactionId = transactionId;
+                storeTransaction.Rev_Title = title;
+                storeTransaction.Rev_Text = text;
+                storeTransaction.Rev_Star = star;
+                storeTransaction.Rev_Date = revDate;
+            } else
+            {
+                storeTransaction = new StoreTransaction
+                {
+                    VatAccount = vatAccount,
+                    TransactionId = transactionId,
+                    Rev_Title = title,
+                    Rev_Text = text,
+                    Rev_Star = star,
+                    Rev_Date = revDate
+                };
+                db.StoreTransactions.InsertOnSubmit(storeTransaction);
+            }
+            return DBSubmitOrFail();
+        }
+
     }
 }

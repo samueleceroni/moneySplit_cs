@@ -26,6 +26,11 @@ namespace GUI
         private static readonly string AMOUNT_MUST_BE_NUMBER = "Amount for new transaction must be a number.";
         private static readonly string REPETITION_MUST_BE_INTEGER = "Repetition number must be an integer.";
         private static readonly string CONTEXT_ID_MUST_BE_INTEGER= "Context id must be an integer.";
+        private static readonly string CHECK_STORE_TRANSACTION_DATA= "Check store transaction data.";
+        private static readonly string TRANSACTION_DONE_BUT_STORE_NOT_REGISTERED = "Transaction registered, but not the store and review.";
+        private static readonly string STORE_SUCCESSFULLY_ADDED = "Store successfully added.";
+        private static readonly string TRANSACTION_ID_MUST_BE_INTEGER = "Transaction id must be an integer.";
+        private static readonly string SUCCESSFULLY_DELETED = "Succesfully deleted.";
 
         private int UserContextID { get; }
         private int ListID { get; }
@@ -70,6 +75,18 @@ namespace GUI
                 versionComboBox.Items.Add(i);
             }
             LoadTransactionsTable();
+            LoadStores();
+        }
+
+        private void LoadStores()
+        {
+            var stores = DatabaseController.DatabaseController.GetStores();
+            storesComboBox.Items.Clear();
+
+            foreach (var store in stores)
+            {
+                storesComboBox.Items.Add(store.VatAccount);
+            }
         }
 
         private void LoadTransactionsTable()
@@ -110,8 +127,7 @@ namespace GUI
             var amountRes = Result.Create(Decimal.TryParse(newTransactionAmountTextBox.Text, out decimal newTransactionAmount), newTransactionAmount, AMOUNT_MUST_BE_NUMBER);
             if (amountRes.IsFailure) { MessageBox.Show(amountRes.Error, ERROR, MessageBoxButton.OK, MessageBoxImage.Error); return; }
 
-
-            Result resAddTrans;
+            Result<int> resAddTrans;
             if (newTransactionIsRecurringCheckBox.IsChecked ?? false)
             {
                 var repetitionRes = Result.Create(Int32.TryParse(newTransactionRecurrenceRepetitionTextBox.Text, out int repetition), repetition, REPETITION_MUST_BE_INTEGER);
@@ -140,11 +156,49 @@ namespace GUI
                                                 .AddNewTransaction(UserContextID, listIdLastVersion.Value, amountRes.Value, newTransactionDescriptionTextBox.Text, 0);
             }
             if (resAddTrans.IsFailure) { MessageBox.Show(resAddTrans.Error, ERROR, MessageBoxButton.OK, MessageBoxImage.Error); return; }
-            DatabaseController.DatabaseController
-                              .GetListFullDetail(UserContextID, ListID)
-                              .OnSuccess(list => totalValueLabel.Content = list.TotalAmount + " €")
-                              .OnFailure(error => { MessageBox.Show(error, ERROR, MessageBoxButton.OK, MessageBoxImage.Error); this.Close(); return; });
+
+            UpdateTotal();
+
             LoadTransactionsTable();
+
+            if (addStoreCheckBox.IsChecked ?? false)
+            {
+                string storeVatAccount = storesComboBox.SelectedValue.ToString();
+
+                if (string.IsNullOrWhiteSpace(storeVatAccount))
+                {
+                    MessageBox.Show(TRANSACTION_DONE_BUT_STORE_NOT_REGISTERED + CHECK_STORE_TRANSACTION_DATA, ERROR, MessageBoxButton.OK, MessageBoxImage.Error); return;
+                }
+
+                string revTitle = null;
+                string revText = null;
+                int? revStar = null;
+                if (addStoreReviewCheckBox.IsChecked ?? false)
+                {
+                    revTitle = titleTextBox.Text.Trim();
+                    revText = revTextTextBox.Text.Trim();
+                    if ((Int32.TryParse(starTextBox.Text, out int intRevStar)) && !string.IsNullOrWhiteSpace(revTitle) && !string.IsNullOrWhiteSpace(revText))
+                    {
+                        revStar = intRevStar;
+                    } else
+                    {
+                        MessageBox.Show(TRANSACTION_DONE_BUT_STORE_NOT_REGISTERED + CHECK_STORE_TRANSACTION_DATA, ERROR, MessageBoxButton.OK, MessageBoxImage.Error); return;
+                    }
+                }
+                DatabaseController.DatabaseController
+                                  .AddStoreTransaction(storeVatAccount, resAddTrans.Value, revTitle, revText, revStar)
+                                  .OnSuccess(() => MessageBox.Show(STORE_SUCCESSFULLY_ADDED, STORE_SUCCESSFULLY_ADDED, MessageBoxButton.OK, MessageBoxImage.Information))
+                                  .OnFailure(error => MessageBox.Show(error, ERROR, MessageBoxButton.OK, MessageBoxImage.Error));
+            }
+
+        }
+
+        private void UpdateTotal()
+        {
+            DatabaseController.DatabaseController
+                  .GetListFullDetail(UserContextID, ListID)
+                  .OnSuccess(list => totalValueLabel.Content = list.TotalAmount + " €")
+                  .OnFailure(error => { MessageBox.Show(error, ERROR, MessageBoxButton.OK, MessageBoxImage.Error); this.Close(); return; });
         }
 
         private void VersionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -176,6 +230,22 @@ namespace GUI
         private void CreateStore_Click(object sender, RoutedEventArgs e)
         {
             new NewStoreModal { Owner = this }.ShowDialog();
+        }
+
+        private void AddStoreCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            addStoreReviewCheckBox.IsChecked = false;
+        }
+
+        private void DeleteTransactionButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!Int32.TryParse(manageTransactionIDTextBox.Text, out int transID)) { MessageBox.Show(TRANSACTION_ID_MUST_BE_INTEGER, ERROR, MessageBoxButton.OK, MessageBoxImage.Error); return; }
+            DatabaseController.DatabaseController.RemoveTransaction(UserContextID, transID)
+                              .OnSuccess(() => LoadTransactionsTable())
+                              .OnSuccess(() => UpdateTotal())
+                              .OnSuccess(() => MessageBox.Show(SUCCESSFULLY_DELETED, SUCCESSFULLY_DELETED, MessageBoxButton.OK, MessageBoxImage.Information))
+                              .OnFailure(error => MessageBox.Show(error, ERROR, MessageBoxButton.OK, MessageBoxImage.Error));
+            
         }
     }
 }

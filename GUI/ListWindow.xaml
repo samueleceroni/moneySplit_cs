@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="ListWindow" Height="478" Width="1143">
+        Title="ListWindow" Height="610" Width="1143">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="39*"/>
             <ColumnDefinition Width="49*"/>
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name="transactionDataGrid" HorizontalAlignment="Left" Height="251" Margin="366,179,0,0" VerticalAlignment="Top" Width="749" Grid.ColumnSpan="2">
+        <DataGrid x:Name="transactionDataGrid" HorizontalAlignment="Left" Height="380" Margin="366,175,0,0" VerticalAlignment="Top" Width="749" Grid.ColumnSpan="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Transaction ID" IsReadOnly="True" Binding="{Binding Path=TransactionId}" />
                 <DataGridTextColumn Header="Amount" IsReadOnly="True" Binding="{Binding Path=Amount}" />
@@ -19,10 +19,9 @@
                 <DataGridTextColumn Header="Date" IsReadOnly="True" Binding="{Binding Path=Date}" />
                 <DataGridTextColumn Header="Day Recurrence" IsReadOnly="True" Binding="{Binding Path=DayRecurrence}" />
                 <DataGridTextColumn Header="Month Recurrence" IsReadOnly="True" Binding="{Binding Path=MonthRecurrence}" />
-                <DataGridTextColumn Header="Time" IsReadOnly="True" Binding="{Binding Path=Time}" />
                 <DataGridTextColumn Header="Start Date" IsReadOnly="True" Binding="{Binding Path=StartDate}" />
                 <DataGridTextColumn Header="End Date" IsReadOnly="True" Binding="{Binding Path=EndDate}" />
-                <DataGridTextColumn Header="List ID" IsReadOnly="True" Binding="{Binding Path=ListID}" />
+                <DataGridTextColumn Header="List ID" IsReadOnly="True" Binding="{Binding Path=ListId}" />
                 <DataGridTextColumn Header="User Author" IsReadOnly="True" Binding="{Binding Path=UserAuthor}" />
             </DataGrid.Columns>
         </DataGrid>
@@ -31,7 +30,7 @@
             <ComboBoxItem Name="allVersionsListFilter">All</ComboBoxItem>
         </ComboBox>
         <Label x:Name="transactionLabel" Content="Transactions" HorizontalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="366,77,0,0" VerticalAlignment="Top" Width="749" Grid.ColumnSpan="2"/>
-        <Label x:Name="hashTagLabel" Content="HashTags" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="26" Margin="158,112,0,0" VerticalAlignment="Top" Width="454" Grid.Column="1"/>
+        <Label x:Name="hashTagLabel" Content="HashTags" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="26" Margin="158,112,0,0" VerticalAlignment="Top" Width="341" Grid.Column="1"/>
         <TextBox x:Name="hashTagTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="25" Margin="158,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="341" Grid.Column="1"/>
         <Label x:Name="TransactionTypeLabel" Content="Transaction Type" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="33,112,0,0" VerticalAlignment="Top" RenderTransformOrigin="0,-0.462" Width="120" Grid.Column="1"/>
         <ComboBox x:Name="transactionTypeComboBox" HorizontalAlignment="Left" Margin="33,146,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0" Grid.Column="1" Height="24" SelectionChanged="TransactionTypeComboBox_SelectionChanged">
@@ -42,7 +41,7 @@
         <Label x:Name="filterLabel" Content="Filters" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="366,114,0,0" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="1" Height="56" Width="44"/>
         <Label x:Name="addTransaction" Content="New Transaction" HorizontalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="17,77,0,0" VerticalAlignment="Top" Width="329"/>
         <Label x:Name="labelWarnNewTransationInLastVersion" Foreground="Gray" FontSize="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="New transaction will be added to the last version of the list" HorizontalAlignment="Left" Margin="17,104,0,0" VerticalAlignment="Top" Width="329"/>
-        <Label x:Name="removeTransactionLabel" Content="Manage Transaction" HorizontalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="17,293,0,0" VerticalAlignment="Top" Width="329"/>
+        <Label x:Name="removeTransactionLabel" Content="Manage Transaction" HorizontalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="17,422,0,0" VerticalAlignment="Top" Width="329"/>
         <Button x:Name="addNewTransactionButton" Content="Add" HorizontalAlignment="Left" Margin="271,155,0,0" VerticalAlignment="Top" Width="75" Height="24" Click="AddNewTransactionButton_Click"/>
         <Label x:Name="totalLabel" Content="Total" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="30" Margin="475,38,0,0" VerticalAlignment="Top" Width="66" Grid.ColumnSpan="2"/>
         <Label x:Name="totalValueLabel" Content="0 €" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="30" Margin="54,38,0,0" VerticalAlignment="Top" Width="558" Grid.Column="1"/>
@@ -64,13 +63,13 @@
         </ComboBox>
         <Label x:Name="newTransactionRecurrenceEndDateLabel" IsEnabled="{Binding ElementName=newTransactionIsRecurringCheckBox, Path=IsChecked}" HorizontalContentAlignment="Center" Content="End date" HorizontalAlignment="Left" Margin="127,224,0,0" VerticalAlignment="Top" Width="102"/>
         <DatePicker x:Name="newTransactionRecurrenceEndDatePicker" HorizontalAlignment="Left" Margin="127,250,0,0" VerticalAlignment="Top" IsEnabled="{Binding ElementName=newTransactionIsRecurringCheckBox, Path=IsChecked}" />
-        <TextBox x:Name="manageTransactionIDTextBox" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" Margin="53,329,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="50"/>
-        <Label x:Name="manageTransactionIDlabel" Content="ID:" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="17,329,0,0" VerticalAlignment="Top" Height="23"/>
-        <Button x:Name="deleteTransactionButton" Content="Delete" HorizontalAlignment="Left" Margin="271,329,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
-        <Label x:Name="otherLabel" Content="Other" HorizontalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="17,367,0,0" VerticalAlignment="Top" Width="329"/>
-        <Button x:Name="createStore" Content="New Store" HorizontalAlignment="Left" Margin="271,400,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="CreateStore_Click"/>
+        <TextBox x:Name="manageTransactionIDTextBox" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" Margin="53,458,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="50"/>
+        <Label x:Name="manageTransactionIDlabel" Content="ID:" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="17,458,0,0" VerticalAlignment="Top" Height="23"/>
+        <Button x:Name="deleteTransactionButton" Content="Delete" HorizontalAlignment="Left" Margin="271,458,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="DeleteTransactionButton_Click"/>
+        <Label x:Name="otherLabel" Content="Other" HorizontalContentAlignment="Center" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="17,496,0,0" VerticalAlignment="Top" Width="329"/>
+        <Button x:Name="createStore" Content="New Store" HorizontalAlignment="Left" Margin="271,529,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="CreateStore_Click"/>
         <Label x:Name="listDescriptionLabel" Content="List ID: " HorizontalAlignment="Left" Margin="17,7,0,0" VerticalAlignment="Top" Width="46"/>
-        <Button x:Name="shareListButton" Content="Share List" HorizontalAlignment="Left" Margin="186,400,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="ShareListButton_Click"/>
+        <Button x:Name="shareListButton" Content="Share List" HorizontalAlignment="Left" Margin="186,529,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="ShareListButton_Click"/>
         <Label x:Name="listIDValueLabel" Content="" HorizontalAlignment="Left" Margin="68,7,0,0" VerticalAlignment="Top" Width="67"/>
         <Label x:Name="operatorContextIDLabel" Content="Operator ID:" HorizontalAlignment="Left" Margin="140,7,0,0" VerticalAlignment="Top" Width="78"/>
         <Label x:Name="operatorContextIDValueLabel" Content="" HorizontalAlignment="Left" Margin="223,7,0,0" VerticalAlignment="Top" Width="83"/>
@@ -83,8 +82,17 @@
         <Label x:Name="CF_OwnerLabel" Content="Owner CF:" HorizontalAlignment="Left" Margin="228,38,0,0" VerticalAlignment="Top" Width="78"/>
         <Label x:Name="CF_OwnerValueLabel" Content="" HorizontalAlignment="Left" Margin="311,38,0,0" VerticalAlignment="Top" Width="159" Grid.ColumnSpan="2"/>
         <Button x:Name="reloadTable" Content="Reload Table" Grid.Column="1" HorizontalAlignment="Left" Margin="504,146,0,0" VerticalAlignment="Top" Width="108" Height="24" Click="ReloadTable_Click"/>
-        <TextBox x:Name="shareListContextIdTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="30" Margin="93,400,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="79"/>
-        <Label x:Name="shareListContextIdLabel" Content="Context ID:" HorizontalAlignment="Left" Margin="17,400,0,0" VerticalAlignment="Top" Width="71"/>
+        <TextBox x:Name="shareListContextIdTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="30" Margin="93,529,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="79"/>
+        <Label x:Name="shareListContextIdLabel" Content="Context ID:" HorizontalAlignment="Left" Margin="17,529,0,0" VerticalAlignment="Top" Width="71" Height="30"/>
+        <CheckBox x:Name="addStoreCheckBox" VerticalContentAlignment="Center" Content="Add Store" HorizontalAlignment="Left" Margin="17,279,0,0" VerticalAlignment="Top" Height="24" Unchecked="AddStoreCheckBox_Unchecked"/>
+        <CheckBox x:Name="addStoreReviewCheckBox" IsEnabled="{Binding ElementName=addStoreCheckBox, Path=IsChecked}" Content="Include Store Review" HorizontalAlignment="Left" Margin="17,308,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="storesComboBox" IsEnabled="{Binding ElementName=addStoreCheckBox, Path=IsChecked}" HorizontalAlignment="Left" Margin="109,279,0,0" VerticalAlignment="Top" Width="237" Height="24"/>
+        <Label x:Name="revTitleLabel" IsEnabled="{Binding ElementName=addStoreReviewCheckBox, Path=IsChecked}" Content="Title:" HorizontalAlignment="Left" Margin="17,328,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="titleTextBox" IsEnabled="{Binding ElementName=addStoreReviewCheckBox, Path=IsChecked}" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="26" Margin="57,328,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="183"/>
+        <Label x:Name="starLabel" IsEnabled="{Binding ElementName=addStoreReviewCheckBox, Path=IsChecked}" Content="Star (1-5):" HorizontalAlignment="Left" Margin="245,328,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="starTextBox" IsEnabled="{Binding ElementName=addStoreReviewCheckBox, Path=IsChecked}" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="26" Margin="311,328,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="35"/>
+        <Label x:Name="textLabel" IsEnabled="{Binding ElementName=addStoreReviewCheckBox, Path=IsChecked}" VerticalContentAlignment="Center" Content="Text:" HorizontalAlignment="Left" Margin="17,359,0,0" VerticalAlignment="Top" Height="58"/>
+        <TextBox x:Name="revTextTextBox" IsEnabled="{Binding ElementName=addStoreReviewCheckBox, Path=IsChecked}" HorizontalAlignment="Left" Height="58" Margin="57,359,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="289"/>
 
     </Grid>
 </Window>
