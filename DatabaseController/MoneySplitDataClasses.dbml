@@ -72,7 +72,7 @@
   </Table>
   <Table Name="dbo.MoneySplitUser" Member="MoneySplitUsers">
     <Type Name="MoneySplitUser">
-      <Column Name="Name" Type="System.String" DbType="Char(25) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
       <Column Name="ContextId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="MoneySplitUser_GeneralTransaction" Member="GeneralTransactions" ThisKey="ContextId" OtherKey="UserAuthor" Type="GeneralTransaction" />
       <Association Name="MoneySplitUser_MoneySplitTelegramUser" Member="MoneySplitTelegramUser" ThisKey="ContextId" OtherKey="ContextId" Type="MoneySplitTelegramUser" Cardinality="One" />
@@ -109,8 +109,8 @@
   </Table>
   <Table Name="dbo.Store" Member="Stores">
     <Type Name="Store">
-      <Column Name="Address" Type="System.String" DbType="Char(50) NOT NULL" CanBeNull="false" />
-      <Column Name="StoreName" Type="System.String" DbType="Char(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="StoreName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="VatAccount" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="Store_StoreTransaction" Member="StoreTransactions" ThisKey="VatAccount" OtherKey="VatAccount" Type="StoreTransaction" />
     </Type>
@@ -118,8 +118,8 @@
   <Table Name="dbo.StoreTransaction" Member="StoreTransactions">
     <Type Name="StoreTransaction">
       <Column Name="TransactionId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Rev_Title" Type="System.String" DbType="Char(50)" CanBeNull="true" />
-      <Column Name="Rev_Text" Type="System.String" DbType="Char(1000)" CanBeNull="true" />
+      <Column Name="Rev_Title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Rev_Text" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
       <Column Name="Rev_Star" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Rev_Date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="VatAccount" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
@@ -146,7 +146,7 @@
     <Type Name="MoneySplitCompleteUser">
       <Column Name="ContextId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="TelegramId" Type="System.String" DbType="VarChar(16)" CanBeNull="true" />
-      <Column Name="Name" Type="System.String" DbType="Char(25) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
   <Function Name="dbo.GetNextAvailableIDValue" Method="GetNextAvailableIDValue">

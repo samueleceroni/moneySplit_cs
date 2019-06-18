@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="231.333" Width="277.333">
+        Title="Welcome to MoneySplit!" Height="231.333" Width="277.333">
     <Grid>
         <TextBox x:Name="loginIDTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" Margin="10,11,0,0" TextWrapping="Wrap" TextAlignment="Center"  Text="Enter ID" VerticalAlignment="Top" Width="74"/>
         <Button x:Name="loginButton" Content="Login" HorizontalAlignment="Left" VerticalAlignment="Top" Width="79" Margin="179,11,0,0" Height="23" Click="LoginButton_Click"/>
@@ -16,10 +16,10 @@
             <ComboBoxItem Name="telegramComboItem">Telegram</ComboBoxItem>
         </ComboBox>
         <Button x:Name="registerGroupButton" Content="Register Group" HorizontalAlignment="Left" VerticalAlignment="Top" Width="112" Margin="147,113,0,0" Height="49" Click="RegisterGroupButton_Click"/>
-        <TextBox x:Name="registerGroupTelegramIdTextBox" HorizontalAlignment="Left" Height="22" Margin="10,113,0,0" TextWrapping="Wrap" Text="Telegram Group ID" VerticalAlignment="Top" Width="132"/>
+        <TextBox x:Name="registerGroupTelegramIdTextBox" HorizontalAlignment="Left" Height="22" Margin="10,140,0,0" TextWrapping="Wrap" Text="Telegram Group ID" VerticalAlignment="Top" Width="132"/>
         <TextBox x:Name="registerUserTelegramIdTextBox" IsEnabled="{Binding ElementName=isTelegramUserCheckBox, Path=IsChecked}" HorizontalAlignment="Left" Height="22" Margin="10,86,0,0" TextWrapping="Wrap" Text="Telegram User ID" VerticalAlignment="Top" Width="132"/>
         <CheckBox x:Name="isTelegramUserCheckBox" IsChecked="True" Content="Use telegram?" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Width="111"/>
-        <TextBox x:Name="registerGroupNameTextBox" HorizontalAlignment="Left" Height="22" Margin="10,140,0,0" TextWrapping="Wrap" Text="Telegram Group Name" VerticalAlignment="Top" Width="132"/>
+        <TextBox x:Name="registerGroupNameTextBox" HorizontalAlignment="Left" Height="22" Margin="10,113,0,0" TextWrapping="Wrap" Text="Telegram Group Name" VerticalAlignment="Top" Width="132"/>
         <TextBox x:Name="registerUserNameTextBox" HorizontalAlignment="Left" Height="22" Margin="10,39,0,0" TextWrapping="Wrap" Text="Name of the new user" VerticalAlignment="Top" Width="132" RenderTransformOrigin="-0.595,-1.182"/>
 
     </Grid>

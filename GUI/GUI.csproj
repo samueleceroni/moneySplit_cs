@@ -64,9 +64,6 @@
     <Compile Include="NewStoreModal.xaml.cs">
       <DependentUpon>NewStoreModal.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TransactionWindow.xaml.cs">
-      <DependentUpon>TransactionWindow.xaml</DependentUpon>
-    </Compile>
     <Page Include="AdminWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -97,10 +94,6 @@
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="NewStoreModal.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="TransactionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="ListWindow" Height="610" Width="1143">
+        Title="List" Height="610" Width="1143">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="39*"/>
@@ -82,7 +82,7 @@
         <Label x:Name="CF_OwnerLabel" Content="Owner CF:" HorizontalAlignment="Left" Margin="228,38,0,0" VerticalAlignment="Top" Width="78"/>
         <Label x:Name="CF_OwnerValueLabel" Content="" HorizontalAlignment="Left" Margin="311,38,0,0" VerticalAlignment="Top" Width="159" Grid.ColumnSpan="2"/>
         <Button x:Name="reloadTable" Content="Reload Table" Grid.Column="1" HorizontalAlignment="Left" Margin="504,146,0,0" VerticalAlignment="Top" Width="108" Height="24" Click="ReloadTable_Click"/>
-        <TextBox x:Name="shareListContextIdTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="30" Margin="93,529,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="79"/>
+        <TextBox x:Name="shareListContextIdTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="30" Margin="93,529,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="79"/>
         <Label x:Name="shareListContextIdLabel" Content="Context ID:" HorizontalAlignment="Left" Margin="17,529,0,0" VerticalAlignment="Top" Width="71" Height="30"/>
         <CheckBox x:Name="addStoreCheckBox" VerticalContentAlignment="Center" Content="Add Store" HorizontalAlignment="Left" Margin="17,279,0,0" VerticalAlignment="Top" Height="24" Unchecked="AddStoreCheckBox_Unchecked"/>
         <CheckBox x:Name="addStoreReviewCheckBox" IsEnabled="{Binding ElementName=addStoreCheckBox, Path=IsChecked}" Content="Include Store Review" HorizontalAlignment="Left" Margin="17,308,0,0" VerticalAlignment="Top"/>

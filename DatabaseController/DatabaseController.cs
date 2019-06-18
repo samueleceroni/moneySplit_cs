@@ -297,7 +297,8 @@ namespace DatabaseController
             // shared context in which there is a group in which there is the user (or none if the context is a group)
             var sharedContextUserGroup =
                 (from SCG in db.SharedContextGroups
-                 join GU in db.GroupUsers on SCG.TelegramGroup equals GU.TelegramGroup
+                 join TG in db.TelegramGroups on SCG.GroupId equals TG.ContextId
+                 join GU in db.GroupUsers on TG.TelegramId equals GU.GroupId
                  join MSTU in db.MoneySplitTelegramUsers on GU.TelegramUserId equals MSTU.TelegramId
                  where MSTU.ContextId == contextID
                  select SCG.SharedContextId).Distinct();

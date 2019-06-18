@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="ContextWindow" Height="403" Width="1020.8">
+        Title="Context" Height="403" Width="1020.8">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="410*"/>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="newStoreModal" Height="185.179" Width="348.066">
+        Title="Store Creation" Height="185.179" Width="348.066">
     <Grid>
         <Label x:Name="addressLabel" Content="Store Address:" HorizontalAlignment="Left" Margin="10,11,0,0" VerticalAlignment="Top"/>
         <Label x:Name="storeNameLabel" Content="Store Name:" HorizontalAlignment="Left" Margin="10,42,0,0" VerticalAlignment="Top"/>

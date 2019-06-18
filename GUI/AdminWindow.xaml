@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="AdminWindow" Height="450" Width="647.49">
+        Title="Admin Access" Height="379" Width="647.49">
     <Grid>
         <Label x:Name="tagScoreboardLabel" BorderBrush="Black" BorderThickness="1" HorizontalContentAlignment="Center" Content="Tag Scoreboard" HorizontalAlignment="Left" Margin="10,24,0,0" VerticalAlignment="Top" Width="312"/>
         <DataGrid x:Name="tagScoreboardDataGrid" HorizontalAlignment="Left" Height="181" Margin="10,55,0,0" VerticalAlignment="Top" Width="312">

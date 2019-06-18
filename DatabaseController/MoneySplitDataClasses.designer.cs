@@ -1779,7 +1779,7 @@ namespace DatabaseController
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="Char(25) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(25) NOT NULL", CanBeNull=false)]
 		public string Name
 		{
 			get
@@ -2574,7 +2574,7 @@ namespace DatabaseController
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Address", DbType="Char(50) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Address", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
 		public string Address
 		{
 			get
@@ -2594,7 +2594,7 @@ namespace DatabaseController
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StoreName", DbType="Char(50) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StoreName", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
 		public string StoreName
 		{
 			get
@@ -2751,7 +2751,7 @@ namespace DatabaseController
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Rev_Title", DbType="Char(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Rev_Title", DbType="VarChar(50)")]
 		public string Rev_Title
 		{
 			get
@@ -2771,7 +2771,7 @@ namespace DatabaseController
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Rev_Text", DbType="Char(1000)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Rev_Text", DbType="VarChar(1000)")]
 		public string Rev_Text
 		{
 			get
@@ -3272,7 +3272,7 @@ namespace DatabaseController
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="Char(25) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(25) NOT NULL", CanBeNull=false)]
 		public string Name
 		{
 			get
